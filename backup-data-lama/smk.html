@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Formulir Pendaftaran Peserta Didik Baru (PPDB) SMK IT Al-Hawari - Sistem pendaftaran online resmi." />
+  <title>PPDB Online - SMK IT Al-Hawari</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">SMK IT Al-Hawari</h1>
+          <p class="brand-subtitle">Penerimaan Peserta Didik Baru</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main">
+    <div class="container">
+
+      <!-- Hero Banner -->
+      <section class="hero">
+        <div class="hero-badge">📋 PPDB Tahun Ajaran 2026/2027</div>
+        <h2 class="hero-title">Formulir Pendaftaran Online</h2>
+        <p class="hero-desc">Silakan isi formulir berikut dengan data yang benar dan lengkap. Pastikan data yang diisi
+          sesuai dengan dokumen resmi (Ijazah, KK, KTP Orang Tua).</p>
+      </section>
+
+      <!-- =========== PROGRESS BAR =========== -->
+      <div class="progress-container">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="steps-indicator">
+          <!-- Step 1 -->
+          <div class="step-item active" data-step="1">
+            <div class="step-circle">
+              <span class="step-number">1</span>
+              <svg class="step-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <span class="step-label">Data Diri</span>
+          </div>
+          <!-- Step 2 -->
+          <div class="step-item" data-step="2">
+            <div class="step-circle">
+              <span class="step-number">2</span>
+              <svg class="step-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <span class="step-label">Alamat</span>
+          </div>
+          <!-- Step 3 -->
+          <div class="step-item" data-step="3">
+            <div class="step-circle">
+              <span class="step-number">3</span>
+              <svg class="step-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <span class="step-label">Orang Tua</span>
+          </div>
+          <!-- Step 4 -->
+          <div class="step-item" data-step="4">
+            <div class="step-circle">
+              <span class="step-number">4</span>
+              <svg class="step-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <span class="step-label">Lampiran</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========== FORM =========== -->
+      <form id="ppdbForm" autocomplete="off" novalidate>
+
+        <!-- =================================================== -->
+        <!-- STEP 1: Data Registrasi & Data Pribadi Calon Siswa   -->
+        <!-- =================================================== -->
+        <section class="form-step active" id="step1">
+          <div class="card">
+            <!-- Sub-section: Data Registrasi -->
+            <div class="section-header">
+              <div class="section-icon blue">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                  <line x1="16" x2="16" y1="2" y2="6" />
+                  <line x1="8" x2="8" y1="2" y2="6" />
+                  <line x1="3" x2="21" y1="10" y2="10" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Data Registrasi</h3>
+                <p class="section-desc">Informasi jalur dan jurusan pendaftaran</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <!-- Pilihan Jurusan 1 -->
+              <div class="form-group">
+                <label for="jurusan_1">Pilihan Jurusan 1 <span class="required">*</span></label>
+                <select id="jurusan_1" name="jurusan_1" required>
+                  <option value="">-- Pilih Jurusan --</option>
+                  <option value="DPIB/Arsitek Bangunan">DPIB / Arsitek Bangunan</option>
+                  <option value="ATPH">ATPH (Agribisnis Tanaman Pangan dan Hortikultura)</option>
+                  <option value="DKV">DKV (Desain Komunikasi Visual)</option>
+                </select>
+              </div>
+
+              <!-- Pilihan Jurusan 2 -->
+              <div class="form-group">
+                <label for="jurusan_2">Pilihan Jurusan 2</label>
+                <select id="jurusan_2" name="jurusan_2">
+                  <option value="">-- Pilih Jurusan Alternatif --</option>
+                  <option value="DPIB/Arsitek Bangunan">DPIB / Arsitek Bangunan</option>
+                  <option value="ATPH">ATPH (Agribisnis Tanaman Pangan dan Hortikultura)</option>
+                  <option value="DKV">DKV (Desain Komunikasi Visual)</option>
+                </select>
+              </div>
+
+              <!-- Asal Sekolah -->
+              <div class="form-group">
+                <label for="asal_sekolah">Asal Sekolah (SMP/MTs) <span class="required">*</span></label>
+                <input type="text" id="asal_sekolah" name="asal_sekolah" placeholder="Contoh: SMP Negeri 1 Serang"
+                  list="list_sekolah" required />
+                <datalist id="list_sekolah"></datalist>
+              </div>
+
+              <!-- NPSN Asal -->
+              <div class="form-group">
+                <label for="npsn_asal">NPSN Sekolah Asal</label>
+                <input type="text" id="npsn_asal" name="npsn_asal" placeholder="8 digit NPSN" maxlength="8"
+                  inputmode="numeric" />
+              </div>
+
+              <!-- Tahun Lulus -->
+              <div class="form-group">
+                <label for="tahun_lulus">Tahun Lulus <span class="required">*</span></label>
+                <select id="tahun_lulus" name="tahun_lulus" required>
+                  <option value="">-- Pilih Tahun --</option>
+                  <option value="2026">2026</option>
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                </select>
+              </div>
+
+              <!-- Prestasi -->
+              <div class="form-group">
+                <label for="prestasi">Prestasi</label>
+                <select id="prestasi" name="prestasi">
+                  <option value="">-- Pilih Jika Ada --</option>
+                  <option value="Tidak Ada">Tidak Ada</option>
+                  <option value="Juara 1/2/3 Tingkat Kabupaten/Kota">Juara 1/2/3 Tingkat Kabupaten/Kota</option>
+                  <option value="Juara 1/2/3 Tingkat Provinsi">Juara 1/2/3 Tingkat Provinsi</option>
+                  <option value="Juara 1/2/3 Tingkat Nasional">Juara 1/2/3 Tingkat Nasional</option>
+                  <option value="Hafidz Qur'an">Hafidz Qur'an</option>
+                  <option value="Prestasi Akademik Lainnya">Prestasi Akademik Lainnya</option>
+                  <option value="Prestasi Non-Akademik / Olahraga / Seni">Prestasi Non-Akademik / Olahraga / Seni
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <!-- Sub-section: Data Pribadi -->
+            <div class="section-header">
+              <div class="section-icon green">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Data Pribadi Siswa</h3>
+                <p class="section-desc">Isi sesuai Ijazah / Akta Kelahiran</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <!-- Nama Lengkap -->
+              <div class="form-group full">
+                <label for="nama_lengkap">Nama Lengkap <span class="required">*</span></label>
+                <input type="text" id="nama_lengkap" name="nama_lengkap" placeholder="Sesuai Ijazah / Akta Kelahiran"
+                  required />
+              </div>
+
+              <!-- Jenis Kelamin -->
+              <div class="form-group">
+                <label for="jenis_kelamin">Jenis Kelamin <span class="required">*</span></label>
+                <select id="jenis_kelamin" name="jenis_kelamin" required>
+                  <option value="">-- Pilih --</option>
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+              </div>
+
+              <!-- NISN -->
+              <div class="form-group">
+                <label for="nisn">NISN <span class="required">*</span></label>
+                <input type="text" id="nisn" name="nisn" placeholder="10 digit NISN" maxlength="10" inputmode="numeric"
+                  required />
+              </div>
+
+              <!-- NIK -->
+              <div class="form-group">
+                <label for="nik">NIK (KTP) <span class="required">*</span></label>
+                <input type="text" id="nik" name="nik" placeholder="16 digit NIK" maxlength="16" inputmode="numeric"
+                  required />
+              </div>
+
+              <!-- No. KK -->
+              <div class="form-group">
+                <label for="no_kk">No. Kartu Keluarga <span class="required">*</span></label>
+                <input type="text" id="no_kk" name="no_kk" placeholder="16 digit No. KK" maxlength="16"
+                  inputmode="numeric" required />
+              </div>
+
+              <!-- Tempat Lahir -->
+              <div class="form-group">
+                <label for="tempat_lahir">Tempat Lahir <span class="required">*</span></label>
+                <input type="text" id="tempat_lahir" name="tempat_lahir" placeholder="Contoh: Serang" required />
+              </div>
+
+              <!-- Tanggal Lahir -->
+              <div class="form-group">
+                <label for="tanggal_lahir">Tanggal Lahir <span class="required">*</span></label>
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir" required />
+              </div>
+
+              <!-- Agama -->
+              <div class="form-group">
+                <label for="agama">Agama <span class="required">*</span></label>
+                <select id="agama" name="agama" required>
+                  <option value="">-- Pilih --</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Protestan">Protestan</option>
+                  <option value="Katolik">Katolik</option>
+                  <option value="Hindu">Hindu</option>
+                  <option value="Buddha">Buddha</option>
+                  <option value="Konghucu">Konghucu</option>
+                </select>
+              </div>
+
+              <!-- Anak Ke -->
+              <div class="form-group">
+                <label for="anak_ke">Anak Ke- <span class="required">*</span></label>
+                <input type="number" id="anak_ke" name="anak_ke" placeholder="Contoh: 2" min="1" required />
+              </div>
+
+              <!-- Jumlah Saudara Kandung -->
+              <div class="form-group">
+                <label for="jml_saudara">Jumlah Saudara Kandung</label>
+                <input type="number" id="jml_saudara" name="jml_saudara" placeholder="Contoh: 3" min="0" />
+              </div>
+
+              <!-- Jumlah Kakak -->
+              <div class="form-group">
+                <label for="jml_kakak">Jumlah Kakak</label>
+                <input type="number" id="jml_kakak" name="jml_kakak" placeholder="Contoh: 1" min="0" />
+              </div>
+
+              <!-- Jumlah Adik -->
+              <div class="form-group">
+                <label for="jml_adik">Jumlah Adik</label>
+                <input type="number" id="jml_adik" name="jml_adik" placeholder="Contoh: 2" min="0" />
+              </div>
+
+              <!-- No HP Siswa -->
+              <div class="form-group">
+                <label for="no_hp_siswa">No. HP / WhatsApp <span class="required">*</span></label>
+                <input type="tel" id="no_hp_siswa" name="no_hp_siswa" placeholder="Contoh: 08123456789" required />
+              </div>
+
+              <!-- Email -->
+              <div class="form-group">
+                <label for="email_siswa">Email Siswa</label>
+                <input type="email" id="email_siswa" name="email_siswa" placeholder="contoh@email.com" />
+              </div>
+
+              <!-- No KPS/KKS/PKH -->
+              <div class="form-group full">
+                <label for="no_kps">No. KPS / KKS / PKH / KIP (Jika menerima)</label>
+                <input type="text" id="no_kps" name="no_kps" placeholder="Masukkan nomor kartu jika ada" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <div class="nav-buttons">
+            <div></div>
+            <button type="button" class="btn btn-primary btn-next" data-next="2">
+              Lanjut ke Alamat
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- =================================================== -->
+        <!-- STEP 2: Data Alamat & Titik Koordinat               -->
+        <!-- =================================================== -->
+        <section class="form-step" id="step2">
+          <!-- Geolocation Card -->
+          <div class="card" style="border: 2px solid var(--primary); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);">
+            <div class="section-header">
+              <div class="section-icon red">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" x2="22" y1="12" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Deteksi Alamat Otomatis</h3>
+                <p class="section-desc">Klik tombol di bawah untuk melengkapi alamat secara otomatis menggunakan GPS.
+                </p>
+              </div>
+            </div>
+
+            <div class="geo-section">
+              <div class="form-group full">
+                <label for="koordinat">Koordinat (Latitude, Longitude) <span class="required">*</span></label>
+                <div class="input-with-btn">
+                  <input type="text" id="koordinat" name="koordinat"
+                    placeholder="Klik tombol di samping untuk mengambil lokasi..." readonly required />
+                  <button type="button" class="btn btn-geo" id="btnGeo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                    </svg>
+                    <span class="geo-text">Ambil Lokasi</span>
+                    <span class="geo-spinner" style="display:none;">
+                      <svg class="spinner-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+                <small class="geo-status" id="geoStatus"></small>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="section-header">
+              <div class="section-icon orange">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Data Alamat & Domisili</h3>
+                <p class="section-desc">Mohon cek ulang jika alamat diisi otomatis</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <!-- RT -->
+              <div class="form-group half">
+                <label for="rt">RT <span class="required">*</span></label>
+                <input type="text" id="rt" name="rt" placeholder="001" maxlength="3" required />
+              </div>
+
+              <!-- RW -->
+              <div class="form-group half">
+                <label for="rw">RW <span class="required">*</span></label>
+                <input type="text" id="rw" name="rw" placeholder="002" maxlength="3" required />
+              </div>
+
+              <!-- Dusun -->
+              <div class="form-group full">
+                <label for="dusun">Dusun / Kampung / Jalan</label>
+                <input type="text" id="dusun" name="dusun" placeholder="Nama dusun / kampung / nama jalan" />
+              </div>
+
+              <!-- Desa / Kelurahan -->
+              <div class="form-group half">
+                <label for="desa">Desa / Kelurahan <span class="required">*</span></label>
+                <input type="text" id="desa" name="desa" placeholder="Nama desa / kelurahan" list="list_desa"
+                  required />
+                <datalist id="list_desa"></datalist>
+              </div>
+
+              <!-- Kecamatan -->
+              <div class="form-group half">
+                <label for="kecamatan">Kecamatan <span class="required">*</span></label>
+                <input type="text" id="kecamatan" name="kecamatan" placeholder="Nama kecamatan" required />
+              </div>
+
+              <!-- Kabupaten / Kota -->
+              <div class="form-group half">
+                <label for="kabupaten">Kabupaten / Kota <span class="required">*</span></label>
+                <input type="text" id="kabupaten" name="kabupaten" placeholder="Nama kabupaten / kota" required />
+              </div>
+
+              <!-- Provinsi -->
+              <div class="form-group half">
+                <label for="provinsi">Provinsi <span class="required">*</span></label>
+                <input type="text" id="provinsi" name="provinsi" placeholder="Nama provinsi" required />
+              </div>
+
+              <!-- Kode Pos -->
+              <div class="form-group half">
+                <label for="kode_pos">Kode Pos</label>
+                <input type="text" id="kode_pos" name="kode_pos" placeholder="42111" maxlength="5"
+                  inputmode="numeric" />
+              </div>
+
+              <!-- Alamat Rumah -->
+              <div class="form-group full">
+                <label for="alamat_rumah">Alamat Lengkap Rumah <span class="required">*</span></label>
+                <textarea id="alamat_rumah" name="alamat_rumah" placeholder="Alamat otomatis mengikuti form di atas"
+                  rows="2"
+                  style="width: 100%; padding: 10px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; resize: vertical; background: var(--gray-50);"
+                  required></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detail Domisili -->
+          <div class="card">
+            <div class="section-header">
+              <div class="section-icon purple">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Detail Domisili</h3>
+                <p class="section-desc">Informasi tempat tinggal & transportasi</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <!-- Jenis Tempat Tinggal -->
+              <div class="form-group">
+                <label for="jenis_tinggal">Jenis Tempat Tinggal <span class="required">*</span></label>
+                <select id="jenis_tinggal" name="jenis_tinggal" required>
+                  <option value="">-- Pilih --</option>
+                  <option value="Bersama Orang Tua">Bersama Orang Tua</option>
+                  <option value="Wali">Wali</option>
+                  <option value="Kos">Kos</option>
+                  <option value="Asrama">Asrama</option>
+                  <option value="Panti Asuhan">Panti Asuhan</option>
+                </select>
+              </div>
+
+              <!-- Moda Transportasi -->
+              <div class="form-group">
+                <label for="transportasi">Moda Transportasi <span class="required">*</span></label>
+                <select id="transportasi" name="transportasi" required>
+                  <option value="">-- Pilih --</option>
+                  <option value="Jalan Kaki">Jalan Kaki</option>
+                  <option value="Kendaraan Pribadi">Kendaraan Pribadi</option>
+                  <option value="Kendaraan Umum">Kendaraan Umum / Angkot</option>
+                  <option value="Jemputan">Jemputan Sekolah</option>
+                </select>
+              </div>
+
+              <!-- Jarak ke Sekolah -->
+              <div class="form-group">
+                <label for="jarak_sekolah">Jarak ke Sekolah <span class="required">*</span></label>
+                <select id="jarak_sekolah" name="jarak_sekolah" required>
+                  <option value="">-- Pilih --</option>
+                  <option value="Kurang dari 1 KM">Kurang dari 1 KM</option>
+                  <option value="1-3 KM">1 - 3 KM</option>
+                  <option value="3-5 KM">3 - 5 KM</option>
+                  <option value="Lebih dari 5 KM">Lebih dari 5 KM</option>
+                </select>
+              </div>
+
+              <!-- Waktu Tempuh -->
+              <div class="form-group">
+                <label for="waktu_tempuh">Waktu Tempuh ke Sekolah <span class="required">*</span></label>
+                <input type="text" id="waktu_tempuh" name="waktu_tempuh" placeholder="Contoh: 30 Menit / 1 Jam"
+                  required />
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <div class="nav-buttons">
+            <button type="button" class="btn btn-outline btn-prev" data-prev="1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              Kembali
+            </button>
+            <button type="button" class="btn btn-primary btn-next" data-next="3">
+              Lanjut ke Orang Tua
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- =================================================== -->
+        <!-- STEP 3: Data Orang Tua / Wali                       -->
+        <!-- =================================================== -->
+        <section class="form-step" id="step3">
+
+          <!-- Data Ayah -->
+          <div class="card">
+            <div class="section-header">
+              <div class="section-icon blue">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Data Ayah Kandung</h3>
+                <p class="section-desc">Informasi identitas ayah</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group full">
+                <label for="nama_ayah">Nama Ayah Kandung <span class="required">*</span></label>
+                <input type="text" id="nama_ayah" name="nama_ayah" placeholder="Nama lengkap ayah" required />
+              </div>
+              <div class="form-group">
+                <label for="status_ayah">Status Ayah <span class="required">*</span></label>
+                <select id="status_ayah" name="status_ayah" required>
+                  <option value="Masih Hidup">Masih Hidup</option>
+                  <option value="Meninggal">Meninggal</option>
+                </select>
+              </div>
+              <div class="form-group" id="wrap_tahun_meninggal_ayah" style="display:none;">
+                <label for="tahun_meninggal_ayah">Tahun Meninggal</label>
+                <input type="number" id="tahun_meninggal_ayah" name="tahun_meninggal_ayah" placeholder="Contoh: 2015" />
+              </div>
+              <div class="form-group">
+                <label for="nik_ayah">NIK Ayah <span class="required">*</span></label>
+                <input type="text" id="nik_ayah" name="nik_ayah" placeholder="16 digit NIK" maxlength="16"
+                  inputmode="numeric" required />
+              </div>
+              <div class="form-group">
+                <label for="tahun_lahir_ayah">Tahun Lahir</label>
+                <input type="number" id="tahun_lahir_ayah" name="tahun_lahir_ayah" placeholder="Contoh: 1980" min="1950"
+                  max="2010" />
+              </div>
+              <div class="form-group">
+                <label for="pendidikan_ayah">Pendidikan Terakhir <span class="required">*</span></label>
+                <select id="pendidikan_ayah" name="pendidikan_ayah" required>
+                  <option value="">-- Pilih --</option>
+                  <option value="Tidak Sekolah">Tidak Sekolah</option>
+                  <option value="SD">SD / Sederajat</option>
+                  <option value="SMP">SMP / Sederajat</option>
+                  <option value="SMA">SMA / SMK / Sederajat</option>
+                  <option value="D3">Diploma (D3)</option>
+                  <option value="S1">Sarjana (S1)</option>
+                  <option value="S2">Magister (S2)</option>
+                  <option value="S3">Doktor (S3)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="pekerjaan_ayah">Pekerjaan <span class="required">*</span></label>
+                <select id="pekerjaan_ayah" name="pekerjaan_ayah" class="select-pekerjaan" required>
+                  <option value="">-- Pilih --</option>
+                  <option value="PNS">PNS</option>
+                  <option value="TNI/Polri">TNI / Polri</option>
+                  <option value="Karyawan Swasta">Karyawan Swasta</option>
+                  <option value="Wiraswasta">Wiraswasta</option>
+                  <option value="Pedagang">Pedagang</option>
+                  <option value="Petani">Petani</option>
+                  <option value="Buruh">Buruh</option>
+                  <option value="lainnya">Lainnya (Sebutkan)</option>
+                </select>
+                <input type="text" class="input-pekerjaan-lainnya" data-for="pekerjaan_ayah"
+                  placeholder="Tuliskan pekerjaan secara spesifik..." style="display:none;" />
+              </div>
+              <div class="form-group">
+                <label for="penghasilan_ayah">Penghasilan Bulanan</label>
+                <select id="penghasilan_ayah" name="penghasilan_ayah">
+                  <option value="">-- Pilih --</option>
+                  <option value="Kurang dari 1 Juta">Kurang dari Rp 1.000.000</option>
+                  <option value="1-2 Juta">Rp 1.000.000 - Rp 2.000.000</option>
+                  <option value="2-5 Juta">Rp 2.000.000 - Rp 5.000.000</option>
+                  <option value="Lebih dari 5 Juta">Lebih dari Rp 5.000.000</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="no_hp_ayah">No. HP / WhatsApp Ayah <span class="required">*</span></label>
+                <input type="tel" id="no_hp_ayah" name="no_hp_ayah" placeholder="08xxxxxxxxxx" required />
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Ibu -->
+          <div class="card">
+            <div class="section-header">
+              <div class="section-icon pink">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Data Ibu Kandung</h3>
+                <p class="section-desc">Informasi identitas ibu</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group full">
+                <label for="nama_ibu">Nama Ibu Kandung <span class="required">*</span></label>
+                <input type="text" id="nama_ibu" name="nama_ibu" placeholder="Nama lengkap ibu" required />
+              </div>
+              <div class="form-group">
+                <label for="status_ibu">Status Ibu <span class="required">*</span></label>
+                <select id="status_ibu" name="status_ibu" required>
+                  <option value="Masih Hidup">Masih Hidup</option>
+                  <option value="Meninggal">Meninggal</option>
+                </select>
+              </div>
+              <div class="form-group" id="wrap_tahun_meninggal_ibu" style="display:none;">
+                <label for="tahun_meninggal_ibu">Tahun Meninggal</label>
+                <input type="number" id="tahun_meninggal_ibu" name="tahun_meninggal_ibu" placeholder="Contoh: 2018" />
+              </div>
+              <div class="form-group">
+                <label for="nik_ibu">NIK Ibu <span class="required">*</span></label>
+                <input type="text" id="nik_ibu" name="nik_ibu" placeholder="16 digit NIK" maxlength="16"
+                  inputmode="numeric" required />
+              </div>
+              <div class="form-group">
+                <label for="tahun_lahir_ibu">Tahun Lahir</label>
+                <input type="number" id="tahun_lahir_ibu" name="tahun_lahir_ibu" placeholder="Contoh: 1982" min="1950"
+                  max="2010" />
+              </div>
+              <div class="form-group">
+                <label for="pendidikan_ibu">Pendidikan Terakhir <span class="required">*</span></label>
+                <select id="pendidikan_ibu" name="pendidikan_ibu" required>
+                  <option value="">-- Pilih --</option>
+                  <option value="Tidak Sekolah">Tidak Sekolah</option>
+                  <option value="SD">SD / Sederajat</option>
+                  <option value="SMP">SMP / Sederajat</option>
+                  <option value="SMA">SMA / SMK / Sederajat</option>
+                  <option value="D3">Diploma (D3)</option>
+                  <option value="S1">Sarjana (S1)</option>
+                  <option value="S2">Magister (S2)</option>
+                  <option value="S3">Doktor (S3)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="pekerjaan_ibu">Pekerjaan <span class="required">*</span></label>
+                <select id="pekerjaan_ibu" name="pekerjaan_ibu" class="select-pekerjaan" required>
+                  <option value="">-- Pilih --</option>
+                  <option value="PNS">PNS</option>
+                  <option value="TNI/Polri">TNI / Polri</option>
+                  <option value="Karyawan Swasta">Karyawan Swasta</option>
+                  <option value="Wiraswasta">Wiraswasta</option>
+                  <option value="Pedagang">Pedagang</option>
+                  <option value="Petani">Petani</option>
+                  <option value="Buruh">Buruh</option>
+                  <option value="lainnya">Lainnya (Sebutkan)</option>
+                </select>
+                <input type="text" class="input-pekerjaan-lainnya" data-for="pekerjaan_ibu"
+                  placeholder="Tuliskan pekerjaan secara spesifik..." style="display:none;" />
+              </div>
+              <div class="form-group">
+                <label for="penghasilan_ibu">Penghasilan Bulanan</label>
+                <select id="penghasilan_ibu" name="penghasilan_ibu">
+                  <option value="">-- Pilih --</option>
+                  <option value="Kurang dari 1 Juta">Kurang dari Rp 1.000.000</option>
+                  <option value="1-2 Juta">Rp 1.000.000 - Rp 2.000.000</option>
+                  <option value="2-5 Juta">Rp 2.000.000 - Rp 5.000.000</option>
+                  <option value="Lebih dari 5 Juta">Lebih dari Rp 5.000.000</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="no_hp_ibu">No. HP / WhatsApp Ibu <span class="required">*</span></label>
+                <input type="tel" id="no_hp_ibu" name="no_hp_ibu" placeholder="08xxxxxxxxxx" required />
+              </div>
+
+              <!-- Alamat Ortu -->
+              <div class="form-group full">
+                <label style="display:flex; align-items:center; gap:8px;">
+                  <input type="checkbox" id="alamat_ortu_sama" name="alamat_ortu_sama" value="Ya" checked
+                    style="width:16px; height:16px; margin:0;" />
+                  Alamat Orang Tua sama dengan Siswa
+                </label>
+              </div>
+
+              <div class="form-group full" id="wrap_alamat_ortu" style="display:none;">
+                <label for="alamat_ortu">Detail Alamat Orang Tua <span class="required">*</span></label>
+                <textarea id="alamat_ortu" name="alamat_ortu"
+                  placeholder="Jln, RT/RW, Dusun, Desa/Kelurahan, Kecamatan, Kabupaten" rows="3"
+                  style="width: 100%; padding: 10px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; resize: vertical;"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Wali (Opsional) -->
+          <div class="card">
+            <div class="section-header">
+              <div class="section-icon teal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Data Wali <span class="optional-badge">Opsional</span></h3>
+                <p class="section-desc">Diisi jika tidak tinggal bersama orang tua</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <!-- Opsi Salin Data -->
+              <div class="form-group full">
+                <label for="opsi_salin_wali">Opsi Isi Data Cepat</label>
+                <select id="opsi_salin_wali" name="opsi_salin_wali"
+                  style="background-color: var(--gray-50); border-color: var(--teal);">
+                  <option value="">-- Ketik Manual / Kosongkan --</option>
+                  <option value="ayah">Salin dari Data Ayah</option>
+                  <option value="ibu">Salin dari Data Ibu</option>
+                </select>
+              </div>
+
+              <div class="form-group full">
+                <label for="nama_wali">Nama Wali</label>
+                <input type="text" id="nama_wali" name="nama_wali" placeholder="Nama lengkap wali" />
+              </div>
+              <div class="form-group">
+                <label for="nik_wali">NIK Wali</label>
+                <input type="text" id="nik_wali" name="nik_wali" placeholder="16 digit NIK" maxlength="16"
+                  inputmode="numeric" />
+              </div>
+              <div class="form-group">
+                <label for="tahun_lahir_wali">Tahun Lahir</label>
+                <input type="number" id="tahun_lahir_wali" name="tahun_lahir_wali" placeholder="Contoh: 1975" min="1950"
+                  max="2010" />
+              </div>
+              <div class="form-group">
+                <label for="pendidikan_wali">Pendidikan Terakhir</label>
+                <select id="pendidikan_wali" name="pendidikan_wali">
+                  <option value="">-- Pilih --</option>
+                  <option value="Tidak Sekolah">Tidak Sekolah</option>
+                  <option value="SD">SD / Sederajat</option>
+                  <option value="SMP">SMP / Sederajat</option>
+                  <option value="SMA">SMA / SMK / Sederajat</option>
+                  <option value="D3">Diploma (D3)</option>
+                  <option value="S1">Sarjana (S1)</option>
+                  <option value="S2">Magister (S2)</option>
+                  <option value="S3">Doktor (S3)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="pekerjaan_wali">Pekerjaan</label>
+                <select id="pekerjaan_wali" name="pekerjaan_wali" class="select-pekerjaan">
+                  <option value="">-- Pilih --</option>
+                  <option value="PNS">PNS</option>
+                  <option value="TNI/Polri">TNI / Polri</option>
+                  <option value="Karyawan Swasta">Karyawan Swasta</option>
+                  <option value="Wiraswasta">Wiraswasta</option>
+                  <option value="Pedagang">Pedagang</option>
+                  <option value="Petani">Petani</option>
+                  <option value="Buruh">Buruh</option>
+                  <option value="lainnya">Lainnya (Sebutkan)</option>
+                </select>
+                <input type="text" class="input-pekerjaan-lainnya" data-for="pekerjaan_wali"
+                  placeholder="Tuliskan pekerjaan secara spesifik..." style="display:none;" />
+              </div>
+              <div class="form-group">
+                <label for="penghasilan_wali">Penghasilan Bulanan</label>
+                <select id="penghasilan_wali" name="penghasilan_wali">
+                  <option value="">-- Pilih --</option>
+                  <option value="Kurang dari 1 Juta">Kurang dari Rp 1.000.000</option>
+                  <option value="1-2 Juta">Rp 1.000.000 - Rp 2.000.000</option>
+                  <option value="2-5 Juta">Rp 2.000.000 - Rp 5.000.000</option>
+                  <option value="Lebih dari 5 Juta">Lebih dari Rp 5.000.000</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="no_hp_wali">No. HP / WhatsApp Wali</label>
+                <input type="tel" id="no_hp_wali" name="no_hp_wali" placeholder="08xxxxxxxxxx" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Periodik (Opsional) -->
+          <div class="card">
+            <div class="section-header">
+              <div class="section-icon green">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Data Fisik <span class="optional-badge">Opsional</span></h3>
+                <p class="section-desc">Informasi kesehatan dan fisik siswa</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group half">
+                <label for="tinggi_badan">Tinggi Badan (cm)</label>
+                <input type="number" id="tinggi_badan" name="tinggi_badan" placeholder="165" min="100" max="220" />
+              </div>
+              <div class="form-group half">
+                <label for="berat_badan">Berat Badan (kg)</label>
+                <input type="number" id="berat_badan" name="berat_badan" placeholder="55" min="20" max="200" />
+              </div>
+              <div class="form-group">
+                <label for="gol_darah">Golongan Darah</label>
+                <select id="gol_darah" name="gol_darah">
+                  <option value="">-- Pilih --</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="AB">AB</option>
+                  <option value="O">O</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label for="riwayat_penyakit">Riwayat Penyakit</label>
+                <input type="text" id="riwayat_penyakit" name="riwayat_penyakit"
+                  placeholder="Tuliskan jika ada riwayat penyakit serius" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Informasi Tambahan -->
+          <div class="card">
+            <div class="section-header">
+              <div class="section-icon indigo" style="color: white; background: var(--primary);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Informasi Tambahan</h3>
+                <p class="section-desc">Mohon diisi untuk keperluan pendataan pendaftaran</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group full">
+                <label for="alasan_memilih">Kenapa Kamu Memilih Sekolah di SMK IT Al-Hawari? <span
+                    class="required">*</span></label>
+                <select id="alasan_memilih" name="alasan_memilih" class="select-lainnya" required>
+                  <option value="">-- Pilih Alasan Utama --</option>
+                  <option value="Teman">Ajakan / Info dari Teman</option>
+                  <option value="Alumni">Saran / Rekomendasi dari Alumni</option>
+                  <option value="Kabar Berita">Kabar Berita / Brosur / Selebaran</option>
+                  <option value="Tetangga">Informasi dari Tetangga</option>
+                  <option value="Saudara">Keluarga / Saudara</option>
+                  <option value="Sosial Media">Sosial Media (Facebook, Instagram, dll)</option>
+                  <option value="lainnya">Lainnya (Sebutkan Sendiri)</option>
+                </select>
+                <input type="text" class="input-lainnya-text" data-for="alasan_memilih"
+                  placeholder="Sebutkan alasan lainnya secara singkat..." style="display:none; margin-top: 10px;" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation (Step 3 → Step 4) -->
+          <div class="nav-buttons">
+            <button type="button" class="btn btn-outline btn-prev" data-prev="2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              Kembali
+            </button>
+            <button type="button" class="btn btn-primary btn-next" data-next="4">
+              Lanjut ke Lampiran
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- =================================================== -->
+        <!-- STEP 4: Lampiran Dokumen                            -->
+        <!-- =================================================== -->
+        <section class="form-step" id="step4">
+
+          <!-- Lampiran Card -->
+          <div class="card">
+            <div class="section-header">
+              <div class="section-icon indigo" style="color: white; background: var(--primary);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="section-title">Upload Dokumen Lampiran</h3>
+                <p class="section-desc">Upload file dalam format gambar (JPG, PNG) atau PDF. Maks 5MB per file.</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+
+              <!-- 1. Ijazah / SKL -->
+              <div class="form-group">
+                <label for="fileIjazah">Foto / Scan Ijazah / SKL <span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                  <input type="file" id="fileIjazah" name="fileIjazah"
+                    accept="image/*,.pdf" required class="file-input" />
+                  <label for="fileIjazah" class="file-upload-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    <span class="file-upload-text">Pilih File Ijazah</span>
+                    <span class="file-upload-name" id="nameIjazah">Belum ada file dipilih</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 2. Kartu Keluarga -->
+              <div class="form-group">
+                <label for="fileKK">Foto / Scan Kartu Keluarga (KK) <span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                  <input type="file" id="fileKK" name="fileKK"
+                    accept="image/*,.pdf" required class="file-input" />
+                  <label for="fileKK" class="file-upload-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    <span class="file-upload-text">Pilih File KK</span>
+                    <span class="file-upload-name" id="nameKK">Belum ada file dipilih</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 3. KTP Orang Tua -->
+              <div class="form-group">
+                <label for="fileKTP">Foto / Scan KTP Orang Tua <span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                  <input type="file" id="fileKTP" name="fileKTP"
+                    accept="image/*,.pdf" required class="file-input" />
+                  <label for="fileKTP" class="file-upload-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    <span class="file-upload-text">Pilih File KTP</span>
+                    <span class="file-upload-name" id="nameKTP">Belum ada file dipilih</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 4. Akta Kelahiran -->
+              <div class="form-group">
+                <label for="fileAkta">Foto / Scan Akta Kelahiran <span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                  <input type="file" id="fileAkta" name="fileAkta"
+                    accept="image/*,.pdf" required class="file-input" />
+                  <label for="fileAkta" class="file-upload-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    <span class="file-upload-text">Pilih File Akta</span>
+                    <span class="file-upload-name" id="nameAkta">Belum ada file dipilih</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 5. KIP (Opsional) -->
+              <div class="form-group">
+                <label for="fileKIP">Foto / Scan KIP <span class="optional-badge">Opsional</span></label>
+                <div class="file-upload-wrapper">
+                  <input type="file" id="fileKIP" name="fileKIP"
+                    accept="image/*,.pdf" class="file-input" />
+                  <label for="fileKIP" class="file-upload-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    <span class="file-upload-text">Pilih File KIP</span>
+                    <span class="file-upload-name" id="nameKIP">Belum ada file dipilih</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 6. Pas Photo -->
+              <div class="form-group">
+                <label for="filePhoto">Pas Photo (3x4 / 4x6) <span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                  <input type="file" id="filePhoto" name="filePhoto"
+                    accept="image/*" required class="file-input" />
+                  <label for="filePhoto" class="file-upload-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                    <span class="file-upload-text">Pilih Pas Photo</span>
+                    <span class="file-upload-name" id="namePhoto">Belum ada file dipilih</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Info Box -->
+          <div class="card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1.5px solid #93c5fd;">
+            <p style="margin: 0; font-size: 0.875rem; color: #1e40af; line-height: 1.6;">
+              📌 <strong>Catatan Penting:</strong> Pastikan semua dokumen jelas, tidak buram, dan seluruh teks terlihat.
+              File yang diunggah akan disimpan dengan aman di server kami dan hanya dapat diakses oleh panitia PPDB.
+              Proses pengiriman mungkin membutuhkan waktu beberapa saat tergantung ukuran file.
+            </p>
+          </div>
+
+          <!-- Navigation (Step 4 — Submit) -->
+          <div class="nav-buttons">
+            <button type="button" class="btn btn-outline btn-prev" data-prev="3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              Kembali
+            </button>
+            <button type="submit" class="btn btn-success btn-submit" id="btnSubmit">
+              <svg class="submit-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 2 11 13" />
+                <path d="m22 2-7 20-4-9-9-4z" />
+              </svg>
+              <span class="submit-text">Kirim Pendaftaran</span>
+              <span class="submit-loading" style="display:none;">
+                <svg class="spinner-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                </svg>
+                Mengirim...
+              </span>
+            </button>
+          </div>
+        </section>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <p>&copy; 2026 SMK IT Al-Hawari — PPDB Online</p>
+    <p class="footer-sub">Sistem Informasi Akademik Terpadu</p>
+  </footer>
+
+  <!-- ===================== CUSTOM NOTIFICATION POPUP ===================== -->
+  <div class="notification-overlay" id="notifOverlay">
+    <div class="notification-card">
+      <div class="notif-icon-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+          <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
+      </div>
+      <h3 class="notif-title">Pendaftaran Berhasil! 🎉</h3>
+      <p class="notif-message">Data pendaftaran Anda telah berhasil dikirim. Tim kami akan segera memproses data Anda.
+      </p>
+      <button class="btn btn-primary notif-close" id="btnNotifClose">Tutup</button>
+    </div>
+  </div>
+
+  <!-- ===================== TOAST (Error) ===================== -->
+  <div class="toast" id="toast">
+    <div class="toast-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" x2="12" y1="8" y2="12" />
+        <line x1="12" x2="12.01" y1="16" y2="16" />
+      </svg>
+    </div>
+    <span class="toast-message" id="toastMessage">Pesan notifikasi.</span>
+  </div>
+
+  <!-- ===================== DEV: TOMBOL DUMMY DATA (Hapus saat production) ===================== -->
+  <button type="button" class="btn-dummy" id="btnDummy" title="Isi Data Dummy untuk Testing">
+    🎲 Dummy
+  </button>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
