@@ -2202,6 +2202,57 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
     });
 
     initDashboard();
+
+    // ===================== DEV MODE: Alt+P Dummy Fill =====================
+    document.addEventListener('keydown', (e) => {
+      // Hanya aktif di PC/Laptop (lebar layar >= 768px)
+      if (window.innerWidth >= 768 && e.altKey && !e.ctrlKey && !e.shiftKey && e.key.toLowerCase() === 'p') {
+        e.preventDefault();
+        
+        const setVal = (name, val) => {
+          const el = document.querySelector(`input[name="${name}"], select[name="${name}"]`);
+          if (el) el.value = val;
+        };
+        const rand = Math.floor(Math.random() * 10000);
+        
+        // Isi otomatis data-data yang required
+        setVal("sekolah", "SMP Dummy " + Math.floor(Math.random() * 10));
+        setVal("npsn", "20" + Math.floor(100000 + Math.random() * 900000));
+        setVal("nama", "Siswa Dummy " + rand);
+        setVal("nisn", "00" + Math.floor(10000000 + Math.random() * 90000000));
+        setVal("nik", "327" + Math.floor(1000000000000 + Math.random() * 9000000000000));
+        setVal("no_kk", "327" + Math.floor(1000000000000 + Math.random() * 9000000000000));
+        setVal("tempat", "Bandung");
+        setVal("tgl", "2010-05-15");
+        setVal("anak_ke", "1");
+        setVal("hp", "0812" + Math.floor(10000000 + Math.random() * 90000000));
+        
+        setVal("desa", "Sukamaju");
+        setVal("kec", "Sukasari");
+        setVal("kab", "Bandung");
+        setVal("provinsi", "Jawa Barat");
+        
+        setVal("ayah", "Bapak Dummy");
+        setVal("kerja_ayah", "Wiraswasta");
+        setVal("ibu", "Ibu Dummy");
+        setVal("kerja_ibu", "Ibu Rumah Tangga");
+        
+        // Pastikan form terbuka
+        const formFieldset = document.getElementById("formFieldset");
+        const submitContainer = document.getElementById("submitContainer");
+        if (formFieldset && formFieldset.disabled) {
+           formFieldset.disabled = false;
+           if (submitContainer) submitContainer.style.display = "flex";
+        }
+        
+        if (typeof customAlert === "function") {
+          customAlert("Mode Developer Aktif", "Data dummy berhasil diisi secara otomatis untuk pengujian.", "success");
+        } else {
+          alert("Data dummy berhasil diisi!");
+        }
+      }
+    });
+
   </script>
 </body>
 </html>
