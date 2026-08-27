@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PPDB Online Yayasan Al-Hawari — Pilih jenjang pendaftaran SMP IT atau SMK IT Al-Hawari Tahun Ajaran 2026/2027." />
+  <title>PPDB Online — Al-Hawari 2026/2027</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --smp-color: #0d9488;
+      --smp-light: #f0fdfa;
+      --smp-mid:   #ccfbf1;
+      --smk-color: #2563eb;
+      --smk-light: #eff6ff;
+      --smk-mid:   #dbeafe;
+      --gray-50:   #f8fafc;
+      --gray-100:  #f1f5f9;
+      --gray-200:  #e2e8f0;
+      --gray-400:  #94a3b8;
+      --gray-600:  #475569;
+      --gray-800:  #1e293b;
+      --radius:    16px;
+      --shadow:    0 4px 24px rgba(0,0,0,0.08);
+      --shadow-hover: 0 12px 40px rgba(0,0,0,0.14);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-50);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 16px 24px;
+    }
+    .header-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #0d9488, #2563eb);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .brand-icon svg { color: #fff; }
+    .brand-title { font-size: 1.05rem; font-weight: 700; color: var(--gray-800); }
+    .brand-sub   { font-size: 0.78rem; color: var(--gray-400); margin-top: 1px; }
+
+    /* ===== MAIN ===== */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px 60px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #f0fdfa, #eff6ff);
+      border: 1px solid var(--gray-200);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gray-600);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-weight: 800;
+      color: var(--gray-800);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #0d9488, #2563eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 0.95rem;
+      color: var(--gray-400);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* ===== CARDS WRAPPER ===== */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      width: 100%;
+      max-width: 760px;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 2px solid var(--gray-200);
+      padding: 36px 28px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.25s;
+      border-radius: calc(var(--radius) - 2px);
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* SMP Card */
+    .card.smp { border-color: var(--smp-color); }
+    .card.smp::before { background: linear-gradient(160deg, var(--smp-light), #fff); }
+    .card.smp:hover::before { opacity: 1; }
+    .card.smp:hover { border-color: var(--smp-color); }
+
+    /* SMK Card */
+    .card.smk { border-color: var(--smk-color); }
+    .card.smk::before { background: linear-gradient(160deg, var(--smk-light), #fff); }
+    .card.smk:hover::before { opacity: 1; }
+    .card.smk:hover { border-color: var(--smk-color); }
+
+    .card > * { position: relative; z-index: 1; }
+
+    /* Icon */
+    .card-icon {
+      width: 72px; height: 72px;
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      transition: transform 0.25s;
+    }
+    .card:hover .card-icon { transform: scale(1.1); }
+    .card.smp .card-icon { background: linear-gradient(135deg, var(--smp-color), #14b8a6); }
+    .card.smk .card-icon { background: linear-gradient(135deg, var(--smk-color), #3b82f6); }
+    .card-icon svg { width: 36px; height: 36px; color: #fff; stroke-width: 1.8; }
+
+    /* Level badge */
+    .card-level {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .card.smp .card-level { background: var(--smp-mid); color: var(--smp-color); }
+    .card.smk .card-level { background: var(--smk-mid); color: var(--smk-color); }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--gray-800);
+      margin-bottom: 8px;
+    }
+    .card-name {
+      font-size: 0.82rem;
+      color: var(--gray-400);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* List fitur */
+    .card-features {
+      list-style: none;
+      text-align: left;
+      width: 100%;
+      margin-bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .card-features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--gray-600);
+    }
+    .card-features li .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .card.smp .dot { background: var(--smp-color); }
+    .card.smk .dot { background: var(--smk-color); }
+
+    /* Button */
+    .card-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .card.smp .card-btn {
+      background: linear-gradient(135deg, var(--smp-color), #14b8a6);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(13,148,136,0.35);
+    }
+    .card.smp .card-btn:hover { box-shadow: 0 6px 20px rgba(13,148,136,0.45); }
+    .card.smk .card-btn {
+      background: linear-gradient(135deg, var(--smk-color), #3b82f6);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+    }
+    .card.smk .card-btn:hover { box-shadow: 0 6px 20px rgba(37,99,235,0.45); }
+
+    /* ===== INFO BAR ===== */
+    .info-bar {
+      max-width: 760px;
+      width: 100%;
+      margin-top: 28px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--gray-600);
+    }
+    .info-bar svg { color: var(--gray-400); flex-shrink: 0; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--gray-200);
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--gray-400);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .cards { grid-template-columns: 1fr; gap: 16px; }
+      .card  { padding: 28px 22px; }
+      main   { padding: 28px 16px 48px; }
+      .hero  { margin-bottom: 28px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="brand-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">Yayasan IT Al-Hawari</div>
+        <div class="brand-sub">Sistem PPDB Online 2026/2027</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-badge">
+        📋 Penerimaan Peserta Didik Baru — Tahun Ajaran 2026/2027
+      </div>
+      <h1>Daftar ke <span>Al-Hawari</span></h1>
+      <p>Pilih jenjang pendidikan yang ingin Anda daftarkan. Pastikan Anda memilih sesuai dengan jenjang yang tepat.</p>
+    </div>
+
+    <!-- PILIHAN KARTU -->
+    <div class="cards">
+
+      <!-- SMP -->
+      <a class="card smp" href="register.html?jenjang=SMP" id="btnSMP">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="card-level">Jenjang SMP</div>
+        <div class="card-title">SMP IT Al-Hawari</div>
+        <div class="card-name">Sekolah Menengah Pertama<br>Islam Terpadu Al-Hawari</div>
+        <ul class="card-features">
+          <li><span class="dot"></span>Lulusan SD / MI / Sederajat</li>
+          <li><span class="dot"></span>Usia 12 – 15 tahun</li>
+          <li><span class="dot"></span>Kurikulum berbasis Islam terpadu</li>
+          <li><span class="dot"></span>Program tahfidz Al-Qur'an</li>
+        </ul>
+        <button class="card-btn" tabindex="-1">
+          Daftar SMP
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </a>
+
+      <!-- SMK -->
+      <a class="card smk" href="register.html?jenjang=SMK" id="btnSMK">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+            <path d="M7 8h2m4 0h4M7 12h4m4 0h2"/>
+          </svg>
+        </div>
+        <div class="card-level">Jenjang SMK</div>
+        <div class="card-title">SMK IT Al-Hawari</div>
+        <div class="card-name">Sekolah Menengah Kejuruan<br>Islam Terpadu Al-Hawari</div>
+        <ul class="card-features">
+          <li><span class="dot"></span>Lulusan SMP / MTs / Sederajat</li>
+          <li><span class="dot"></span>Usia 15 – 18 tahun</li>
+          <li><span class="dot"></span>Jurusan DPIB, ATPH, dan DKV</li>
+          <li><span class="dot"></span>Sertifikasi kompetensi keahlian</li>
+        </ul>
+        <button class="card-btn" tabindex="-1">
+          Daftar SMK
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </a>
+
+    </div>
+
+    <!-- INFO BAR -->
+    <div class="info-bar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      Pastikan Anda menyiapkan dokumen: Ijazah, KK, KTP Orang Tua, Akta Kelahiran, dan Pas Foto sebelum mengisi formulir.
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 Yayasan IT Al-Hawari &mdash; Sistem Pendaftaran Online PPDB
+  </footer>
+
+</body>
+</html>

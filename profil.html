@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Saya - PPDB Al Hawari</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e3a8a;
+      --secondary: #059669;
+      --bg-app: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --text-muted: #64748b;
+      --text-dark: #0f172a;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top right, #eff6ff 0%, #f8fafc 60%, #ecfdf5 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- TOP NAVBAR --- */
+    .navbar {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-dark);
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-nav {
+      padding: 8px 18px;
+      border-radius: 99px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-back {
+      background: white;
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+    }
+
+    .btn-back:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-logout {
+      background: #fee2e2;
+      color: #dc2626;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-logout:hover {
+      background: #dc2626;
+      color: white;
+    }
+
+    /* --- MAIN CONTENT --- */
+    .container {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+      width: 100%;
+      flex: 1;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+    }
+
+    /* --- LEFT SIDE: AVATAR CARD --- */
+    .avatar-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin-bottom: 1.5rem;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      background: #e2e8f0;
+    }
+
+    .upload-badge-btn {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+      transition: all 0.25s;
+      border: 2px solid white;
+    }
+
+    .upload-badge-btn:hover {
+      transform: scale(1.1);
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .profile-name-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .profile-role-tag {
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      background: #eff6ff;
+      padding: 4px 12px;
+      border-radius: 99px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    .upload-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* --- RIGHT SIDE: FORM CARD --- */
+    .form-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    }
+
+    .form-card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-card-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.4rem;
+    }
+
+    .form-group.full {
+      grid-column: span 2;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .custom-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.25s;
+      background: #fafafa;
+    }
+
+    .custom-input:focus {
+      background: white;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    textarea.custom-input {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .btn-save-profile {
+      padding: 14px 30px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-save-profile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
+    }
+
+    .toast-success {
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+      color: #15803d;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.8);
+      border-top: 1px solid var(--border-color);
+    }
+
+    @media (max-width: 768px) {
+      .profile-grid { grid-template-columns: 1fr; }
+      .form-grid-2 { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="brand-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <div class="brand-title">PPDB Al-Hawari</div>
+    </a>
+
+    <div class="nav-links">
+      <a href="dashboard-siswa.html" class="btn-nav btn-back" id="btnDashboardLink">Kembali ke Dashboard</a>
+      <button class="btn-nav btn-logout" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+
+    <div class="toast-success" id="toastMsg">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      Profil dan Foto berhasil diperbarui!
+    </div>
+
+    <div class="profile-grid">
+      
+      <!-- AVATAR UPLOAD CARD -->
+      <div class="avatar-card">
+        <div class="avatar-wrapper">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80" id="avatarPreview" class="avatar-img" alt="Foto Profil" />
+          <label for="fileInput" class="upload-badge-btn" title="Ganti Foto">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          </label>
+          <input type="file" id="fileInput" accept="image/*" />
+        </div>
+
+        <div class="profile-name-title" id="pDisplayNama">Ahmad Fadhlan</div>
+        <div class="profile-role-tag" id="pDisplayJenjang">Calon Siswa SMP</div>
+
+        <p class="upload-hint">Klik ikon kamera pada foto di atas untuk memilih foto profil baru dari galeri/komputer Anda (Max 2MB).</p>
+      </div>
+
+      <!-- FORM BIODATA EDIT -->
+      <div class="form-card">
+        <div class="form-card-title">Pengaturan Profil & Akun</div>
+        <div class="form-card-subtitle">Perbarui data diri dan foto profil Anda di sini.</div>
+
+        <form id="profileForm">
+          <div class="form-grid-2">
+            
+            <div class="form-group full">
+              <label for="pNama">Nama Lengkap</label>
+              <input type="text" id="pNama" class="custom-input" required placeholder="Masukkan nama lengkap">
+            </div>
+
+            <div class="form-group">
+              <label for="pEmail">Email / Username</label>
+              <input type="email" id="pEmail" class="custom-input" required placeholder="email@domain.com">
+            </div>
+
+            <div class="form-group">
+              <label for="pTelp">No. Telepon / WhatsApp</label>
+              <input type="text" id="pTelp" class="custom-input" placeholder="081234567890">
+            </div>
+
+            <div class="form-group">
+              <label for="pNISN">NISN / NIK</label>
+              <input type="text" id="pNISN" class="custom-input" placeholder="10 digit NISN">
+            </div>
+
+            <div class="form-group">
+              <label for="pJenjang">Jenjang Pendidikan</label>
+              <select id="pJenjang" class="custom-input">
+                <option value="SMP IT">SMP IT Al-Hawari</option>
+                <option value="SMK IT">SMK IT Al-Hawari</option>
+              </select>
+            </div>
+
+            <div class="form-group full">
+              <label for="pAlamat">Alamat Tempat Tinggal</label>
+              <textarea id="pAlamat" class="custom-input" placeholder="Masukkan alamat lengkap..."></textarea>
+            </div>
+
+          </div>
+
+          <button type="submit" class="btn-save-profile">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            Simpan Perubahan
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 Yayasan IT Al-Hawari &mdash; Sistem PPDB Online
+  </footer>
+
+  <script type="module">
+    import { checkAuth, logout } from "./auth.js";
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      logout();
+    });
+
+    const fileInput = document.getElementById("fileInput");
+    const avatarPreview = document.getElementById("avatarPreview");
+    const toastMsg = document.getElementById("toastMsg");
+
+    // Init data profil
+    const userStr = localStorage.getItem("user");
+    let user = userStr ? JSON.parse(userStr) : { nama: "Ahmad Fadhlan", email: "ahmad@gmail.com", jenjang: "SMP IT" };
+
+    // Load foto profil jika tersimpan di localStorage
+    const savedPhoto = localStorage.getItem("user_photo");
+    if (savedPhoto) {
+      avatarPreview.src = savedPhoto;
+    }
+
+    // Populate form
+    document.getElementById("pNama").value = user.nama || "";
+    document.getElementById("pEmail").value = user.email || "";
+    document.getElementById("pTelp").value = user.telp || user.no_hp || "";
+    document.getElementById("pNISN").value = user.nisn || "";
+    document.getElementById("pJenjang").value = user.jenjang || "SMP IT";
+    document.getElementById("pAlamat").value = user.alamat || "";
+
+    document.getElementById("pDisplayNama").textContent = user.nama || "Siswa Al-Hawari";
+    document.getElementById("pDisplayJenjang").textContent = "Calon Siswa " + (user.jenjang || "SMP");
+
+    if (user.role === "admin") {
+      document.getElementById("btnDashboardLink").href = "dashboard-admin.html";
+      document.getElementById("btnDashboardLink").textContent = "Kembali ke Dashboard Admin";
+    }
+
+    // Handle foto unggahan
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const base64Photo = event.target.result;
+          avatarPreview.src = base64Photo;
+          localStorage.setItem("user_photo", base64Photo);
+          showToast();
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Handle submit simpan profil
+    document.getElementById("profileForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      user.nama = document.getElementById("pNama").value;
+      user.email = document.getElementById("pEmail").value;
+      user.telp = document.getElementById("pTelp").value;
+      user.nisn = document.getElementById("pNISN").value;
+      user.jenjang = document.getElementById("pJenjang").value;
+      user.alamat = document.getElementById("pAlamat").value;
+
+      localStorage.setItem("user", JSON.stringify(user));
+      document.getElementById("pDisplayNama").textContent = user.nama;
+      document.getElementById("pDisplayJenjang").textContent = "Calon Siswa " + user.jenjang;
+
+      showToast();
+    });
+
+    function showToast() {
+      toastMsg.style.display = "flex";
+      setTimeout(() => {
+        toastMsg.style.display = "none";
+      }, 3500);
+    }
+  </script>
+</body>
+</html>

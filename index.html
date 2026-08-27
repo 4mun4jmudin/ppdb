@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PPDB Online Yayasan Al-Hawari — Masa depan dimulai di sini. Pendaftaran siswa baru SMP IT dan SMK IT." />
+  <title>PPDB Al-Hawari | Selamat Datang</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Premium Tailored Palette */
+      --primary: #2563eb;       /* Royal Blue */
+      --primary-dark: #1e40af;  /* Deep Navy */
+      --primary-light: #dbeafe;
+      --secondary: #059669;     /* Emerald */
+      --secondary-dark: #047857;
+      --secondary-light: #d1fae5;
+      --accent: #f59e0b;        /* Amber */
+      --dark: #0f172a;          /* Slate 900 */
+      --gray-text: #475569;     /* Slate 600 */
+      --gray-light: #e2e8f0;    /* Slate 200 */
+      --light: #f8fafc;         /* Slate 50 */
+      
+      /* Glassmorphism */
+      --glass-bg: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+      
+      /* Transitions */
+      --smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4, h5, h6 { 
+      font-family: 'Outfit', sans-serif; 
+      line-height: 1.2;
+    }
+    
+    /* --- Navbar & Mobile Menu --- */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 1.2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 1000;
+      transition: var(--smooth);
+    }
+    
+    .navbar.scrolled {
+      padding: 0.8rem 5%;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    }
+    
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    
+    .nav-brand .icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--smooth);
+      position: relative;
+    }
+    
+    .nav-links a:not(.btn-login)::after {
+      content: '';
+      position: absolute;
+      width: 0; height: 2px;
+      bottom: -4px; left: 0;
+      background: var(--primary);
+      transition: var(--smooth);
+    }
+    
+    .nav-links a:hover:not(.btn-login) { color: var(--primary); }
+    .nav-links a:hover:not(.btn-login)::after { width: 100%; }
+    
+    .btn-login {
+      padding: 0.7rem 1.8rem;
+      border-radius: 99px;
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary) !important;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--smooth);
+    }
+    
+    .btn-login:hover {
+      background: var(--primary);
+      color: white !important;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* Hamburger Button */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--dark);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 8rem 5% 4rem;
+      overflow: hidden;
+      background: radial-gradient(circle at top right, #eff6ff 0%, var(--light) 60%, #ecfdf5 100%);
+    }
+    
+    /* Decorative blobs */
+    .blob-1, .blob-2 {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      opacity: 0.5;
+    }
+    .blob-1 {
+      width: 600px; height: 600px;
+      background: #bfdbfe;
+      top: -150px; right: -150px;
+      animation: float 12s ease-in-out infinite;
+    }
+    .blob-2 {
+      width: 500px; height: 500px;
+      background: #a7f3d0;
+      bottom: -100px; left: -150px;
+      animation: float 15s ease-in-out infinite reverse;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) scale(1) rotate(0deg); }
+      50% { transform: translateY(-40px) scale(1.05) rotate(5deg); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); }
+    }
+    
+    .hero-content {
+      flex: 1.2;
+      position: relative;
+      z-index: 1;
+      max-width: 650px;
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 18px;
+      background: var(--glass-bg);
+      border-radius: 99px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 2rem;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+    
+    .pulse {
+      width: 8px; height: 8px;
+      background: var(--secondary);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7);
+      animation: pulsing 2s infinite;
+    }
+
+    @keyframes pulsing {
+      0% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(5, 150, 105, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+      letter-spacing: -1px;
+    }
+    
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--gray-text);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn-primary {
+      padding: 1.1rem 2.5rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: var(--smooth);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+    }
+    
+    .btn-secondary {
+      padding: 1.1rem 2.5rem;
+      border-radius: 14px;
+      background: white;
+      color: var(--dark);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: var(--smooth);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--gray-light);
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary);
+    }
+    
+    .hero-image {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: var(--glass-shadow);
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+    }
+    
+    .stats-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    .stat-item {
+      padding: 1.5rem;
+      background: white;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+      transition: var(--smooth);
+      border: 1px solid var(--gray-light);
+    }
+    
+    .stat-item:hover { 
+      transform: translateY(-8px); 
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+      border-color: var(--primary-light);
+    }
+    
+    .stat-icon {
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+    }
+    
+    .stat-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 0.2rem;
+      line-height: 1;
+    }
+    
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--gray-text);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- Alur Pendaftaran Section (NEW) --- */
+    .timeline-section {
+      padding: 6rem 5%;
+      background: white;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+    
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      color: var(--dark);
+    }
+    
+    .section-header p {
+      color: var(--gray-text);
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2.5rem;
+      position: relative;
+    }
+
+    /* Connecting Line */
+    .timeline-grid::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--gray-light);
+      z-index: 0;
+    }
+
+    .timeline-step {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .step-number {
+      width: 80px; height: 80px;
+      margin: 0 auto 1.5rem;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      color: var(--primary);
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
+      border: 4px solid var(--primary-light);
+      transition: var(--smooth);
+    }
+
+    .timeline-step:hover .step-number {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.1);
+      border-color: rgba(37, 99, 235, 0.2);
+    }
+
+    .timeline-step h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .timeline-step p {
+      color: var(--gray-text);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    /* --- Features Section --- */
+    .features {
+      padding: 6rem 5%;
+      background: var(--light);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+    }
+    
+    .feature-card {
+      padding: 3rem 2.5rem;
+      border-radius: 24px;
+      background: white;
+      border: 1px solid var(--gray-light);
+      transition: var(--smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--smooth);
+    }
+    
+    .feature-card:hover {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-10px);
+      border-color: transparent;
+    }
+    
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .feature-icon {
+      width: 70px; height: 70px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+      transition: var(--smooth);
+    }
+    
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1) rotate(-5deg);
+    }
+    
+    .feature-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    
+    .feature-card p {
+      color: var(--gray-text);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+    
+    /* --- CTA Section --- */
+    .cta-section {
+      padding: 7rem 5%;
+      background: linear-gradient(135deg, var(--dark), #1e293b);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* CTA Background Accents */
+    .cta-section::before, .cta-section::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 70%);
+    }
+    .cta-section::before { top: -100px; left: -100px; }
+    .cta-section::after { bottom: -100px; right: -100px; }
+    
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .cta-section h2 {
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta-section p {
+      font-size: 1.25rem;
+      color: #cbd5e1;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+    
+    /* --- Footer --- */
+    footer {
+      background: #020617; /* Very dark slate */
+      color: #94a3b8;
+      padding: 4rem 5% 2rem;
+      text-align: center;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: white;
+      letter-spacing: -0.5px;
+    }
+    
+    .footer-brand .icon {
+      width: 36px; height: 36px; 
+      background: white; 
+      border-radius: 10px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      color: #020617;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding-top: 2rem;
+      font-size: 0.95rem;
+    }
+    
+    /* --- Responsive & Mobile Menu Styles --- */
+    @media (max-width: 1024px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 10rem;
+      }
+      .hero-actions { justify-content: center; }
+      .hero-image { margin-top: 4rem; width: 100%; justify-content: center; }
+      
+      .timeline-grid::before {
+        display: none; /* Remove connecting line on smaller screens */
+      }
+      .timeline-step { margin-bottom: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+      /* Mobile Navigation */
+      .mobile-menu-btn { display: block; }
+      
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: clip-path 0.4s ease-in-out;
+      }
+
+      .nav-links.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+
+      .nav-links a { font-size: 1.1rem; width: 100%; text-align: center; }
+      
+      .hero h1 { font-size: 2.5rem; }
+      .glass-card { padding: 1.5rem; }
+      .stat-value { font-size: 1.8rem; }
+      .stat-icon { width: 48px; height: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-brand">
+      <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      Al-Hawari
+    </a>
+    
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="menuBtn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#beranda" class="nav-item">Beranda</a>
+      <a href="biaya-alur.html" class="nav-item">Biaya &amp; Alur</a>
+      <a href="pengumuman.html" class="nav-item">Hasil Seleksi</a>
+      <a href="#keunggulan" class="nav-item">Keunggulan</a>
+      <a href="login.html" class="btn-login" style="background:transparent; border:1px solid var(--gray-light); color:var(--dark);">Masuk</a>
+      <a href="register.html" class="btn-login">Daftar</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="beranda">
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+    
+    <div class="hero-content" data-aos="fade-up">
+      <div class="badge">
+        <span class="pulse"></span> Pendaftaran Tahun Ajaran 2026/2027
+      </div>
+      <h1>Membangun Generasi <span>Cerdas & Berakhlak</span></h1>
+      <p>Sistem Penerimaan Peserta Didik Baru (PPDB) Online Yayasan Al-Hawari yang canggih, cepat, dan didukung oleh ekstraksi data berbasis AI.</p>
+      
+      <div class="hero-actions">
+        <a href="register.html" class="btn-primary">
+          Mulai Daftar Sekarang
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#alur" class="btn-secondary">
+          Pelajari Alur
+        </a>
+      </div>
+    </div>
+    
+    <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
+      <div class="glass-card">
+        <h3 style="margin-bottom: 2rem; font-size: 1.35rem; font-weight: 800; color: var(--dark); border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem;">Informasi Pendaftaran</h3>
+        
+        <div class="stats-container">
+          <div class="stat-item">
+            <div class="stat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <div class="stat-value">SMP</div>
+            <div class="stat-label">Islam Terpadu</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-icon" style="background: var(--secondary-light); color: var(--secondary);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h2m4 0h4M7 12h4m4 0h2"/></svg>
+            </div>
+            <div class="stat-value">SMK</div>
+            <div class="stat-label">Islam Terpadu</div>
+          </div>
+          
+          <div class="stat-item" style="grid-column: span 2; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.5rem; background: var(--primary-light); border: none;">
+            <div style="text-align: left;">
+              <div class="stat-label" style="margin-bottom: 4px; color: var(--primary-dark);">Status Penerimaan</div>
+              <div style="font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; font-size: 1.1rem;">
+                <span style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; display: inline-block;"></span> Sedang Dibuka
+              </div>
+            </div>
+            <a href="pilih-jenjang.html" style="background: white; padding: 10px 20px; border-radius: 12px; color: var(--primary); text-decoration: none; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: var(--smooth);">Daftar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alur Pendaftaran Section -->
+  <section class="timeline-section" id="alur">
+    <div class="section-header" data-aos="fade-up">
+      <h2>Alur Pendaftaran Mudah</h2>
+      <p>Kami merancang sistem pendaftaran online yang cepat, cerdas, dan bebas ribet dengan integrasi teknologi AI terkini.</p>
+    </div>
+
+    <div class="timeline-grid" data-aos="fade-up" data-aos-delay="100">
+      <div class="timeline-step">
+        <div class="step-number">1</div>
+        <h3>Pilih Jenjang</h3>
+        <p>Pilih jenjang pendidikan yang sesuai (SMP atau SMK) pada halaman pendaftaran web portal kami.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-number">2</div>
+        <h3>Scan Dokumen (AI)</h3>
+        <p>Unggah foto Kartu Keluarga Anda. Teknologi Google Gemini AI kami akan otomatis mendeteksi dan mengisi formulir Anda.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-number">3</div>
+        <h3>Verifikasi Data</h3>
+        <p>Periksa kembali data yang sudah terisi otomatis, lengkapi bagian yang kosong, lalu klik tombol Simpan & Cetak.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-number">4</div>
+        <h3>Cetak Bukti</h3>
+        <p>Dapatkan Kartu Bukti Pendaftaran dalam format PDF untuk dibawa saat tes seleksi di sekolah.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="keunggulan">
+    <div class="section-header" data-aos="fade-up">
+      <h2>Mengapa Memilih Al-Hawari?</h2>
+      <p>Kami berkomitmen memberikan pendidikan terbaik yang mengintegrasikan ilmu pengetahuan modern dengan keislaman.</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Kurikulum Terintegrasi</h3>
+        <p>Memadukan kurikulum nasional berkualitas tinggi dengan pembelajaran agama Islam yang komprehensif.</p>
+      </div>
+      
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="feature-icon" style="background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+        </div>
+        <h3>Fasilitas Modern (EdTech)</h3>
+        <p>Didukung dengan fasilitas pembelajaran mutakhir, ruang kelas pintar, laboratorium interaktif, dan lingkungan asri.</p>
+      </div>
+      
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="feature-icon" style="background: linear-gradient(135deg, var(--accent), #d97706);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Tenaga Pendidik Profesional</h3>
+        <p>Dibimbing oleh guru-guru tersertifikasi, berpengalaman, dan berdedikasi tinggi di bidangnya masing-masing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content" data-aos="zoom-in">
+      <h2>Siap Untuk Bergabung?</h2>
+      <p>Proses pendaftaran sangat mudah dan didukung kecerdasan buatan. Jangan lewatkan kesempatan untuk menjadi bagian dari keluarga besar Yayasan Al-Hawari.</p>
+      <a href="pilih-jenjang.html" class="btn-primary" style="padding: 1.3rem 2.8rem; font-size: 1.25rem; background: white; color: var(--dark);">
+        Daftar Sekarang
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        Al-Hawari
+      </div>
+      <p style="max-width: 450px; line-height: 1.8; margin: 0 auto;">Lembaga pendidikan Islam terpadu yang berdedikasi untuk mencetak generasi cerdas, mandiri, berprestasi, dan berakhlak mulia.</p>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Yayasan IT Al-Hawari. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize animations
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 80,
+      easing: 'ease-out-cubic'
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

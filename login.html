@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - SMK IT Al Hawari</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
+  
+  <style>
+    :root {
+      /* Elegant Color Palette: Sapphire & Emerald accents */
+      --primary: #2563eb;           /* Sapphire Blue */
+      --primary-dark: #1e3a8a;      /* Deep Navy */
+      --primary-hover: #1d4ed8;
+      --secondary: #059669;        /* Emerald */
+      
+      --bg-body: #f8fafc;           /* Light slate */
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --text-muted: #64748b;
+      --text-dark: #0f172a;
+      
+      --radius-lg: 24px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top right, #eff6ff 0%, #f8fafc 60%, #ecfdf5 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* --- HEADER / NAVBAR --- */
+    .navbar {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      padding: 1.1rem 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-dark);
+    }
+
+    .brand-logo-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      line-height: 1.2;
+      color: var(--text-dark);
+      letter-spacing: -0.3px;
+    }
+
+    .brand-subtitle {
+      font-size: 0.78rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2.2rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .nav-menu a:hover {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-nav-outline {
+      padding: 9px 22px;
+      border-radius: 99px;
+      border: 1.5px solid var(--border-color);
+      background: white;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+
+    .btn-nav-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .btn-nav-filled {
+      padding: 9px 24px;
+      border-radius: 99px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-nav-filled:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    /* --- MAIN CONTENT CONTAINER --- */
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+
+    .split-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08);
+      width: 100%;
+      max-width: 980px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    /* LEFT SIDE: ELEGANT BANNER */
+    .left-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #064e3b 100%);
+      padding: 3.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      min-height: 520px;
+      color: white;
+    }
+
+    /* Decorative Floating Elements */
+    .left-banner::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 70%);
+      top: -80px;
+      right: -80px;
+    }
+
+    .left-banner::after {
+      content: '';
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(5,150,105,0.35) 0%, transparent 70%);
+      bottom: -60px;
+      left: -60px;
+    }
+
+    .illustration-holder {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .banner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 6px 16px;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #93c5fd;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 1.5rem;
+    }
+
+    .banner-badge span {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    .banner-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    .banner-text h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .banner-text p {
+      font-size: 0.98rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    /* RIGHT SIDE: LOGIN FORM */
+    .right-form-container {
+      padding: 3.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .form-logo-box {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      margin: 0 auto 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eff6ff;
+      color: var(--primary);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.15);
+    }
+
+    .form-header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .form-header p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    /* TAB SWITCHER */
+    .tab-switcher {
+      display: flex;
+      background: #f1f5f9;
+      padding: 5px;
+      border-radius: var(--radius-md);
+      margin-bottom: 1.8rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    /* FORM ELEMENTS */
+    .form-group {
+      margin-bottom: 1.4rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon-left {
+      position: absolute;
+      left: 16px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+      transition: color 0.2s;
+    }
+
+    .input-icon-right {
+      position: absolute;
+      right: 16px;
+      color: #94a3b8;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon-right:hover {
+      color: var(--primary);
+    }
+
+    .custom-input {
+      width: 100%;
+      padding: 13px 16px 13px 46px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      background: #fafafa;
+      transition: all 0.25s;
+    }
+
+    .custom-input.has-right-icon {
+      padding-right: 46px;
+    }
+
+    .custom-input:focus {
+      background: white;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    .input-wrapper:focus-within .input-icon-left {
+      color: var(--primary);
+    }
+
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 6px;
+      margin-bottom: 1.4rem;
+      transition: color 0.2s;
+    }
+
+    .forgot-link:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    .btn-submit-main {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.25s;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-submit-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 1.8rem 0;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .divider span {
+      padding: 0 12px;
+    }
+
+    .btn-google {
+      width: 100%;
+      padding: 13px;
+      background: white;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: all 0.25s;
+    }
+
+    .btn-google:hover {
+      border-color: var(--primary);
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+
+    .error-msg {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      margin-bottom: 1.2rem;
+      display: none;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 1.6rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(226, 232, 240, 0.8);
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 850px) {
+      .nav-menu { display: none; }
+      .split-card { grid-template-columns: 1fr; }
+      .left-banner { display: none; }
+      .right-form-container { padding: 2.5rem 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="brand-logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">SMK IT AL HAWARI</div>
+        <div class="brand-subtitle">Sistem Informasi PPDB</div>
+      </div>
+    </a>
+
+    <ul class="nav-menu">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="biaya-alur.html">Biaya &amp; Alur</a></li>
+      <li><a href="pengumuman.html">Hasil Seleksi</a></li>
+      <li><a href="index.html#keunggulan">Keunggulan</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="login.html" class="btn-nav-outline">Login</a>
+      <a href="register.html" class="btn-nav-filled">Daftar</a>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="main-wrapper">
+    <div class="split-card">
+      
+      <!-- LEFT ELEGANT BANNER -->
+      <div class="left-banner">
+        <div class="banner-badge">
+          <span></span> PPDB TA 2026/2027 Resmi Dibuka
+        </div>
+
+        <div class="illustration-holder">
+          <svg width="220" height="170" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="240" height="180" rx="20" fill="white" fill-opacity="0.08"/>
+            <circle cx="170" cy="55" r="24" fill="#38bdf8" fill-opacity="0.6"/>
+            <path d="M-10 190L80 90L160 190H-10Z" fill="#3b82f6" fill-opacity="0.5"/>
+            <path d="M70 190L165 75L260 190H70Z" fill="#10b981" fill-opacity="0.6"/>
+          </svg>
+        </div>
+
+        <div class="banner-text">
+          <h2>Selamat Datang!</h2>
+          <p>Silakan masuk ke sistem untuk mengakses portal layanan PPDB SMK IT Al Hawari.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT LOGIN FORM -->
+      <div class="right-form-container">
+        
+        <div class="form-header">
+          <div class="form-logo-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+          </div>
+          <h1>Login</h1>
+          <p>Masuk ke akun Anda</p>
+        </div>
+
+        <!-- ROLE TAB SWITCHER -->
+        <div class="tab-switcher">
+          <button type="button" class="tab-btn active" id="tabSiswa" onclick="switchRole('siswa')">Calon Peserta Didik</button>
+          <button type="button" class="tab-btn" id="tabAdmin" onclick="switchRole('admin')">Admin PPDB</button>
+        </div>
+
+        <!-- ERROR NOTIFICATION -->
+        <div class="error-msg" id="errorMsg">Email atau Password salah.</div>
+
+        <!-- FORM -->
+        <form id="loginForm">
+          <input type="hidden" id="userRole" value="siswa">
+
+          <div class="form-group">
+            <label for="email">Email / Username</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </span>
+              <input type="text" id="email" class="custom-input" required placeholder="Masukkan email atau username">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
+              <input type="password" id="password" class="custom-input has-right-icon" required placeholder="Masukkan password">
+              <button type="button" class="input-icon-right" id="togglePasswordBtn" onclick="togglePasswordVisibility()">
+                <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+            <a href="#" class="forgot-link" onclick="alert('Silakan hubungi panitia PPDB jika Anda lupa password.')">Lupa password?</a>
+          </div>
+
+          <button type="submit" class="btn-submit-main" id="loginBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+            Login
+          </button>
+        </form>
+
+        <div class="divider">
+          <span>atau masuk dengan</span>
+        </div>
+
+        <button type="button" class="btn-google" onclick="alert('Fitur Login Google siap diintegrasikan!')">
+          <svg width="19" height="19" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+          </svg>
+          Login dengan Google
+        </button>
+
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.88rem; color: var(--text-muted);">
+          Belum punya akun? <a href="register.html" style="color: var(--primary); font-weight: 700; text-decoration: none;">Daftar Akun di sini</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 SMK IT Al Hawari. Semua hak dilindungi.
+  </footer>
+
+  <script>
+    // Tab switching logic
+    function switchRole(role) {
+      document.getElementById('userRole').value = role;
+      const tabSiswa = document.getElementById('tabSiswa');
+      const tabAdmin = document.getElementById('tabAdmin');
+      
+      if (role === 'siswa') {
+        tabSiswa.classList.add('active');
+        tabAdmin.classList.remove('active');
+      } else {
+        tabAdmin.classList.add('active');
+        tabSiswa.classList.remove('active');
+      }
+    }
+
+    // Toggle password view
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>`;
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>`;
+      }
+    }
+  </script>
+
+  <!-- AUTH SCRIPT LOGIC (GOOGLE APPS SCRIPT BACKEND) -->
+  <script type="module" src="auth.js"></script>
+</body>
+</html>

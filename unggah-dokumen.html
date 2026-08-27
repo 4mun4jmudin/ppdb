@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unggah Dokumen & OCR - SMK IT Al Hawari</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary-dark: #0f172a;       /* Slate 900 */
+      --sidebar-bg: #ffffff;
+      --primary-blue: #2563eb;       /* Royal Blue */
+      --primary-hover: #1d4ed8;
+      --secondary: #059669;          /* Emerald */
+
+      --bg-app: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --text-muted: #64748b;
+      --text-dark: #0f172a;
+
+      --badge-green-bg: #d1fae5;
+      --badge-green-text: #047857;
+
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top right, #eff6ff 0%, #f8fafc 50%, #ecfdf5 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- TOP NAVBAR --- */
+    .top-navbar {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.85rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      color: white;
+    }
+
+    .nav-brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .brand-logo-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary));
+      color: white;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      line-height: 1.2;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-subtitle {
+      font-size: 0.76rem;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    .user-profile-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 14px 4px 6px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      text-decoration: none;
+      color: white;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    /* --- LAYOUT GRID --- */
+    .app-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: calc(100vh - 62px);
+    }
+
+    /* --- SIDEBAR LEFT --- */
+    .sidebar {
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border-color);
+      padding: 1.8rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      position: sticky;
+      top: 61px;
+      height: calc(100vh - 61px);
+      overflow-y: auto;
+    }
+
+    .sidebar-section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 0.8rem;
+    }
+
+    /* VERTICAL STEPPER */
+    .vertical-stepper {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      position: relative;
+    }
+
+    .v-step-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.25s ease;
+    }
+
+    .v-step-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      border: 2px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+
+    .v-step-item.completed .v-step-circle {
+      background: linear-gradient(135deg, var(--secondary), #047857);
+      border-color: var(--secondary);
+      color: white;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+    }
+
+    .v-step-item.active .v-step-circle {
+      background: linear-gradient(135deg, var(--primary-blue), #1d4ed8);
+      border-color: var(--primary-blue);
+      color: white;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    .v-step-item.active {
+      color: var(--primary-blue);
+      font-weight: 800;
+    }
+
+    /* SIDEBAR INFO BOX */
+    .sidebar-info-box {
+      background: linear-gradient(135deg, #eff6ff, #f0fdf4);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius-sm);
+      padding: 1.1rem;
+      font-size: 0.84rem;
+      color: #1e3a8a;
+      line-height: 1.55;
+    }
+
+    .doc-required-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .doc-required-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .doc-required-item svg {
+      color: var(--primary-blue);
+    }
+
+    /* --- CENTER MAIN CONTENT --- */
+    .main-content {
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .header-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.6rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 8px 25px rgba(15, 23, 42, 0.03);
+    }
+
+    .header-icon-box {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #dbeafe, #eff6ff);
+      color: var(--primary-blue);
+      border: 1px solid #bfdbfe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.15);
+    }
+
+    .header-card h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .header-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* SPLIT 2-COLUMN SECTION */
+    .split-ocr-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .ocr-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.8rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    .ocr-card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      color: var(--text-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* UPLOAD DRAG DROP ZONE */
+    .drop-zone {
+      border: 2px dashed #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 2.2rem 1.5rem;
+      text-align: center;
+      background: #fafafa;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-bottom: 1.2rem;
+    }
+
+    .drop-zone:hover {
+      border-color: var(--primary-blue);
+      background: #eff6ff;
+    }
+
+    .drop-zone-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: white;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .btn-choose-file {
+      padding: 9px 20px;
+      background: white;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.2s;
+    }
+
+    .btn-choose-file:hover {
+      border-color: var(--primary-blue);
+      color: var(--primary-blue);
+    }
+
+    /* FILE PREVIEW CARD */
+    .file-preview-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .file-info-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-delete-file {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-delete-file:hover { background: #fee2e2; }
+
+    /* OCR RESULT TABLE */
+    .ocr-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      margin-top: 1rem;
+    }
+
+    .ocr-table th, .ocr-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    .ocr-table th {
+      background: #fafafa;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .ocr-table td {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .ocr-status-banner {
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .ocr-status-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #15803d;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ocr-actions-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 1.4rem;
+    }
+
+    .btn-ocr-edit {
+      padding: 10px 18px;
+      background: white;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-ocr-save {
+      padding: 10px 22px;
+      background: var(--primary-dark);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(15,23,42,0.2);
+    }
+
+    /* BOTTOM NAV BAR */
+    .bottom-nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .btn-nav-back {
+      padding: 12px 24px;
+      background: white;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-nav-next {
+      padding: 13px 28px;
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+      transition: all 0.25s;
+    }
+
+    .btn-nav-next:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      background: white;
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <header class="top-navbar">
+    <a href="index.html" class="nav-brand-group">
+      <div class="brand-logo-box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 1 4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">SMK IT AL HAWARI</div>
+        <div class="brand-subtitle">Sistem Informasi PPDB</div>
+      </div>
+    </a>
+
+    <a href="profil.html" class="user-profile-pill">
+      <div class="user-avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      </div>
+      <span style="font-size:0.88rem; font-weight:700;">Calon Peserta Didik</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </a>
+  </header>
+
+  <!-- APP LAYOUT -->
+  <div class="app-layout">
+
+    <!-- SIDEBAR LEFT -->
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-section-title">Tahapan Pendaftaran</div>
+        
+        <div class="vertical-stepper">
+          <a href="biodata.html" class="v-step-item completed" style="text-decoration:none;">
+            <div class="v-step-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <span>1. Biodata / Pendaftaran</span>
+          </a>
+
+          <div class="v-step-item active">
+            <div class="v-step-circle">2</div>
+            <span>2. Unggah Dokumen &amp; OCR</span>
+          </div>
+
+          <div class="v-step-item">
+            <div class="v-step-circle">3</div>
+            <span>3. Verifikasi Data</span>
+          </div>
+
+          <div class="v-step-item">
+            <div class="v-step-circle">4</div>
+            <span>4. Selesai</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-info-box">
+        <strong>💡 Informasi:</strong><br>
+        Unggah dokumen yang diminta. Sistem AI Gemini akan mengekstrak data secara otomatis menggunakan OCR.
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">Dokumen yang Diperlukan</div>
+        <ul class="doc-required-list">
+          <li class="doc-required-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Kartu Keluarga (KK)
+          </li>
+          <li class="doc-required-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Akte Kelahiran
+          </li>
+          <li class="doc-required-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Ijazah / SKL
+          </li>
+          <li class="doc-required-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Rapor Semester Terakhir
+          </li>
+          <li class="doc-required-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Pas Foto 3x4
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- CENTER MAIN CONTENT -->
+    <main class="main-content">
+      
+      <!-- HEADER CARD -->
+      <div class="header-card">
+        <div class="header-icon-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        </div>
+        <div>
+          <h1>Unggah Dokumen &amp; OCR AI</h1>
+          <p>Unggah berkas dokumen Anda dan sistem akan mengekstrak data secara otomatis menggunakan Gemini AI OCR.</p>
+        </div>
+      </div>
+
+      <!-- SPLIT OCR GRID -->
+      <div class="split-ocr-grid">
+        
+        <!-- COL 1: UPLOAD DOKUMEN -->
+        <div class="ocr-card">
+          <div class="ocr-card-title">1. Unggah Dokumen</div>
+
+          <div style="margin-bottom:1.2rem;">
+            <label style="font-size:0.85rem; font-weight:700; display:block; margin-bottom:6px;">Pilih Jenis Dokumen</label>
+            <select class="custom-input" id="docTypeSelect" style="width:100%; padding:10px; border:1px solid var(--border-color); border-radius:8px;">
+              <option value="KK">Kartu Keluarga (KK)</option>
+              <option value="Akte">Akte Kelahiran</option>
+              <option value="Ijazah">Ijazah / SKL</option>
+              <option value="Rapor">Rapor Semester Terakhir</option>
+              <option value="Foto">Pas Foto 3x4</option>
+            </select>
+          </div>
+
+          <!-- DROP ZONE -->
+          <div class="drop-zone" id="dropZoneBox" onclick="document.getElementById('docFileInput').click()">
+            <div class="drop-zone-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            </div>
+            <div style="font-weight:700; font-size:0.95rem;">Seret &amp; lepas file di sini</div>
+            <div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">atau</div>
+            <button type="button" class="btn-choose-file">Pilih File</button>
+            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:10px;">Format: JPG, PNG, PDF | Maks. 5MB</div>
+            <input type="file" id="docFileInput" accept="image/*" style="display:none;">
+          </div>
+
+          <!-- FILE PREVIEW CARD -->
+          <div style="font-size:0.83rem; font-weight:700; margin-bottom:8px;">File yang Diunggah</div>
+          <div class="file-preview-card" id="filePreviewCard">
+            <div class="file-info-group">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              <div>
+                <div style="font-weight:700;" id="fileNameDisplay">KK_Contoh.jpg</div>
+                <div style="font-size:0.75rem; color:var(--text-muted);" id="fileSizeDisplay">1.2 MB</div>
+              </div>
+            </div>
+            <button class="btn-delete-file" onclick="clearUploadedFile()" title="Hapus berkas">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </div>
+
+          <!-- INFO HINT -->
+          <div style="background:#fafafa; border:1px solid var(--border-color); padding:10px 12px; border-radius:8px; font-size:0.78rem; color:var(--text-muted); display:flex; gap:8px; align-items:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12.01" y2="16"></line><line x1="12" y1="8" x2="12" y2="12"></line></svg>
+            Pastikan dokumen jelas dan tidak buram agar hasil OCR lebih akurat.
+          </div>
+        </div>
+
+        <!-- COL 2: HASIL EKSTRAKSI OCR -->
+        <div class="ocr-card">
+          <div class="ocr-card-title">
+            <span>2. Hasil Ekstraksi OCR</span>
+            <button class="btn-choose-file" style="padding:4px 12px; font-size:0.78rem; display:flex; align-items:center; gap:6px;" onclick="previewDocModal()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              Pratinjau Dokumen
+            </button>
+          </div>
+
+          <!-- SUCCESS BANNER -->
+          <div class="ocr-status-banner">
+            <div class="ocr-status-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <div style="font-weight:800; color:#15803d; font-size:0.9rem;">Ekstraksi Berhasil</div>
+              <div style="font-size:0.78rem; color:#166534;">Data berhasil diekstraksi dari dokumen menggunakan Gemini AI.</div>
+            </div>
+          </div>
+
+          <!-- TABLE EXTRACTED FIELDS -->
+          <table class="ocr-table">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Hasil Ekstraksi</th>
+              </tr>
+            </thead>
+            <tbody id="ocrTableBody">
+              <tr>
+                <td>Nomor Kartu Keluarga</td>
+                <td id="resNKK">3275081205190001</td>
+              </tr>
+              <tr>
+                <td>Nama Kepala Keluarga</td>
+                <td id="resKepala">SUTRISNO</td>
+              </tr>
+              <tr>
+                <td>Alamat</td>
+                <td id="resAlamat">Jl. Mawar No. 10, Garut</td>
+              </tr>
+              <tr>
+                <td>RT / RW</td>
+                <td id="resRTRW">002 / 004</td>
+              </tr>
+              <tr>
+                <td>Kelurahan</td>
+                <td id="resKel">Sukajaya</td>
+              </tr>
+              <tr>
+                <td>Kecamatan</td>
+                <td id="resKec">Tarogong Kidul</td>
+              </tr>
+              <tr>
+                <td>Kabupaten / Kota</td>
+                <td id="resKab">Garut</td>
+              </tr>
+              <tr>
+                <td>Provinsi</td>
+                <td id="resProv">Jawa Barat</td>
+              </tr>
+              <tr>
+                <td>Kode Pos</td>
+                <td id="resPos">44151</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="ocr-actions-row">
+            <button class="btn-ocr-edit" onclick="editOcrData()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+              Edit Data
+            </button>
+            <button class="btn-ocr-save" onclick="saveOcrData()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              Simpan Hasil OCR
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM NAV ROW -->
+      <div class="bottom-nav-row">
+        <a href="dashboard-siswa.html" class="btn-nav-back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Kembali
+        </a>
+
+        <a href="dashboard-siswa.html" class="btn-nav-next">
+          Lanjut ke Verifikasi Data
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- CUSTOM MODAL POPUP -->
+  <style>
+    .custom-modal-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
+      z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.25s ease;
+    }
+    .custom-modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .custom-modal-card {
+      background: white; border-radius: 20px; padding: 2rem; width: 90%; max-width: 440px;
+      text-align: center; transform: scale(0.9); transition: all 0.25s ease;
+    }
+    .custom-modal-overlay.active .custom-modal-card { transform: scale(1); }
+    .modal-icon-box { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; }
+    .modal-icon-box.info { background: #eff6ff; color: #2563eb; }
+    .modal-buttons-row { display: flex; gap: 10px; margin-top: 1.5rem; justify-content: center; }
+    .btn-modal { flex: 1; padding: 11px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer; border: none; }
+    .btn-modal-confirm { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; }
+  </style>
+
+  <div class="custom-modal-overlay" id="appModalOverlay">
+    <div class="custom-modal-card">
+      <div class="modal-icon-box info" id="appModalIconBox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12.01" y2="16"></line><line x1="12" y1="8" x2="12.01" y2="12"></line></svg>
+      </div>
+      <div style="font-family:'Outfit',sans-serif; font-size:1.2rem; font-weight:800; color:#0f172a; margin-bottom:0.4rem;" id="appModalTitle">Judul</div>
+      <div style="font-size:0.9rem; color:#64748b; line-height:1.6;" id="appModalMessage">Pesan...</div>
+      <div class="modal-buttons-row">
+        <button class="btn-modal btn-modal-confirm" id="appModalBtnConfirm">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 SMK IT AL Hawari. Semua hak dilindungi.
+  </footer>
+
+  <script type="module" src="submit-handler.js"></script>
+  <script>
+    function customAlert(title, message) {
+      document.getElementById('appModalTitle').textContent = title;
+      document.getElementById('appModalMessage').textContent = message;
+      document.getElementById('appModalOverlay').classList.add('active');
+    }
+    document.getElementById('appModalBtnConfirm').onclick = () => {
+      document.getElementById('appModalOverlay').classList.remove('active');
+    };
+
+    const docFileInput = document.getElementById("docFileInput");
+    docFileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        document.getElementById("fileNameDisplay").textContent = file.name;
+        document.getElementById("fileSizeDisplay").textContent = (file.size / (1024 * 1024)).toFixed(1) + " MB";
+        customAlert("Dokumen Diunggah", "Berkas " + file.name + " sedang diproses oleh AI OCR Gemini.");
+      }
+    });
+
+    function clearUploadedFile() {
+      document.getElementById("fileNameDisplay").textContent = "Belum ada berkas";
+      document.getElementById("fileSizeDisplay").textContent = "0 MB";
+      docFileInput.value = "";
+    }
+
+    function previewDocModal() {
+      customAlert("Pratinjau Dokumen", "Menampilkan berkas KK_Contoh.jpg dalam resolusi penuh.");
+    }
+
+    function editOcrData() {
+      const newNKK = prompt("Edit Nomor KK:", document.getElementById("resNKK").textContent);
+      if (newNKK) document.getElementById("resNKK").textContent = newNKK;
+    }
+
+    function saveOcrData() {
+      customAlert("Berhasil Disimpan", "Data ekstraksi OCR berhasil disimpan ke profil pendaftaran Anda!");
+    }
+  </script>
+</body>
+</html>

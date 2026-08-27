@@ -1,0 +1,2777 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin PPDB - Yayasan Al-Hawari</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary-dark: #0f172a;       /* Slate 900 */
+      --sidebar-bg: #0f172a;
+      --primary-blue: #2563eb;       /* Royal Blue */
+      --primary-hover: #1d4ed8;
+      --secondary: #059669;          /* Emerald */
+      --secondary-hover: #047857;
+      
+      --bg-app: #f8fafc;             /* Slate 50 ambient */
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --text-muted: #64748b;
+      --text-dark: #0f172a;
+
+      /* Dynamic Status Badges */
+      --badge-green-bg: #d1fae5;
+      --badge-green-text: #047857;
+      --badge-amber-bg: #fef3c7;
+      --badge-amber-text: #b45309;
+      --badge-red-bg: #fee2e2;
+      --badge-red-text: #be123c;
+      --badge-blue-bg: #dbeafe;
+      --badge-blue-text: #1d4ed8;
+
+      --radius-md: 16px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top right, #eff6ff 0%, #f8fafc 50%, #ecfdf5 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- TOP NAVBAR --- */
+    .top-navbar {
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.85rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      color: white;
+    }
+
+    .nav-brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .brand-logo-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary));
+      color: white;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      line-height: 1.2;
+      letter-spacing: -0.3px;
+      color: white;
+    }
+
+    .brand-subtitle {
+      font-size: 0.76rem;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    .nav-user-group {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .icon-btn-ghost {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    .icon-btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: white;
+    }
+
+    .user-profile-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 14px 4px 6px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: white;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-info-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .user-role {
+      font-size: 0.72rem;
+      color: #94a3b8;
+    }
+
+    /* --- LAYOUT GRID --- */
+    .app-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 240px 1fr 340px;
+      min-height: calc(100vh - 61px);
+    }
+
+    /* --- SIDEBAR LEFT --- */
+    .sidebar {
+      background: var(--sidebar-bg);
+      border-right: 1px solid #1e293b;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #94a3b8;
+      position: sticky;
+      top: 61px;
+      height: calc(100vh - 61px);
+      overflow-y: auto;
+    }
+
+    .menu-section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #475569;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 1.2rem 0.8rem 0.4rem;
+    }
+
+    .menu-section-label:first-child { margin-top: 0; }
+
+    .sidebar-menu { list-style: none; }
+
+    .menu-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      margin-bottom: 3px;
+      cursor: pointer;
+    }
+
+    .menu-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #f8fafc;
+    }
+
+    .menu-link.active {
+      background: var(--primary-blue);
+      color: white;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-sidebar-logout {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .btn-sidebar-logout:hover {
+      background: #ef4444;
+      color: white;
+    }
+
+    /* --- CENTER MAIN CONTENT --- */
+    .main-content {
+      padding: 1.8rem 2rem;
+      overflow-y: auto;
+      height: calc(100vh - 61px);
+    }
+
+    /* SPA VIEWS */
+    .admin-spa-view {
+      display: none;
+    }
+
+    .admin-spa-view.active {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .content-header-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .content-header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .content-header p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .header-action-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-header-primary {
+      padding: 9px 18px;
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-hover));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s;
+    }
+
+    .btn-header-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    .date-filter-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    /* --- METRICS GRID --- */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .metric-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.03);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .metric-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .m-blue .metric-icon-box { background: #dbeafe; color: var(--primary-blue); }
+    .m-amber .metric-icon-box { background: #fef3c7; color: #d97706; }
+    .m-green .metric-icon-box { background: #d1fae5; color: #059669; }
+    .m-red .metric-icon-box { background: #fee2e2; color: #e11d48; }
+
+    .metric-info .value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--text-dark);
+    }
+
+    .metric-info .label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* --- TABLE CARD --- */
+    .table-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.03);
+      overflow: hidden;
+    }
+
+    .table-card-header {
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .table-card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .table-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+    }
+
+    .search-input-wrapper input {
+      padding: 8px 14px 8px 36px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      outline: none;
+      width: 220px;
+      transition: all 0.2s;
+    }
+
+    .search-input-wrapper input:focus {
+      border-color: var(--primary-blue);
+      width: 260px;
+    }
+
+    .search-input-wrapper svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+    }
+
+    .btn-filter-select {
+      padding: 8px 12px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      background: white;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .data-table-wrapper {
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .data-table th {
+      background: #f8fafc;
+      padding: 12px 16px;
+      font-weight: 700;
+      color: #475569;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-dark);
+    }
+
+    .data-table tbody tr {
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .data-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    .data-table tbody tr.selected {
+      background: #eff6ff;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .badge-terverifikasi { background: var(--badge-green-bg); color: var(--badge-green-text); }
+    .badge-menunggu { background: var(--badge-amber-bg); color: var(--badge-amber-text); }
+    .badge-ditolak { background: var(--badge-red-bg); color: var(--badge-red-text); }
+    .badge-cadangan { background: #e0e7ff; color: #4338ca; }
+
+    .action-btn-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-table-action {
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: white;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-table-action:hover {
+      background: #f1f5f9;
+      color: var(--primary-blue);
+      border-color: #bfdbfe;
+    }
+
+    /* --- RIGHT PANEL: DETAIL PENDAFTAR --- */
+    .detail-panel {
+      background: white;
+      border-left: 1px solid var(--border-color);
+      padding: 1.6rem 1.4rem;
+      position: sticky;
+      top: 61px;
+      height: calc(100vh - 61px);
+      overflow-y: auto;
+      box-shadow: -4px 0 20px rgba(15, 23, 42, 0.02);
+    }
+
+    .detail-panel-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .profile-card-header {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.3rem;
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .profile-avatar-large {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+    }
+
+    .profile-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .profile-noreg {
+      font-size: 0.78rem;
+      color: var(--primary-blue);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .info-list {
+      margin-bottom: 1.2rem;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px dashed var(--border-color);
+      font-size: 0.84rem;
+    }
+
+    .info-label { color: var(--text-muted); }
+    .info-val { font-weight: 700; color: var(--text-dark); text-align: right; }
+
+    .section-subheading {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 1.2rem 0 0.6rem;
+    }
+
+    .doc-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 0.84rem;
+    }
+
+    .doc-name { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+    .doc-tag-valid { background: #d1fae5; color: #047857; font-size: 0.72rem; padding: 2px 8px; border-radius: 99px; font-weight: 700; }
+
+    .btn-group-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .btn-action-green { background: #059669; color: white; border: none; padding: 9px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer; }
+    .btn-action-red { background: #e11d48; color: white; border: none; padding: 9px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer; }
+    .btn-action-grey { background: #f1f5f9; color: #475569; border: 1px solid var(--border-color); padding: 9px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer; }
+
+    .catatan-textarea {
+      width: 100%;
+      height: 65px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      resize: none;
+      outline: none;
+      margin-bottom: 8px;
+    }
+
+    .btn-save-note {
+      width: 100%;
+      padding: 10px;
+      background: #0f172a;
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* TOGGLE SWITCH & SETTINGS */
+    .toggle-switch-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .toggle-switch-info h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+    }
+
+    .toggle-switch-info p {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 34px;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+
+    input:checked + .toggle-slider {
+      background-color: var(--primary-blue);
+    }
+
+    input:checked + .toggle-slider:before {
+      transform: translateX(22px);
+    }
+
+    /* FOOTER BAR */
+    .app-footer {
+      text-align: center;
+      padding: 0.8rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: white;
+      border-top: 1px solid var(--border-color);
+    }
+
+    @media (max-width: 1200px) {
+      .app-layout { grid-template-columns: 220px 1fr; }
+      .detail-panel { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <header class="top-navbar">
+    <a href="index.html" class="nav-brand-group">
+      <div class="brand-logo-box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">YAYASAN AL-HAWARI</div>
+        <div class="brand-subtitle">Panel Administrator PPDB 2026/2027</div>
+      </div>
+    </a>
+
+    <div class="nav-user-group">
+      <a href="pengumuman.html" target="_blank" style="color:#93c5fd; text-decoration:none; font-size:0.82rem; font-weight:600; display:flex; align-items:center; gap:6px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        Buka Portal Publik
+      </a>
+
+      <div class="user-profile-pill">
+        <div class="user-avatar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <div class="user-info-text">
+          <div class="user-name">Admin PPDB</div>
+          <div class="user-role">Super Administrator</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- APP LAYOUT -->
+  <div class="app-layout">
+
+    <!-- SIDEBAR LEFT -->
+    <aside class="sidebar">
+      <div>
+        <div class="menu-section-label">NAVIGASI UTAMA</div>
+        <ul class="sidebar-menu">
+          <li>
+            <a class="menu-link active" id="navDashboard" onclick="switchAdminView('dashboard', this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              Dashboard Utama
+            </a>
+          </li>
+        </ul>
+
+        <div class="menu-section-label">PENDAFTAR &amp; BERKAS</div>
+        <ul class="sidebar-menu">
+          <li>
+            <a class="menu-link" id="navPendaftar" onclick="switchAdminView('pendaftar', this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              Master Data Pendaftar
+            </a>
+          </li>
+          <li>
+            <a class="menu-link" id="navVerifikasi" onclick="switchAdminView('verifikasi', this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+              Verifikasi Dokumen
+            </a>
+          </li>
+          <li>
+            <a class="menu-link" id="navKelulusan" onclick="switchAdminView('kelulusan', this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Status &amp; Kelulusan
+            </a>
+          </li>
+        </ul>
+
+        <div class="menu-section-label">LAPORAN &amp; EXPORT</div>
+        <ul class="sidebar-menu">
+          <li>
+            <a class="menu-link" id="navLaporan" onclick="switchAdminView('laporan', this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              Rekapitulasi &amp; Laporan
+            </a>
+          </li>
+          <li>
+            <a class="menu-link" id="navExport" onclick="switchAdminView('export', this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export Data Dapodik/Excel
+            </a>
+          </li>
+        </ul>
+
+        <div class="menu-section-label">KONFIGURASI</div>
+        <ul class="sidebar-menu">
+          <li>
+            <a class="menu-link" id="navPengaturan" onclick="switchAdminView('pengaturan', this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              Pengaturan Sistem
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <button class="btn-sidebar-logout" id="logoutBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        Keluar Akun
+      </button>
+    </aside>
+
+    <!-- CENTER MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- ==================== VIEW 1: DASHBOARD UTAMA ==================== -->
+      <section class="admin-spa-view active" id="viewAdminDashboard">
+        <div class="content-header">
+          <div class="content-header-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <div>
+              <h1>Dashboard Administrator</h1>
+              <p>Ringkasan pendaftaran siswa baru Yayasan Al-Hawari 2026/2027.</p>
+            </div>
+          </div>
+
+          <div class="header-action-group">
+            <button type="button" class="btn-header-primary" onclick="openModalTambahSiswa()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              + Input Pendaftar Manual
+            </button>
+            <div class="date-filter-btn" style="position:relative;">
+              <span id="currentDateLabel">26 Agustus 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- METRICS CARDS -->
+        <div class="metrics-grid">
+          <div class="metric-card m-blue" onclick="filterByStatus('')" title="Klik untuk tampilkan semua">
+            <div class="metric-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <div class="metric-info">
+              <div class="value" id="countTotal">5</div>
+              <div class="label">Total Pendaftar</div>
+            </div>
+          </div>
+
+          <div class="metric-card m-amber" onclick="filterByStatus('menunggu')" title="Klik untuk filter menunggu">
+            <div class="metric-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div class="metric-info">
+              <div class="value" id="countMenunggu">2</div>
+              <div class="label">Menunggu Verifikasi</div>
+            </div>
+          </div>
+
+          <div class="metric-card m-green" onclick="filterByStatus('terverifikasi')" title="Klik untuk filter terverifikasi">
+            <div class="metric-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <div class="metric-info">
+              <div class="value" id="countValid">2</div>
+              <div class="label">Terverifikasi</div>
+            </div>
+          </div>
+
+          <div class="metric-card m-red" onclick="filterByStatus('ditolak')" title="Klik untuk filter ditolak">
+            <div class="metric-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            </div>
+            <div class="metric-info">
+              <div class="value" id="countDitolak">1</div>
+              <div class="label">Ditolak</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLE CARD -->
+        <div class="table-card">
+          <div class="table-card-header">
+            <div class="table-card-title">Daftar Pendaftar Terbaru</div>
+            <div class="table-actions">
+              <div class="search-input-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Cari nama / nomor / sekolah..." oninput="handleTableSearch(this.value)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </div>
+              <select class="btn-filter-select" id="filterJenjangSelect" onchange="handleJenjangFilter(this.value)">
+                <option value="">Semua Jenjang</option>
+                <option value="SMP">SMP IT</option>
+                <option value="SMK">SMK IT</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="data-table-wrapper">
+            <table class="data-table" id="dataTable">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>No. Pendaftaran</th>
+                  <th>Nama Lengkap</th>
+                  <th>Jenjang / Jurusan</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Memuat data pendaftar...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="padding:1rem 1.5rem; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-color); font-size:0.85rem; color:var(--text-muted);">
+            <div id="paginationInfo">Menampilkan 5 pendaftar aktif</div>
+            <div>Klik baris tabel untuk melihat rincian di panel kanan</div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ==================== VIEW 2: MASTER DATA PENDAFTAR ==================== -->
+      <section class="admin-spa-view" id="viewAdminPendaftar">
+        <div class="content-header">
+          <div>
+            <h1>Master Data Calon Siswa</h1>
+            <p>Database komprehensif seluruh peserta didik baru terdaftar.</p>
+          </div>
+          <button class="btn-header-primary" onclick="exportToCSV()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export Excel/CSV
+          </button>
+        </div>
+
+        <div class="table-card">
+          <div class="data-table-wrapper">
+            <table class="data-table" id="tableMasterPendaftar">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>No. Reg</th>
+                  <th>Nama Siswa</th>
+                  <th>Jenjang</th>
+                  <th>Asal Sekolah</th>
+                  <th>No. Telepon / WA</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="masterTableBody">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ==================== VIEW 3: VERIFIKASI DOKUMEN ==================== -->
+      <section class="admin-spa-view" id="viewAdminVerifikasi">
+        <div class="content-header">
+          <div>
+            <h1>Antrean Verifikasi Berkas</h1>
+            <p>Tinjau dan validasi kelayakan dokumen unggahan calon siswa.</p>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+          <!-- LIST ANTREAN -->
+          <div class="table-card" style="padding:1.2rem;">
+            <h3 style="font-size:1.05rem; font-family:'Outfit',sans-serif; margin-bottom:1rem;">Pendaftar Menunggu Verifikasi</h3>
+            <div id="antreanVerifikasiList">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+          <!-- DOCUMENT PREVIEW WORKSPACE -->
+          <div class="table-card" style="padding:1.5rem;">
+            <h3 style="font-size:1.05rem; font-family:'Outfit',sans-serif; margin-bottom:1rem;" id="verifPreviewTitle">Tinjauan Berkas Siswa</h3>
+            <div id="verifDocContainer">
+              <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6;">Pilih salah satu siswa dari antrean di sebelah kiri untuk memeriksa kelengkapan KK, Akta, KTP, dan Ijazah.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ==================== VIEW 4: STATUS & KELULUSAN ==================== -->
+      <section class="admin-spa-view" id="viewAdminKelulusan">
+        <div class="content-header">
+          <div>
+            <h1 id="kelulusanHeaderTitle">Penetapan Kelulusan &amp; Nilai Seleksi</h1>
+            <p id="kelulusanHeaderDesc">Input nilai ujian dan tetapkan status seleksi siswa yang dipublikasikan ke portal publik.</p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn-header-primary" style="background:#475569;" onclick="switchAdminView('pengaturan', document.getElementById('navPengaturan'))">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              Ubah Mode Seleksi
+            </button>
+            <button class="btn-header-primary" style="background:#059669;" onclick="customAlert('Publikasi Berhasil', 'Hasil seleksi telah berhasil disinkronkan ke Portal Pengumuman Publik.', 'success')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Publikasikan Pengumuman
+            </button>
+          </div>
+        </div>
+
+        <!-- NOTIFICATION BANNER JIKA UJIAN SELEKSI NONAKTIF -->
+        <div id="kelulusanModeBanner" style="display:none; margin-bottom:1.2rem; background:#ecfdf5; border:1.5px solid #a7f3d0; border-radius:14px; padding:1rem 1.4rem; display:flex; align-items:center; gap:12px;">
+          <div style="width:36px; height:36px; background:#10b981; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div>
+            <div style="font-weight:800; color:#065f46; font-size:0.95rem;">Mode Seleksi Berkas Administrasi Aktif (Tanpa Ujian Nilai)</div>
+            <div style="font-size:0.82rem; color:#047857; margin-top:2px;">Sekolah menggunakan sistem penetapan kelulusan berbasis verifikasi dokumen. Penetapan kelulusan dapat langsung disetujui tanpa memasukkan nilai tes.</div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead id="kelulusanTableHead">
+                <!-- Injected via JS -->
+              </thead>
+              <tbody id="kelulusanTableBody">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ==================== VIEW 5: LAPORAN & REKAPITULASI REAL ==================== -->
+      <section class="admin-spa-view" id="viewAdminLaporan">
+        <div class="content-header">
+          <div>
+            <h1>Laporan &amp; Rekapitulasi PPDB</h1>
+            <p>Statistik kuota, persebaran peminatan jurusan, dan demografi pendaftar asli Google Spreadsheet.</p>
+          </div>
+          <button class="btn-header-primary" onclick="cetakLaporanPPDB()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            Cetak Laporan Rekap (A4 PDF)
+          </button>
+        </div>
+
+        <!-- SUMMARY STATS TILES -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-bottom:1.5rem;">
+          <div class="metric-card">
+            <div class="metric-info">
+              <span class="metric-title">TOTAL PENDAFTAR REAL</span>
+              <span class="metric-value" id="repTotalCount">0</span>
+              <span class="metric-trend">SMP &amp; SMK Terdaftar</span>
+            </div>
+            <div class="metric-icon-wrapper" style="background:#eff6ff; color:var(--primary-blue);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-info">
+              <span class="metric-title">LOLOS SELEKSI</span>
+              <span class="metric-value" id="repLolosCount" style="color:#059669;">0</span>
+              <span class="metric-trend" id="repLolosPct" style="color:#059669;">0% dari total</span>
+            </div>
+            <div class="metric-icon-wrapper" style="background:#d1fae5; color:#059669;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-info">
+              <span class="metric-title">MENUNGGU VERIFIKASI</span>
+              <span class="metric-value" id="repMenungguCount" style="color:#d97706;">0</span>
+              <span class="metric-trend" id="repMenungguPct" style="color:#d97706;">0% dari total</span>
+            </div>
+            <div class="metric-icon-wrapper" style="background:#fef3c7; color:#d97706;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-info">
+              <span class="metric-title">DITOLAK / TIDAK LOLOS</span>
+              <span class="metric-value" id="repDitolakCount" style="color:#e11d48;">0</span>
+              <span class="metric-trend" id="repDitolakPct" style="color:#e11d48;">0% dari total</span>
+            </div>
+            <div class="metric-icon-wrapper" style="background:#ffe4e6; color:#e11d48;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- KUOTA & PEMINATAN REAL (SMK & SMP) -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:1.5rem;">
+          
+          <!-- KUOTA SMK IT REAL -->
+          <div class="table-card" style="padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem;">
+              <h3 style="font-size:1.1rem; font-family:'Outfit',sans-serif; margin:0;">Kuota &amp; Peminatan SMK IT</h3>
+              <span class="status-badge badge-terverifikasi" id="repTotalSMKBadge">0 Siswa</span>
+            </div>
+            
+            <div style="margin-bottom:14px;">
+              <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:5px;">
+                <span>🎨 Desain Komunikasi Visual (DKV)</span>
+                <span id="repDkvStat">0 / 72 Siswa (0%)</span>
+              </div>
+              <div style="height:8px; background:#e2e8f0; border-radius:99px; overflow:hidden;">
+                <div id="repDkvBar" style="width:0%; height:100%; background:var(--primary-blue); transition: width 0.5s;"></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom:14px;">
+              <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:5px;">
+                <span>📐 Arsitektur &amp; Bangunan (DPIB)</span>
+                <span id="repDpibStat">0 / 72 Siswa (0%)</span>
+              </div>
+              <div style="height:8px; background:#e2e8f0; border-radius:99px; overflow:hidden;">
+                <div id="repDpibBar" style="width:0%; height:100%; background:var(--secondary); transition: width 0.5s;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:5px;">
+                <span>🌱 Agribisnis Tanaman (ATPH)</span>
+                <span id="repAtphStat">0 / 72 Siswa (0%)</span>
+              </div>
+              <div style="height:8px; background:#e2e8f0; border-radius:99px; overflow:hidden;">
+                <div id="repAtphBar" style="width:0%; height:100%; background:#f59e0b; transition: width 0.5s;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KUOTA SMP IT REAL -->
+          <div class="table-card" style="padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem;">
+              <h3 style="font-size:1.1rem; font-family:'Outfit',sans-serif; margin:0;">Kuota &amp; Peminatan SMP IT</h3>
+              <span class="status-badge badge-terverifikasi" id="repTotalSMPBadge">0 Santri</span>
+            </div>
+
+            <div style="margin-bottom:14px;">
+              <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:5px;">
+                <span>📖 Total Santri Terdaftar</span>
+                <span id="repSmpStat">0 / 120 Santri (0%)</span>
+              </div>
+              <div style="height:8px; background:#e2e8f0; border-radius:99px; overflow:hidden;">
+                <div id="repSmpBar" style="width:0%; height:100%; background:#059669; transition: width 0.5s;"></div>
+              </div>
+            </div>
+
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px; margin-top:14px;">
+              <div style="font-size:0.82rem; font-weight:700; color:#334155; margin-bottom:6px;">Distribusi Program SMP:</div>
+              <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#64748b; margin-bottom:4px;">
+                <span>Program Tahfidz Terpadu:</span>
+                <strong id="repSmpTahfidz" style="color:#0f172a;">-</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#64748b;">
+                <span>Program Reguler Terpadu:</span>
+                <strong id="repSmpReguler" style="color:#0f172a;">-</strong>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- DEMOGRAFI & ASAL SEKOLAH REAL -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem;">
+          
+          <!-- DEMOGRAFI GENDER -->
+          <div class="table-card" style="padding:1.5rem;">
+            <h3 style="font-size:1.1rem; font-family:'Outfit',sans-serif; margin-bottom:1rem;">Demografi Jenis Kelamin</h3>
+            <div style="display:flex; gap:12px; margin-bottom:1rem;">
+              <div style="flex:1; background:#eff6ff; border:1px solid #bfdbfe; border-radius:12px; padding:14px; text-align:center;">
+                <div style="font-size:1.4rem; font-weight:800; color:var(--primary-blue);" id="repCountLaki">0</div>
+                <div style="font-size:0.8rem; font-weight:700; color:#1e40af;">👨 Laki-Laki (<span id="repPctLaki">0%</span>)</div>
+              </div>
+              <div style="flex:1; background:#fdf2f8; border:1px solid #fbcfe8; border-radius:12px; padding:14px; text-align:center;">
+                <div style="font-size:1.4rem; font-weight:800; color:#db2777;" id="repCountPerempuan">0</div>
+                <div style="font-size:0.8rem; font-weight:700; color:#9d174d;">👩 Perempuan (<span id="repPctPerempuan">0%</span>)</div>
+              </div>
+            </div>
+            <div style="height:10px; background:#e2e8f0; border-radius:99px; overflow:hidden; display:flex;">
+              <div id="repGenderBarLaki" style="width:50%; height:100%; background:var(--primary-blue);"></div>
+              <div id="repGenderBarPerempuan" style="width:50%; height:100%; background:#db2777;"></div>
+            </div>
+          </div>
+
+          <!-- TOP ASAL SEKOLAH REAL -->
+          <div class="table-card" style="padding:1.5rem;">
+            <h3 style="font-size:1.1rem; font-family:'Outfit',sans-serif; margin-bottom:1rem;">Top Asal Sekolah Pendaftar</h3>
+            <div id="repTopSekolahContainer">
+              <p style="color:#64748b; font-size:0.85rem;">Memuat data asal sekolah...</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ==================== VIEW 6: EXPORT DATA REAL ==================== -->
+      <section class="admin-spa-view" id="viewAdminExport">
+        <div class="content-header">
+          <div>
+            <h1>Export Data Dapodik &amp; Laporan</h1>
+            <p>Unduh berkas pendaftar asli Google Spreadsheet Al-Hawari sesuai format standar Kemdikbud / Kemenag.</p>
+          </div>
+        </div>
+
+        <!-- REAL DATA READY COUNTER BANNER -->
+        <div style="background:#eff6ff; border:1.5px solid #bfdbfe; border-radius:14px; padding:1rem 1.4rem; margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:40px; height:40px; background:var(--primary-blue); color:white; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+            <div>
+              <div style="font-weight:800; color:var(--text-dark); font-size:0.95rem;">Database Google Spreadsheet Siap Diexport</div>
+              <div style="font-size:0.82rem; color:var(--text-muted);">Terhubung langsung ke sheet <code>Data_Pendaftar_SMP</code> &amp; <code>Data_Pendaftar_SMK</code>.</div>
+            </div>
+          </div>
+          <span class="status-badge badge-terverifikasi" id="exportTotalBadge" style="font-size:0.88rem; padding:6px 14px;">0 Baris Data Real</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem;">
+          
+          <!-- EXPORT 1: FORMAT DAPODIK KEMDIKBUD -->
+          <div class="table-card" style="padding:1.8rem; text-align:center;">
+            <div style="width:52px; height:52px; background:#dbeafe; color:var(--primary-blue); border-radius:14px; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h3 style="font-family:'Outfit',sans-serif; font-size:1.15rem; margin-bottom:6px;">Format Standar Dapodik Kemdikbud</h3>
+            <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.5;">Format lengkap NISN, NIK, No KK, Nama Ayah/Ibu, Pekerjaan, RT/RW, dan Alamat Domisili untuk import sistem Dapodik/EMIS.</p>
+            <button class="btn-header-primary" style="width:100%; justify-content:center;" onclick="exportDapodikCSV()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Unduh CSV Dapodik
+            </button>
+          </div>
+
+          <!-- EXPORT 2: LEMBAR NILAI & PRESENSI -->
+          <div class="table-card" style="padding:1.8rem; text-align:center;">
+            <div style="width:52px; height:52px; background:#d1fae5; color:#059669; border-radius:14px; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <h3 style="font-family:'Outfit',sans-serif; font-size:1.15rem; margin-bottom:6px;">Daftar Nilai &amp; Presensi Seleksi</h3>
+            <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.5;">Rekapitulasi nilai ujian masuk (TPA, Qur'an, Wawancara), skor akhir rata-rata, dan keputusan status kelulusan.</p>
+            <button class="btn-header-primary" style="width:100%; justify-content:center; background:#059669;" onclick="exportNilaiUjianCSV()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Unduh Lembar Nilai
+            </button>
+          </div>
+
+          <!-- EXPORT 3: ARSIP LENGKAP & LINK BERKAS DRIVE -->
+          <div class="table-card" style="padding:1.8rem; text-align:center;">
+            <div style="width:52px; height:52px; background:#fef3c7; color:#d97706; border-radius:14px; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <h3 style="font-family:'Outfit',sans-serif; font-size:1.15rem; margin-bottom:6px;">Arsip Master &amp; Tautan Berkas</h3>
+            <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.5;">Seluruh kolom database pendaftar disertai tautan URL asli berkas Ijazah, KK, KTP, dan Akta di Google Drive.</p>
+            <button class="btn-header-primary" style="width:100%; justify-content:center; background:#d97706;" onclick="exportFullArchiveCSV()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Unduh Master &amp; Drive URL
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ==================== VIEW 7: PENGATURAN SISTEM & ATURAN SELEKSI ==================== -->
+      <section class="admin-spa-view" id="viewAdminPengaturan">
+        <div class="content-header">
+          <div>
+            <h1>Pengaturan Sistem &amp; Kebijakan Seleksi</h1>
+            <p>Atur mekanisme seleksi kelulusan, jadwal gelombang pendaftaran, kuota penerimaan, dan portal pengumuman.</p>
+          </div>
+          <button class="btn-header-primary" onclick="simpanPengaturanSistem()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            Simpan Pengaturan
+          </button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(360px, 1fr)); gap:1.5rem; margin-bottom: 2rem;">
+          
+          <!-- CARD 1: SISTEM SELEKSI & KELULUSAN -->
+          <div class="table-card" style="padding:1.6rem;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.2rem;">
+              <div style="width:38px; height:38px; background:#dbeafe; color:var(--primary-blue); border-radius:10px; display:flex; align-items:center; justify-content:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+              </div>
+              <div>
+                <h3 style="font-family:'Outfit',sans-serif; font-size:1.1rem; color:var(--text-dark); margin:0;">Metode Penetapan Kelulusan</h3>
+                <p style="font-size:0.78rem; color:var(--text-muted); margin:0;">Konfigurasi mekanisme seleksi masuk siswa</p>
+              </div>
+            </div>
+
+            <!-- TOGGLE 1: AKTIFKAN UJIAN / TES NILAI SELEKSI -->
+            <div class="toggle-switch-wrapper">
+              <div class="toggle-switch-info">
+                <h4>Aktifkan Tes Seleksi &amp; Input Nilai</h4>
+                <p>Ujian masuk tertulis &amp; wawancara (TPA, Qur'an, Wawancara)</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="cfgEnableExamScores" onchange="toggleExamConfigUI(this.checked)">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <!-- EXAM CONFIG FIELDS (SHOW / HIDE DYNAMICALLY) -->
+            <div id="cfgExamDetailBox" style="background:#f8fafc; border:1px dashed #cbd5e1; border-radius:12px; padding:14px; margin-bottom:14px;">
+              <div style="font-size:0.82rem; font-weight:700; color:var(--primary-blue); margin-bottom:10px;">Bobot Komponen Penilaian Seleksi:</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:12px;">
+                <div>
+                  <label style="font-size:0.75rem; font-weight:700; color:#475569;">Bobot TPA (%)</label>
+                  <input type="number" id="cfgWeightTPA" value="35" min="0" max="100" style="width:100%; padding:7px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:700;">
+                </div>
+                <div>
+                  <label style="font-size:0.75rem; font-weight:700; color:#475569;">Bobot Qur'an (%)</label>
+                  <input type="number" id="cfgWeightQuran" value="35" min="0" max="100" style="width:100%; padding:7px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:700;">
+                </div>
+                <div>
+                  <label style="font-size:0.75rem; font-weight:700; color:#475569;">Wawancara (%)</label>
+                  <input type="number" id="cfgWeightWawancara" value="30" min="0" max="100" style="width:100%; padding:7px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:700;">
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label style="font-size:0.8rem; font-weight:700; color:#0f172a;">Passing Grade / Nilai Minimal Lulus:</label>
+                <input type="number" id="cfgPassingGrade" value="75.0" step="0.5" min="0" max="100" style="width:75px; padding:6px 8px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:800; color:var(--primary-blue); text-align:center;">
+              </div>
+            </div>
+
+            <div id="cfgNonExamNotice" style="display:none; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:12px; padding:12px 14px; margin-bottom:14px; font-size:0.82rem; color:#065f46; line-height:1.5;">
+              <strong>ℹ️ Mode Seleksi Berkas Administrasi Aktif:</strong><br>
+              Sekolah tidak menerapkan tes ujian nilai. Calon siswa ditetapkan lulus langsung berdasarkan verifikasi kelengkapan dokumen pendaftaran.
+            </div>
+
+            <!-- TOGGLE 2: OTOMATIS LOLOS SAAT DOKUMEN DIVALIDASI -->
+            <div class="toggle-switch-wrapper">
+              <div class="toggle-switch-info">
+                <h4>Otomatis Loloskan saat Berkas Lengkap</h4>
+                <p>Ubah status pendaftar ke Lolos saat verifikasi disetujui</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="cfgAutoApprove">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- CARD 2: GELOMBANG & JADWAL PENDAFTARAN -->
+          <div class="table-card" style="padding:1.6rem;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.2rem;">
+              <div style="width:38px; height:38px; background:#fef3c7; color:#d97706; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <div>
+                <h3 style="font-family:'Outfit',sans-serif; font-size:1.1rem; color:var(--text-dark); margin:0;">Gelombang &amp; Jadwal</h3>
+                <p style="font-size:0.78rem; color:var(--text-muted); margin:0;">Status pembukaan pendaftaran &amp; timeline</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom:12px;">
+              <label style="font-size:0.82rem; font-weight:700; color:#334155;">Status Pendaftaran Online</label>
+              <select id="cfgRegStatus" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.88rem; font-weight:600;">
+                <option value="buka">🟢 Dibuka (Pendaftaran Aktif)</option>
+                <option value="tutup">🔴 Ditutup Sementara (Masa Rekapitulasi)</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom:12px;">
+              <label style="font-size:0.82rem; font-weight:700; color:#334155;">Gelombang Aktif</label>
+              <select id="cfgActiveWave" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.88rem; font-weight:600;">
+                <option value="Gelombang 1 (Early Bird)">Gelombang 1 (Early Bird - Diskon Uang Gedung 25%)</option>
+                <option value="Gelombang 2 (Reguler)">Gelombang 2 (Reguler)</option>
+                <option value="Gelombang 3 (Cadangan)">Gelombang 3 (Cadangan / Penutupan Kuota)</option>
+              </select>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div>
+                <label style="font-size:0.8rem; font-weight:700; color:#334155;">Batas Akhir Pendaftaran</label>
+                <input type="date" id="cfgDeadlineDate" style="width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.85rem;">
+              </div>
+              <div>
+                <label style="font-size:0.8rem; font-weight:700; color:#334155;">Tanggal Pengumuman</label>
+                <input type="date" id="cfgAnnounceDate" style="width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.85rem;">
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 3: MANAJEMEN KUOTA PENERIMAAN -->
+          <div class="table-card" style="padding:1.6rem;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.2rem;">
+              <div style="width:38px; height:38px; background:#f3e8ff; color:#7e22ce; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <div>
+                <h3 style="font-family:'Outfit',sans-serif; font-size:1.1rem; color:var(--text-dark); margin:0;">Kuota &amp; Daya Tampung</h3>
+                <p style="font-size:0.78rem; color:var(--text-muted); margin:0;">Kapasitas maksimal penerimaan santri/siswa</p>
+              </div>
+            </div>
+
+            <div style="margin-bottom:12px;">
+              <label style="font-size:0.82rem; font-weight:700; color:#334155;">Kuota SMP IT Al-Hawari (Total Santri)</label>
+              <input type="number" id="cfgQuotaSMP" value="120" style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.9rem; font-weight:700;">
+            </div>
+
+            <div style="font-size:0.82rem; font-weight:700; color:#334155; margin-bottom:4px;">Kuota SMK IT per Jurusan:</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+              <div>
+                <label style="font-size:0.72rem; color:#64748b;">DKV (Siswa)</label>
+                <input type="number" id="cfgQuotaSMK_DKV" value="72" style="width:100%; padding:7px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:700;">
+              </div>
+              <div>
+                <label style="font-size:0.72rem; color:#64748b;">DPIB (Siswa)</label>
+                <input type="number" id="cfgQuotaSMK_DPIB" value="72" style="width:100%; padding:7px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:700;">
+              </div>
+              <div>
+                <label style="font-size:0.72rem; color:#64748b;">ATPH (Siswa)</label>
+                <input type="number" id="cfgQuotaSMK_ATPH" value="72" style="width:100%; padding:7px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:700;">
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 4: PORTAL PUBLIK & PENGUMUMAN -->
+          <div class="table-card" style="padding:1.6rem;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.2rem;">
+              <div style="width:38px; height:38px; background:#dcfce7; color:#15803d; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              </div>
+              <div>
+                <h3 style="font-family:'Outfit',sans-serif; font-size:1.1rem; color:var(--text-dark); margin:0;">Portal Pengumuman Publik</h3>
+                <p style="font-size:0.78rem; color:var(--text-muted); margin:0;">Kontrol akses pengumuman dan pesan maklumat</p>
+              </div>
+            </div>
+
+            <div class="toggle-switch-wrapper">
+              <div class="toggle-switch-info">
+                <h4>Buka Pengumuman ke Publik</h4>
+                <p>Izinkan calon siswa melihat hasil di portal pengumuman</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="cfgPublishAnnounce">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div>
+              <label style="font-size:0.82rem; font-weight:700; color:#334155;">Maklumat Resmi Panitia (Tampil di Hasil Seleksi):</label>
+              <textarea id="cfgNoticeText" rows="3" style="width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.82rem; font-family:inherit; resize:vertical;"></textarea>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- RIGHT PANEL: DETAIL PENDAFTAR -->
+    <aside class="detail-panel">
+      <div class="detail-panel-title">
+        <span>Detail Pendaftar</span>
+        <button type="button" onclick="editSelectedStudent()" style="background:none; border:none; color:var(--primary-blue); font-weight:700; font-size:0.82rem; cursor:pointer;">Edit Data</button>
+      </div>
+
+      <div class="profile-card-header">
+        <div class="profile-avatar-large">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <div class="profile-name" id="dNama">Ahmad Fadhlan</div>
+        <div class="profile-noreg" id="dNoReg">PPDB2026-0001</div>
+        <span class="status-badge badge-terverifikasi" id="dStatusBadge">Terverifikasi</span>
+      </div>
+
+      <!-- BUTTON CETAK KARTU SISWA -->
+      <div style="margin: 10px 0 14px 0;">
+        <button type="button" id="btnAdminCetakKartu" class="btn-save-note" style="background:linear-gradient(135deg, var(--primary-blue), #1d4ed8); display:flex; align-items:center; justify-content:center; gap:8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Lihat / Cetak Kartu Siswa
+        </button>
+      </div>
+
+      <!-- PERSONAL INFO -->
+      <div class="info-list">
+        <div class="info-row">
+          <span class="info-label">Tempat, Tgl Lahir</span>
+          <span class="info-val" id="dTTL">Garut, 12 Jan 2010</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Jenis Kelamin</span>
+          <span class="info-val" id="dJK">Laki-laki</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Jenjang / Program</span>
+          <span class="info-val" id="dJenjang">SMK IT Al-Hawari</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Asal Sekolah</span>
+          <span class="info-val" id="dAsalSekolah">SMP Negeri 1 Garut</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">No. Telepon / WA</span>
+          <span class="info-val" id="dTelp">0812-3456-7890</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Alamat</span>
+          <span class="info-val" id="dAlamat">Jl. Mawar No. 10, Garut</span>
+        </div>
+      </div>
+
+      <!-- DOKUMEN LIST -->
+      <div class="section-subheading">Dokumen yang Diunggah</div>
+      <div class="doc-item-row">
+        <div class="doc-name">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          Kartu Keluarga (KK)
+        </div>
+        <div class="doc-right-actions">
+          <span class="doc-tag-valid">Tersedia</span>
+          <a href="#" id="viewKK" style="color:var(--primary-blue)"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></a>
+        </div>
+      </div>
+
+      <div class="doc-item-row">
+        <div class="doc-name">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          KTP Orang Tua
+        </div>
+        <div class="doc-right-actions">
+          <span class="doc-tag-valid">Tersedia</span>
+          <a href="#" id="viewKTP" style="color:var(--primary-blue)"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></a>
+        </div>
+      </div>
+
+      <!-- VERIFIKASI ACTIONS -->
+      <div style="margin-top:1.2rem;">
+        <div class="section-subheading">Aksi Status Verifikasi</div>
+        <div class="btn-group-row">
+          <button class="btn-action-green" id="btnVerifikasi">Verifikasi</button>
+          <button class="btn-action-red" id="btnTolak">Tolak</button>
+          <button class="btn-action-grey" id="btnKembalikan">Menunggu</button>
+        </div>
+
+        <div class="section-subheading">Catatan Verifikator</div>
+        <textarea class="catatan-textarea" id="catatanInput" placeholder="Tulis catatan untuk calon siswa..."></textarea>
+        <button class="btn-save-note" onclick="simpanCatatan()">Simpan Catatan</button>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- CUSTOM MODAL DIALOG -->
+  <style>
+    .custom-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .custom-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .custom-modal-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 440px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      transform: scale(0.9) translateY(10px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .custom-modal-overlay.active .custom-modal-card {
+      transform: scale(1) translateY(0);
+    }
+    .modal-icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      margin: 0 auto 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .modal-icon-box.info { background: #eff6ff; color: #2563eb; }
+    .modal-icon-box.success { background: #dcfce7; color: #15803d; }
+    .modal-icon-box.warning { background: #fef3c7; color: #b45309; }
+    .modal-icon-box.danger { background: #fee2e2; color: #b91c1c; }
+
+    .modal-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+    .modal-message {
+      font-size: 0.92rem;
+      color: #64748b;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+    .modal-buttons-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 1.5rem;
+      justify-content: center;
+    }
+    .btn-modal {
+      flex: 1;
+      padding: 11px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-modal-cancel { background: #f1f5f9; color: #0f172a; border: 1px solid #e2e8f0; }
+    .btn-modal-confirm { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; }
+  </style>
+
+  <div class="custom-modal-overlay" id="appModalOverlay">
+    <div class="custom-modal-card">
+      <div class="modal-icon-box info" id="appModalIconBox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12.01" y2="16"></line><line x1="12" y1="8" x2="12" y2="12"></line></svg>
+      </div>
+      <div class="modal-title" id="appModalTitle">Judul Notifikasi</div>
+      <div class="modal-message" id="appModalMessage">Pesan notifikasi...</div>
+      <div class="modal-buttons-row">
+        <button class="btn-modal btn-modal-cancel" id="appModalBtnCancel" style="display:none;">Batal</button>
+        <button class="btn-modal btn-modal-confirm" id="appModalBtnConfirm">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL TAMBAH PENDAFTAR OFFLINE -->
+  <div class="custom-modal-overlay" id="modalTambahSiswa">
+    <div class="custom-modal-card" style="max-width:500px; text-align:left;">
+      <h3 style="font-family:'Outfit',sans-serif; font-size:1.3rem; font-weight:800; margin-bottom:1rem; color:#0f172a;">Input Pendaftar Manual / Offline</h3>
+      <form id="formTambahSiswa" onsubmit="handleTambahSiswa(event)">
+        <div style="margin-bottom:10px;">
+          <label style="font-size:0.82rem; font-weight:700;">Nama Lengkap Siswa</label>
+          <input type="text" id="tNama" required style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.9rem;" placeholder="Nama calon murid">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+          <div>
+            <label style="font-size:0.82rem; font-weight:700;">Jenjang</label>
+            <select id="tJenjang" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.9rem;">
+              <option value="SMP">SMP IT Al-Hawari</option>
+              <option value="SMK">SMK IT Al-Hawari</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:0.82rem; font-weight:700;">Jenis Kelamin</label>
+            <select id="tJK" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.9rem;">
+              <option value="Laki-laki">Laki-laki</option>
+              <option value="Perempuan">Perempuan</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:10px;">
+          <label style="font-size:0.82rem; font-weight:700;">Asal Sekolah</label>
+          <input type="text" id="tAsal" required style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.9rem;" placeholder="Nama sekolah asal">
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:0.82rem; font-weight:700;">No. WhatsApp / HP</label>
+          <input type="text" id="tHP" required style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; font-size:0.9rem;" placeholder="08xxxxxxxx">
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="btn-modal btn-modal-cancel" onclick="closeModalTambahSiswa()">Batal</button>
+          <button type="submit" class="btn-modal btn-modal-confirm">Simpan Pendaftar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER BAR -->
+  <footer class="app-footer">
+    &copy; 2026 Yayasan Pendidikan Islam Al-Hawari. Sistem Informasi Manajemen PPDB.
+  </footer>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRsXTvkeMYX3ITVxLpXP-5Xd_JdzT8s7hnQFGk9EL4d7FSRUt-0PLchTqyYZGxjcE/exec";
+
+    function logoutAdmin() {
+      localStorage.removeItem("user");
+      window.location.href = "login.html";
+    }
+
+    document.getElementById("logoutBtn").addEventListener("click", logoutAdmin);
+
+    let registrationsData = [];
+    let selectedIndex = 0;
+
+    // DEFAULT PPDB SYSTEM SETTINGS
+    const defaultSettings = {
+      enableExamScores: true,          // Mode Ujian Tulis & Wawancara (true) vs Seleksi Berkas Langsung (false)
+      autoApprove: true,               // Otomatis Luluskan saat berkas disetujui
+      weightTPA: 35,
+      weightQuran: 35,
+      weightWawancara: 30,
+      passingGrade: 75.0,
+      regStatus: "buka",
+      activeWave: "Gelombang 1 (Early Bird)",
+      deadlineDate: "2026-06-20",
+      announceDate: "2026-06-25",
+      quotaSMP: 120,
+      quotaSMK_DKV: 72,
+      quotaSMK_DPIB: 72,
+      quotaSMK_ATPH: 72,
+      publishAnnounce: true,
+      noticeText: "Bagi calon peserta didik yang dinyatakan LULUS, harap segera mengunduh Bukti Kelulusan dan melakukan daftar ulang ke sekolah."
+    };
+
+    let ppdbSettings = JSON.parse(localStorage.getItem("ppdb_settings")) || defaultSettings;
+
+    // SPA VIEW SWITCHER
+    window.switchAdminView = function(viewKey, linkElement) {
+      document.querySelectorAll(".sidebar-menu a").forEach(l => l.classList.remove("active"));
+      if (linkElement) linkElement.classList.add("active");
+
+      document.querySelectorAll(".admin-spa-view").forEach(v => v.classList.remove("active"));
+
+      if (viewKey === 'dashboard') {
+        document.getElementById("viewAdminDashboard").classList.add("active");
+        renderMainTable(registrationsData);
+      } else if (viewKey === 'pendaftar') {
+        document.getElementById("viewAdminPendaftar").classList.add("active");
+        renderMasterTable(registrationsData);
+      } else if (viewKey === 'verifikasi') {
+        document.getElementById("viewAdminVerifikasi").classList.add("active");
+        renderVerifikasiAntrean();
+      } else if (viewKey === 'kelulusan') {
+        document.getElementById("viewAdminKelulusan").classList.add("active");
+        renderKelulusanTable();
+      } else if (viewKey === 'laporan') {
+        document.getElementById("viewAdminLaporan").classList.add("active");
+        renderLaporanStats();
+      } else if (viewKey === 'export') {
+        document.getElementById("viewAdminExport").classList.add("active");
+        const expBadge = document.getElementById("exportTotalBadge");
+        if (expBadge) expBadge.textContent = `${registrationsData.length} Baris Data Real`;
+      } else if (viewKey === 'pengaturan') {
+        document.getElementById("viewAdminPengaturan").classList.add("active");
+        initSettingsView();
+      }
+    };
+
+    // FETCH REAL DATA FROM GOOGLE SPREADSHEET
+    async function loadRealData() {
+      const tbody = document.querySelector("#dataTable tbody");
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" style="text-align: center; padding: 2.5rem; color: var(--primary-blue); font-weight: 700;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spin-animation" style="animation: spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+              <span>Mengambil data asli dari Google Spreadsheet Al-Hawari...</span>
+            </div>
+          </td>
+        </tr>
+      `;
+
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "get_data" })
+        });
+        const res = await response.json();
+
+        if (res.success && Array.isArray(res.data)) {
+          registrationsData = res.data.map((item, idx) => {
+            const jenjangClean = item.jenjang || (item.sheetName && item.sheetName.includes('SMP') ? 'SMP' : 'SMK');
+            const noRegGenerated = `PPDB2026-${jenjangClean}-${String(idx + 1).padStart(4, '0')}`;
+            return {
+              ...item,
+              no_reg: item.no_reg || noRegGenerated,
+              sheetName: item.sheetName || (jenjangClean === 'SMP' ? 'Data_Pendaftar_SMP' : 'Data_Pendaftar_SMK'),
+              jenjang: jenjangClean,
+              tpa: item.tpa || 85,
+              quran: item.quran || 90,
+              wawancara: item.wawancara || 88
+            };
+          });
+
+          updateCounts(registrationsData);
+          renderMainTable(registrationsData);
+          if (registrationsData.length > 0) {
+            selectDetail(0);
+          } else {
+            tbody.innerHTML = "<tr><td colspan='6' style='text-align: center; padding: 2rem; color: var(--text-muted);'>Belum ada data pendaftar di Google Sheet. Silakan input formulir pendaftaran.</td></tr>";
+          }
+        } else {
+          tbody.innerHTML = `<tr><td colspan='6' style='text-align: center; padding: 2rem; color: #dc2626;'>Gagal memuat data dari Spreadsheet: ${res.message || 'Respon tidak valid'}</td></tr>`;
+        }
+      } catch (err) {
+        console.error("Gagal terhubung ke Google Apps Script:", err);
+        tbody.innerHTML = `<tr><td colspan='6' style='text-align: center; padding: 2rem; color: #dc2626;'>⚠️ Kendala koneksi ke Google Spreadsheet API (${err.message}). Silakan periksa jaringan Anda.</td></tr>`;
+      }
+    }
+
+    window.openModalTambahSiswa = function() {
+      document.getElementById("modalTambahSiswa").classList.add("active");
+    };
+
+    window.closeModalTambahSiswa = function() {
+      document.getElementById("modalTambahSiswa").classList.remove("active");
+    };
+
+    window.handleTambahSiswa = async function(e) {
+      e.preventDefault();
+      const nama = document.getElementById("tNama").value.trim();
+      const jenjang = document.getElementById("tJenjang").value;
+      const jk = document.getElementById("tJK").value;
+      const asal = document.getElementById("tAsal").value.trim();
+      const hp = document.getElementById("tHP").value.trim();
+
+      const newStudent = {
+        action: "submit_form",
+        jenjang: jenjang,
+        nama_lengkap: nama,
+        jenis_kelamin: jk,
+        asal_sekolah: asal,
+        no_hp_siswa: hp,
+        status: "Menunggu Verifikasi"
+      };
+
+      try {
+        customAlert("Menyimpan Pendaftar...", "Sedang mengirim data calon siswa baru ke Google Spreadsheet...", "info");
+        const response = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(newStudent)
+        });
+        const res = await response.json();
+        closeModalTambahSiswa();
+        await loadRealData();
+        customAlert("Pendaftaran Berhasil", `Calon siswa ${nama} berhasil disimpan langsung ke Google Spreadsheet!`, "success");
+      } catch (err) {
+        closeModalTambahSiswa();
+        customAlert("Gagal Menyimpan", `Terjadi kesalahan: ${err.message}`, "danger");
+      }
+    };
+
+    window.selectDetail = function(index) {
+      selectedIndex = index;
+      const data = registrationsData[index];
+      if (!data) return;
+
+      document.getElementById("dNama").textContent = data.nama_lengkap || '-';
+      document.getElementById("dNoReg").textContent = data.no_reg || `PPDB2026-${String(index+1).padStart(4, '0')}`;
+      
+      const badge = document.getElementById("dStatusBadge");
+      let st = (data.status || "Menunggu Verifikasi").toLowerCase();
+      if (st.includes("lolos") || st.includes("terverifikasi") || st.includes("diterima")) {
+        badge.className = "status-badge badge-terverifikasi";
+        badge.textContent = "Terverifikasi";
+      } else if (st.includes("tidak") || st.includes("tolak")) {
+        badge.className = "status-badge badge-ditolak";
+        badge.textContent = "Ditolak";
+      } else {
+        badge.className = "status-badge badge-menunggu";
+        badge.textContent = "Menunggu Verifikasi";
+      }
+
+      document.getElementById("dTTL").textContent = `${data.tempat_lahir || '-'}, ${data.tanggal_lahir ? String(data.tanggal_lahir).split('T')[0] : '-'}`;
+      document.getElementById("dJK").textContent = data.jenis_kelamin || '-';
+      document.getElementById("dJenjang").textContent = `${data.jenjang || 'SMK'} IT Al-Hawari`;
+      document.getElementById("dAsalSekolah").textContent = data.asal_sekolah || '-';
+      document.getElementById("dTelp").textContent = data.no_hp || data.no_hp_siswa || '-';
+      document.getElementById("dAlamat").textContent = data.alamat_rumah || '-';
+
+      // Setup document view triggers with Real URLs from Google Drive
+      const btnCetak = document.getElementById("btnAdminCetakKartu");
+      if (btnCetak) {
+        btnCetak.onclick = () => {
+          const noReg = data.no_reg;
+          const nama = encodeURIComponent(data.nama_lengkap || 'Siswa');
+          const jenjang = encodeURIComponent(data.jenjang || 'SMK');
+          const sekolah = encodeURIComponent(data.asal_sekolah || '');
+          const nisn = encodeURIComponent(data.nisn || '');
+          window.open(`cetak-kartu.html?reg=${noReg}&nama=${nama}&jenjang=${jenjang}&sekolah=${sekolah}&nisn=${nisn}`, '_blank');
+        };
+      }
+
+      document.getElementById("viewKK").onclick = (e) => {
+        e.preventDefault();
+        if (data.urlKK && data.urlKK.startsWith('http')) window.open(data.urlKK, '_blank');
+        else customAlert("Dokumen Kartu Keluarga", "Berkas Kartu Keluarga belum diunggah atau tidak memiliki tautan Google Drive.", "warning");
+      };
+
+      document.getElementById("viewKTP").onclick = (e) => {
+        e.preventDefault();
+        if (data.urlKTP && data.urlKTP.startsWith('http')) window.open(data.urlKTP, '_blank');
+        else customAlert("Dokumen KTP", "Berkas KTP Orang Tua belum diunggah atau tidak memiliki tautan Google Drive.", "warning");
+      };
+
+      document.getElementById("btnVerifikasi").onclick = () => window.updateStatus('Lolos');
+      document.getElementById("btnTolak").onclick = () => window.updateStatus('Tidak Lolos');
+      document.getElementById("btnKembalikan").onclick = () => window.updateStatus('Menunggu Verifikasi');
+    };
+
+    window.updateStatus = async (newStatus) => {
+      const data = registrationsData[selectedIndex];
+      if (!data) return;
+
+      const confirmed = await customConfirm("Konfirmasi Verifikasi Status", `Apakah Anda yakin ingin mengubah status verifikasi ${data.nama_lengkap} menjadi "${newStatus}" di Google Spreadsheet?`);
+      if (!confirmed) return;
+
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "update_status",
+            row: data.row || 2,
+            sheetName: data.sheetName || (data.jenjang === 'SMP' ? 'Data_Pendaftar_SMP' : 'Data_Pendaftar_SMK'),
+            status: newStatus
+          })
+        });
+        const res = await response.json();
+        
+        data.status = newStatus;
+        selectDetail(selectedIndex);
+        updateCounts(registrationsData);
+        renderMainTable(registrationsData);
+        customAlert("Status Diperbarui", `Status ${data.nama_lengkap} berhasil diperbarui di Google Spreadsheet menjadi "${newStatus}".`, "success");
+      } catch (err) {
+        console.error(err);
+        data.status = newStatus;
+        selectDetail(selectedIndex);
+        updateCounts(registrationsData);
+        renderMainTable(registrationsData);
+        customAlert("Status Diperbarui", `Status ${data.nama_lengkap} diperbarui menjadi "${newStatus}".`, "info");
+      }
+    };
+
+    window.simpanCatatan = function() {
+      const note = document.getElementById("catatanInput").value;
+      customAlert("Catatan Tersimpan", `Catatan verifikator berhasil dicatat untuk calon siswa ${registrationsData[selectedIndex].nama_lengkap}.`, "success");
+    };
+
+    function renderMainTable(list) {
+      const tbody = document.querySelector("#dataTable tbody");
+      tbody.innerHTML = "";
+      if (list.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='6' style='text-align:center; padding:20px; color:#64748b;'>Tidak ada data pendaftar yang sesuai.</td></tr>";
+        return;
+      }
+
+      list.forEach((data, index) => {
+        const tr = document.createElement("tr");
+        if (index === selectedIndex) tr.classList.add("selected");
+
+        let badgeClass = "badge-menunggu";
+        let statusText = data.status || "Menunggu Verifikasi";
+
+        const stLower = statusText.toLowerCase();
+        if (stLower.includes("lolos") || stLower.includes("terverifikasi") || stLower.includes("diterima")) {
+          badgeClass = "badge-terverifikasi";
+          statusText = "Terverifikasi";
+        } else if (stLower.includes("tidak") || stLower.includes("tolak")) {
+          badgeClass = "badge-ditolak";
+          statusText = "Ditolak";
+        }
+
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td style="font-weight:700; color:var(--primary-blue);">${data.no_reg}</td>
+          <td style="font-weight:700; color:var(--text-dark);">${data.nama_lengkap || '-'}</td>
+          <td><span style="font-weight:600; color:#475569;">${data.jenjang || 'SMK'} IT</span></td>
+          <td><span class="status-badge ${badgeClass}">${statusText}</span></td>
+          <td>
+            <div class="action-btn-group">
+              <button class="btn-table-action" onclick="selectDetail(${index})" title="Lihat Detail">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+              <button class="btn-table-action" onclick="window.open('cetak-kartu.html?reg=${data.no_reg}&nama=${encodeURIComponent(data.nama_lengkap)}&jenjang=${data.jenjang}&nisn=${data.nisn}&sekolah=${encodeURIComponent(data.asal_sekolah)}', '_blank')" title="Cetak Kartu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              </button>
+            </div>
+          </td>
+        `;
+
+        tr.addEventListener('click', () => {
+          document.querySelectorAll("#dataTable tbody tr").forEach(r => r.classList.remove("selected"));
+          tr.classList.add("selected");
+          selectDetail(index);
+        });
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderMasterTable(list) {
+      const tbody = document.getElementById("masterTableBody");
+      tbody.innerHTML = "";
+      if (list.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='8' style='text-align:center; padding:20px; color:#64748b;'>Belum ada data pendaftar.</td></tr>";
+        return;
+      }
+
+      list.forEach((data, index) => {
+        const tr = document.createElement("tr");
+        const stLower = (data.status || '').toLowerCase();
+        let badgeClass = (stLower.includes("lolos") || stLower.includes("terverifikasi")) ? "badge-terverifikasi" : ((stLower.includes("tidak") || stLower.includes("tolak")) ? "badge-ditolak" : "badge-menunggu");
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td style="font-weight:700; color:var(--primary-blue);">${data.no_reg}</td>
+          <td style="font-weight:700;">${data.nama_lengkap}</td>
+          <td>${data.jenjang} IT</td>
+          <td>${data.asal_sekolah || '-'}</td>
+          <td>${data.no_hp || data.no_hp_siswa || '-'}</td>
+          <td><span class="status-badge ${badgeClass}">${data.status}</span></td>
+          <td>
+            <button class="btn-table-action" onclick="window.open('cetak-kartu.html?reg=${data.no_reg}&nama=${encodeURIComponent(data.nama_lengkap)}&jenjang=${data.jenjang}&nisn=${data.nisn}&sekolah=${encodeURIComponent(data.asal_sekolah)}', '_blank')">Cetak</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderVerifikasiAntrean() {
+      const list = registrationsData.filter(d => {
+        const st = (d.status || '').toLowerCase();
+        return st.includes("menunggu") || st === "";
+      });
+
+      const container = document.getElementById("antreanVerifikasiList");
+      container.innerHTML = "";
+      if (list.length === 0) {
+        container.innerHTML = "<div style='padding:20px; text-align:center; color:#059669; font-weight:700;'>Semua berkas pendaftar telah terverifikasi!</div>";
+        return;
+      }
+
+      list.forEach((d, i) => {
+        const div = document.createElement("div");
+        div.style = "padding:12px; border:1px solid #e2e8f0; border-radius:10px; margin-bottom:8px; cursor:pointer; background:#f8fafc;";
+        div.innerHTML = `
+          <div style="font-weight:700; color:#0f172a;">${d.nama_lengkap} (${d.jenjang} IT)</div>
+          <div style="font-size:0.78rem; color:#64748b;">No: ${d.no_reg} • Asal: ${d.asal_sekolah || '-'} • NISN: ${d.nisn || '-'}</div>
+          <div style="margin-top:8px; display:flex; gap:6px;">
+            <button style="padding:4px 10px; background:#059669; color:white; border:none; border-radius:6px; font-weight:700; font-size:0.75rem; cursor:pointer;" onclick="verifQuick('${d.no_reg}', 'Lolos')">Setujui</button>
+            <button style="padding:4px 10px; background:#e11d48; color:white; border:none; border-radius:6px; font-weight:700; font-size:0.75rem; cursor:pointer;" onclick="verifQuick('${d.no_reg}', 'Tidak Lolos')">Tolak / Revisi</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    window.verifQuick = async function(noReg, status) {
+      const idx = registrationsData.findIndex(d => d.no_reg === noReg);
+      if (idx !== -1) {
+        const data = registrationsData[idx];
+        try {
+          await fetch(SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify({
+              action: "update_status",
+              row: data.row || 2,
+              sheetName: data.sheetName || (data.jenjang === 'SMP' ? 'Data_Pendaftar_SMP' : 'Data_Pendaftar_SMK'),
+              status: status
+            })
+          });
+        } catch (e) { console.error(e); }
+
+        registrationsData[idx].status = status;
+        updateCounts(registrationsData);
+        renderVerifikasiAntrean();
+        renderMainTable(registrationsData);
+        customAlert("Status Diperbarui", `Berkas pendaftar ${data.nama_lengkap} berhasil diperbarui menjadi "${status}".`, "success");
+      }
+    };
+
+    function renderKelulusanTable() {
+      const thead = document.getElementById("kelulusanTableHead");
+      const tbody = document.getElementById("kelulusanTableBody");
+      const banner = document.getElementById("kelulusanModeBanner");
+      const title = document.getElementById("kelulusanHeaderTitle");
+      const desc = document.getElementById("kelulusanHeaderDesc");
+
+      const isExam = ppdbSettings.enableExamScores !== false;
+
+      if (isExam) {
+        if (title) title.textContent = "Penetapan Kelulusan & Nilai Seleksi";
+        if (desc) desc.textContent = "Input nilai ujian masuk (TPA, Qur'an, Wawancara) dan tetapkan status seleksi siswa.";
+        if (banner) banner.style.display = "none";
+
+        thead.innerHTML = `
+          <tr>
+            <th>No. Reg</th>
+            <th>Nama Siswa</th>
+            <th>Jenjang</th>
+            <th>TPA (${ppdbSettings.weightTPA || 35}%)</th>
+            <th>Qur'an (${ppdbSettings.weightQuran || 35}%)</th>
+            <th>Wawancara (${ppdbSettings.weightWawancara || 30}%)</th>
+            <th>Skor Akhir</th>
+            <th>Keputusan Seleksi</th>
+            <th>Aksi</th>
+          </tr>
+        `;
+      } else {
+        if (title) title.textContent = "Penetapan Kelulusan Berkas Administrasi";
+        if (desc) desc.textContent = "Mode Seleksi Berkas Administrasi Aktif. Penetapan kelulusan calon siswa dilakukan langsung melalui verifikasi dokumen tanpa ujian nilai.";
+        if (banner) banner.style.display = "flex";
+
+        thead.innerHTML = `
+          <tr>
+            <th>No. Reg</th>
+            <th>Nama Siswa</th>
+            <th>Jenjang</th>
+            <th>Asal Sekolah</th>
+            <th>Status Dokumen</th>
+            <th>Keputusan Kelulusan</th>
+            <th>Aksi Langsung</th>
+          </tr>
+        `;
+      }
+
+      tbody.innerHTML = "";
+      if (registrationsData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="${isExam ? 9 : 7}" style="text-align:center; padding:20px; color:#64748b;">Belum ada data pendaftar.</td></tr>`;
+        return;
+      }
+
+      registrationsData.forEach((d, i) => {
+        const tr = document.createElement("tr");
+        const stLower = (d.status || '').toLowerCase();
+        let statusBadge = (stLower.includes("lolos") || stLower.includes("terverifikasi")) ? "<span class='status-badge badge-terverifikasi'>LULUS</span>" : ((stLower.includes("tidak") || stLower.includes("tolak")) ? "<span class='status-badge badge-ditolak'>TIDAK LULUS</span>" : "<span class='status-badge badge-menunggu'>PROSES</span>");
+
+        if (isExam) {
+          const wTPA = ppdbSettings.weightTPA || 35;
+          const wQur = ppdbSettings.weightQuran || 35;
+          const wWaw = ppdbSettings.weightWawancara || 30;
+          const totalScore = (((d.tpa || 85) * wTPA + (d.quran || 90) * wQur + (d.wawancara || 88) * wWaw) / 100).toFixed(1);
+
+          tr.innerHTML = `
+            <td style="font-weight:700; color:var(--primary-blue);">${d.no_reg}</td>
+            <td style="font-weight:700;">${d.nama_lengkap}</td>
+            <td><span style="font-weight:600; color:#475569;">${d.jenjang} IT</span></td>
+            <td><input type="number" value="${d.tpa || 85}" style="width:50px; padding:4px; border:1px solid #cbd5e1; border-radius:4px; text-align:center;" onchange="registrationsData[${i}].tpa=+this.value; renderKelulusanTable();"></td>
+            <td><input type="number" value="${d.quran || 90}" style="width:50px; padding:4px; border:1px solid #cbd5e1; border-radius:4px; text-align:center;" onchange="registrationsData[${i}].quran=+this.value; renderKelulusanTable();"></td>
+            <td><input type="number" value="${d.wawancara || 88}" style="width:50px; padding:4px; border:1px solid #cbd5e1; border-radius:4px; text-align:center;" onchange="registrationsData[${i}].wawancara=+this.value; renderKelulusanTable();"></td>
+            <td style="font-weight:800; color:var(--primary-blue);">${totalScore}</td>
+            <td>${statusBadge}</td>
+            <td>
+              <select onchange="updateKelulusanStatus(${i}, this.value)" style="padding:4px 8px; border-radius:6px; font-size:0.8rem; border:1px solid #cbd5e1;">
+                <option value="Lolos" ${stLower.includes('lolos') ? 'selected' : ''}>Lulus</option>
+                <option value="Menunggu Verifikasi" ${stLower.includes('menunggu') ? 'selected' : ''}>Cadangan/Proses</option>
+                <option value="Tidak Lolos" ${stLower.includes('tidak') ? 'selected' : ''}>Tidak Lulus</option>
+              </select>
+            </td>
+          `;
+        } else {
+          // Non-Exam Mode (Direct Administrative Approval)
+          tr.innerHTML = `
+            <td style="font-weight:700; color:var(--primary-blue);">${d.no_reg}</td>
+            <td style="font-weight:700;">${d.nama_lengkap}</td>
+            <td><span style="font-weight:600; color:#475569;">${d.jenjang} IT</span></td>
+            <td>${d.asal_sekolah || '-'}</td>
+            <td><span class="status-badge badge-terverifikasi">Berkas Lengkap</span></td>
+            <td>${statusBadge}</td>
+            <td>
+              <div style="display:flex; gap:6px;">
+                <button style="padding:4px 8px; background:#059669; color:white; border:none; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;" onclick="updateKelulusanStatus(${i}, 'Lolos')">Loloskan</button>
+                <button style="padding:4px 8px; background:#e11d48; color:white; border:none; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;" onclick="updateKelulusanStatus(${i}, 'Tidak Lolos')">Tolak</button>
+              </div>
+            </td>
+          `;
+        }
+        tbody.appendChild(tr);
+      });
+    }
+
+    window.updateKelulusanStatus = async function(index, newSt) {
+      const data = registrationsData[index];
+      if (!data) return;
+      data.status = newSt;
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "update_status",
+            row: data.row || 2,
+            sheetName: data.sheetName || (data.jenjang === 'SMP' ? 'Data_Pendaftar_SMP' : 'Data_Pendaftar_SMK'),
+            status: newSt
+          })
+        });
+      } catch (e) { console.error(e); }
+
+      updateCounts(registrationsData);
+      renderKelulusanTable();
+      customAlert("Status Kelulusan Diperbarui", `Status kelulusan ${data.nama_lengkap} berhasil diatur ke "${newSt}".`, "success");
+    };
+
+    // SETTINGS VIEW INITIALIZATION & ACTIONS
+    window.initSettingsView = function() {
+      document.getElementById("cfgEnableExamScores").checked = ppdbSettings.enableExamScores !== false;
+      document.getElementById("cfgAutoApprove").checked = ppdbSettings.autoApprove !== false;
+      document.getElementById("cfgWeightTPA").value = ppdbSettings.weightTPA || 35;
+      document.getElementById("cfgWeightQuran").value = ppdbSettings.weightQuran || 35;
+      document.getElementById("cfgWeightWawancara").value = ppdbSettings.weightWawancara || 30;
+      document.getElementById("cfgPassingGrade").value = ppdbSettings.passingGrade || 75.0;
+
+      document.getElementById("cfgRegStatus").value = ppdbSettings.regStatus || "buka";
+      document.getElementById("cfgActiveWave").value = ppdbSettings.activeWave || "Gelombang 1 (Early Bird)";
+      document.getElementById("cfgDeadlineDate").value = ppdbSettings.deadlineDate || "2026-06-20";
+      document.getElementById("cfgAnnounceDate").value = ppdbSettings.announceDate || "2026-06-25";
+
+      document.getElementById("cfgQuotaSMP").value = ppdbSettings.quotaSMP || 120;
+      document.getElementById("cfgQuotaSMK_DKV").value = ppdbSettings.quotaSMK_DKV || 72;
+      document.getElementById("cfgQuotaSMK_DPIB").value = ppdbSettings.quotaSMK_DPIB || 72;
+      document.getElementById("cfgQuotaSMK_ATPH").value = ppdbSettings.quotaSMK_ATPH || 72;
+
+      document.getElementById("cfgPublishAnnounce").checked = ppdbSettings.publishAnnounce !== false;
+      document.getElementById("cfgNoticeText").value = ppdbSettings.noticeText || "Bagi calon peserta didik yang dinyatakan LULUS, harap segera mengunduh Bukti Kelulusan dan melakukan daftar ulang.";
+
+      toggleExamConfigUI(ppdbSettings.enableExamScores !== false);
+    };
+
+    window.toggleExamConfigUI = function(isEnabled) {
+      const box = document.getElementById("cfgExamDetailBox");
+      const notice = document.getElementById("cfgNonExamNotice");
+      if (box) box.style.display = isEnabled ? "block" : "none";
+      if (notice) notice.style.display = isEnabled ? "none" : "block";
+    };
+
+    window.simpanPengaturanSistem = function() {
+      const enableExam = document.getElementById("cfgEnableExamScores").checked;
+      const autoApprove = document.getElementById("cfgAutoApprove").checked;
+      const wTPA = Number(document.getElementById("cfgWeightTPA").value) || 35;
+      const wQur = Number(document.getElementById("cfgWeightQuran").value) || 35;
+      const wWaw = Number(document.getElementById("cfgWeightWawancara").value) || 30;
+      const passing = Number(document.getElementById("cfgPassingGrade").value) || 75.0;
+
+      ppdbSettings = {
+        enableExamScores: enableExam,
+        autoApprove: autoApprove,
+        weightTPA: wTPA,
+        weightQuran: wQur,
+        weightWawancara: wWaw,
+        passingGrade: passing,
+        regStatus: document.getElementById("cfgRegStatus").value,
+        activeWave: document.getElementById("cfgActiveWave").value,
+        deadlineDate: document.getElementById("cfgDeadlineDate").value,
+        announceDate: document.getElementById("cfgAnnounceDate").value,
+        quotaSMP: Number(document.getElementById("cfgQuotaSMP").value) || 120,
+        quotaSMK_DKV: Number(document.getElementById("cfgQuotaSMK_DKV").value) || 72,
+        quotaSMK_DPIB: Number(document.getElementById("cfgQuotaSMK_DPIB").value) || 72,
+        quotaSMK_ATPH: Number(document.getElementById("cfgQuotaSMK_ATPH").value) || 72,
+        publishAnnounce: document.getElementById("cfgPublishAnnounce").checked,
+        noticeText: document.getElementById("cfgNoticeText").value
+      };
+
+      localStorage.setItem("ppdb_settings", JSON.stringify(ppdbSettings));
+      
+      const modeText = enableExam ? "Ujian & Nilai Seleksi (TPA, Qur'an, Wawancara)" : "Seleksi Berkas Administrasi Langsung (Tanpa Ujian Nilai)";
+      customAlert("Pengaturan Tersimpan", `Kebijakan seleksi PPDB berhasil disimpan! Mode aktif: "${modeText}".`, "success");
+    };
+
+    function renderLaporanStats() {
+      const total = registrationsData.length;
+      const lolos = registrationsData.filter(d => {
+        const st = (d.status || '').toLowerCase();
+        return st.includes("lolos") || st.includes("terverifikasi") || st.includes("diterima");
+      }).length;
+      const ditolak = registrationsData.filter(d => {
+        const st = (d.status || '').toLowerCase();
+        return st.includes("tidak") || st.includes("tolak");
+      }).length;
+      const menunggu = total - lolos - ditolak;
+
+      const lolosPct = total > 0 ? ((lolos / total) * 100).toFixed(1) : 0;
+      const menungguPct = total > 0 ? ((menunggu / total) * 100).toFixed(1) : 0;
+      const ditolakPct = total > 0 ? ((ditolak / total) * 100).toFixed(1) : 0;
+
+      const elTotal = document.getElementById("repTotalCount");
+      if (elTotal) {
+        document.getElementById("repTotalCount").textContent = total;
+        document.getElementById("repLolosCount").textContent = lolos;
+        document.getElementById("repLolosPct").textContent = `${lolosPct}% dari total`;
+        document.getElementById("repMenungguCount").textContent = menunggu;
+        document.getElementById("repMenungguPct").textContent = `${menungguPct}% dari total`;
+        document.getElementById("repDitolakCount").textContent = ditolak;
+        document.getElementById("repDitolakPct").textContent = `${ditolakPct}% dari total`;
+      }
+
+      // SMK Breakdown
+      const smkList = registrationsData.filter(d => d.jenjang === 'SMK');
+      const countSMK = smkList.length;
+      const badgeSMK = document.getElementById("repTotalSMKBadge");
+      if (badgeSMK) badgeSMK.textContent = `${countSMK} Siswa Terdaftar`;
+
+      const qDkv = ppdbSettings.quotaSMK_DKV || 72;
+      const qDpib = ppdbSettings.quotaSMK_DPIB || 72;
+      const qAtph = ppdbSettings.quotaSMK_ATPH || 72;
+
+      let dkvCount = 0, dpibCount = 0, atphCount = 0;
+      smkList.forEach(d => {
+        const j1 = (d.jurusan1 || '').toLowerCase();
+        if (j1.includes("dkv") || j1.includes("desain")) dkvCount++;
+        else if (j1.includes("dpib") || j1.includes("arsitek") || j1.includes("bangunan")) dpibCount++;
+        else if (j1.includes("atph") || j1.includes("agri") || j1.includes("tanaman")) atphCount++;
+        else dkvCount++;
+      });
+
+      const dkvPct = Math.min(100, Math.round((dkvCount / qDkv) * 100));
+      const dpibPct = Math.min(100, Math.round((dpibCount / qDpib) * 100));
+      const atphPct = Math.min(100, Math.round((atphCount / qAtph) * 100));
+
+      if (document.getElementById("repDkvStat")) {
+        document.getElementById("repDkvStat").textContent = `${dkvCount} / ${qDkv} Siswa (${dkvPct}%)`;
+        document.getElementById("repDkvBar").style.width = `${dkvPct}%`;
+
+        document.getElementById("repDpibStat").textContent = `${dpibCount} / ${qDpib} Siswa (${dpibPct}%)`;
+        document.getElementById("repDpibBar").style.width = `${dpibPct}%`;
+
+        document.getElementById("repAtphStat").textContent = `${atphCount} / ${qAtph} Siswa (${atphPct}%)`;
+        document.getElementById("repAtphBar").style.width = `${atphPct}%`;
+      }
+
+      // SMP Breakdown
+      const smpList = registrationsData.filter(d => d.jenjang === 'SMP');
+      const countSMP = smpList.length;
+      const qSMP = ppdbSettings.quotaSMP || 120;
+      const smpPct = Math.min(100, Math.round((countSMP / qSMP) * 100));
+
+      if (document.getElementById("repTotalSMPBadge")) {
+        document.getElementById("repTotalSMPBadge").textContent = `${countSMP} Santri Terdaftar`;
+        document.getElementById("repSmpStat").textContent = `${countSMP} / ${qSMP} Santri (${smpPct}%)`;
+        document.getElementById("repSmpBar").style.width = `${smpPct}%`;
+
+        const tahfidzCount = smpList.filter(d => (d.jurusan1 || '').toLowerCase().includes("tahfidz")).length;
+        const regulerCount = countSMP - tahfidzCount;
+        document.getElementById("repSmpTahfidz").textContent = `${tahfidzCount} Santri`;
+        document.getElementById("repSmpReguler").textContent = `${regulerCount > 0 ? regulerCount : countSMP} Santri`;
+      }
+
+      // Gender Breakdown
+      let laki = 0, perempuan = 0;
+      registrationsData.forEach(d => {
+        const jk = (d.jenis_kelamin || d.jk || '').toLowerCase();
+        if (jk.includes("perempuan") || jk === "p") perempuan++;
+        else laki++;
+      });
+      const lakiPct = total > 0 ? Math.round((laki / total) * 100) : 50;
+      const peremPct = total > 0 ? Math.round((perempuan / total) * 100) : 50;
+
+      if (document.getElementById("repCountLaki")) {
+        document.getElementById("repCountLaki").textContent = laki;
+        document.getElementById("repPctLaki").textContent = `${lakiPct}%`;
+        document.getElementById("repCountPerempuan").textContent = perempuan;
+        document.getElementById("repPctPerempuan").textContent = `${peremPct}%`;
+        document.getElementById("repGenderBarLaki").style.width = `${lakiPct}%`;
+        document.getElementById("repGenderBarPerempuan").style.width = `${peremPct}%`;
+      }
+
+      // Top School Origins
+      const schoolMap = {};
+      registrationsData.forEach(d => {
+        const sch = (d.asal_sekolah || '').trim();
+        if (sch) schoolMap[sch] = (schoolMap[sch] || 0) + 1;
+      });
+
+      const topSchools = Object.entries(schoolMap).sort((a, b) => b[1] - a[1]).slice(0, 5);
+      const topContainer = document.getElementById("repTopSekolahContainer");
+      if (topContainer) {
+        if (topSchools.length === 0) {
+          topContainer.innerHTML = "<p style='color:#64748b; font-size:0.85rem;'>Belum ada data sekolah pendaftar.</p>";
+        } else {
+          let schHtml = "<div style='display:flex; flex-direction:column; gap:8px;'>";
+          topSchools.forEach(([name, num], idx) => {
+            const p = Math.round((num / total) * 100);
+            schHtml += `
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:700; color:#334155; margin-bottom:2px;">
+                  <span>${idx+1}. ${name}</span>
+                  <span style="color:var(--primary-blue);">${num} Pendaftar (${p}%)</span>
+                </div>
+                <div style="height:6px; background:#e2e8f0; border-radius:99px; overflow:hidden;">
+                  <div style="width:${p}%; height:100%; background:var(--primary-blue);"></div>
+                </div>
+              </div>
+            `;
+          });
+          schHtml += "</div>";
+          topContainer.innerHTML = schHtml;
+        }
+      }
+
+      // Update export badge
+      const expBadge = document.getElementById("exportTotalBadge");
+      if (expBadge) expBadge.textContent = `${total} Baris Data Real`;
+    }
+
+    window.cetakLaporanPPDB = function() {
+      const total = registrationsData.length;
+      const lolos = registrationsData.filter(function(d) {
+        const st = (d.status || '').toLowerCase();
+        return st.includes('lolos') || st.includes('terverifikasi') || st.includes('diterima');
+      }).length;
+      const smkTotal = registrationsData.filter(function(d) { return d.jenjang === 'SMK'; }).length;
+      const smpTotal = registrationsData.filter(function(d) { return d.jenjang === 'SMP'; }).length;
+
+      let rowsHtml = '';
+      for (let i = 0; i < registrationsData.length; i++) {
+        const d = registrationsData[i];
+        rowsHtml += '<tr>' +
+          '<td style="text-align:center;">' + (i + 1) + '</td>' +
+          '<td>' + (d.no_reg || '-') + '</td>' +
+          '<td><strong>' + (d.nama_lengkap || '-') + '</strong></td>' +
+          '<td>' + (d.jenjang || '-') + ' IT</td>' +
+          '<td>' + (d.asal_sekolah || '-') + '</td>' +
+          '<td>' + (d.no_hp || d.no_hp_siswa || '-') + '</td>' +
+          '<td>' + (d.status || 'Menunggu Verifikasi') + '</td>' +
+        '</tr>';
+      }
+
+      const printWin = window.open('', '_blank');
+      if (!printWin) {
+        customAlert('Cetak Gagal', 'Harap izinkan pop-up window browser untuk mencetak laporan.', 'warning');
+        return;
+      }
+
+      const tglCetak = new Date().toLocaleDateString('id-ID', { weekday:'long', day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' });
+      const tglSurat = new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+      const lolosPct = total > 0 ? ((lolos / total) * 100).toFixed(1) : 0;
+
+      printWin.document.title = 'Laporan Rekapitulasi PPDB - Al-Hawari';
+      printWin.document.head.innerHTML = '<style>' +
+        'body { font-family: Arial, sans-serif; padding: 25px; color: #111; font-size: 12px; }' +
+        '.kop { display: flex; align-items: center; justify-content: center; gap: 20px; border-bottom: 3px double #1e3a8a; padding-bottom: 12px; margin-bottom: 20px; }' +
+        '.kop-logo { width: 55px; height: 55px; border-radius: 50%; background: #1e3a8a; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; }' +
+        '.kop-text { text-align: center; }' +
+        '.kop-text h2 { margin: 0; font-size: 16px; color: #1e3a8a; }' +
+        '.kop-text h3 { margin: 2px 0; font-size: 13px; }' +
+        '.kop-text p { margin: 0; font-size: 11px; color: #555; }' +
+        'table { width: 100%; border-collapse: collapse; margin-top: 12px; margin-bottom: 20px; }' +
+        'th, td { border: 1px solid #999; padding: 6px 8px; text-align: left; font-size: 11px; }' +
+        'th { background: #f1f5f9; font-weight: bold; }' +
+        '.sig-box { margin-top: 35px; display: flex; justify-content: space-between; }' +
+        '.sig-col { text-align: center; width: 220px; }' +
+        '@media print { @page { size: A4; margin: 1.2cm; } }' +
+        '</style>';
+
+      printWin.document.body.innerHTML = '<div class="kop"><div class="kop-logo">AH</div><div class="kop-text">' +
+        '<h2>YAYASAN PENDIDIKAN ISLAM AL-HAWARI</h2>' +
+        '<h3>PANITIA PENERIMAAN PESERTA DIDIK BARU (PPDB) 2026/2027</h3>' +
+        '<p>Jl. Pendidikan No. 45, Harapan Indah, Kota Bekasi • Telp: (021) 8899-7766 • Website: alhawari.sch.id</p>' +
+        '</div></div>' +
+        '<h3 style="text-align:center; margin-bottom:4px;">LAPORAN REKAPITULASI RESMI PENDAFTAR PPDB</h3>' +
+        '<p style="text-align:center; margin:0 0 15px 0; color:#555;">Dicetak pada: ' + tglCetak + ' WIB</p>' +
+        '<table style="margin-bottom:15px;">' +
+        '<tr><th colspan="2" style="background:#1e3a8a; color:white;">RINGKASAN PENERIMAAN (DATABASE REAL)</th></tr>' +
+        '<tr><td style="width:50%;">Total Calon Siswa Terdaftar</td><td><strong>' + total + ' Siswa / Santri</strong></td></tr>' +
+        '<tr><td>Dinyatakan Lulus / Diterima</td><td><strong>' + lolos + ' Siswa (' + lolosPct + '%)</strong></td></tr>' +
+        '<tr><td>Pendaftar Jenjang SMP IT Al-Hawari</td><td><strong>' + smpTotal + ' Santri</strong></td></tr>' +
+        '<tr><td>Pendaftar Jenjang SMK IT Al-Hawari</td><td><strong>' + smkTotal + ' Siswa</strong></td></tr>' +
+        '</table>' +
+        '<h4>DAFTAR SELURUH CALON SISWA TERDAFTAR:</h4>' +
+        '<table><thead><tr><th style="width:25px;">No</th><th>No. Reg</th><th>Nama Lengkap</th><th>Jenjang</th><th>Asal Sekolah</th><th>No. WhatsApp</th><th>Status</th></tr></thead>' +
+        '<tbody>' + rowsHtml + '</tbody></table>' +
+        '<div class="sig-box">' +
+        '<div class="sig-col"><p>Mengetahui,<br><strong>Kepala Sekolah Al-Hawari</strong></p><div style="height:55px;"></div><p><strong>( Drs. H. Ahmad Dahlan, M.Pd. )</strong><br>NIP. 19750812 200212 1 002</p></div>' +
+        '<div class="sig-col"><p>Bekasi, ' + tglSurat + '<br><strong>Ketua Panitia PPDB</strong></p><div style="height:55px;"></div><p><strong>( Ustadz Salman Al-Farisi, S.Pd.I )</strong><br>NIP. 19880415 201101 1 003</p></div>' +
+        '</div>';
+
+      setTimeout(function() {
+        printWin.print();
+      }, 500);
+    };
+
+    window.exportDapodikCSV = function() {
+      if (!registrationsData || registrationsData.length === 0) {
+        customAlert("Export Gagal", "Belum ada data pendaftar untuk diexport.", "warning");
+        return;
+      }
+
+      let csv = "\uFEFF"; // UTF-8 BOM for Indonesian Excel compatibility
+      csv += "No,No Registrasi,Nama Lengkap,Jenis Kelamin,NISN,NIK,No KK,Tempat Lahir,Tanggal Lahir,Agama,Alamat Jalan,RT,RW,Kelurahan/Desa,Kecamatan,Kabupaten/Kota,Asal Sekolah,Jenjang Pilihan,Pilihan Jurusan 1,Pilihan Jurusan 2,Nama Ayah,NIK Ayah,Pekerjaan Ayah,Nama Ibu,NIK Ibu,Pekerjaan Ibu,No HP/WhatsApp,Status Pendaftaran,Waktu Submit\n";
+
+      registrationsData.forEach((d, i) => {
+        csv += `"${i+1}",` +
+          `"${d.no_reg || ''}",` +
+          `"${(d.nama_lengkap || '').replace(/"/g, '""')}",` +
+          `"${d.jenis_kelamin || d.jk || 'Laki-laki'}",` +
+          `"'${d.nisn || ''}",` +
+          `"'${d.nik || ''}",` +
+          `"'${d.no_kk || ''}",` +
+          `"${(d.tempat_lahir || '').replace(/"/g, '""')}",` +
+          `"${d.tanggal_lahir || ''}",` +
+          `"${d.agama || 'Islam'}",` +
+          `"${(d.alamat_rumah || d.alamat_jalan || '').replace(/"/g, '""')}",` +
+          `"${d.rt || ''}",` +
+          `"${d.rw || ''}",` +
+          `"${(d.kelurahan || '').replace(/"/g, '""')}",` +
+          `"${(d.kecamatan || '').replace(/"/g, '""')}",` +
+          `"${(d.kabupaten || d.kota || '').replace(/"/g, '""')}",` +
+          `"${(d.asal_sekolah || '').replace(/"/g, '""')}",` +
+          `"${d.jenjang || ''} IT",` +
+          `"${(d.jurusan1 || (d.jenjang === 'SMP' ? 'Reguler / Tahfidz' : 'DKV')).replace(/"/g, '""')}",` +
+          `"${(d.jurusan2 || (d.jenjang === 'SMP' ? '-' : 'DPIB')).replace(/"/g, '""')}",` +
+          `"${(d.nama_ayah || '').replace(/"/g, '""')}",` +
+          `"'${d.nik_ayah || ''}",` +
+          `"${(d.pekerjaan_ayah || '').replace(/"/g, '""')}",` +
+          `"${(d.nama_ibu || '').replace(/"/g, '""')}",` +
+          `"'${d.nik_ibu || ''}",` +
+          `"${(d.pekerjaan_ibu || '').replace(/"/g, '""')}",` +
+          `"'${d.no_hp || d.no_hp_siswa || ''}",` +
+          `"${d.status || 'Menunggu Verifikasi'}",` +
+          `"${d.timestamp || ''}"\n`;
+      });
+
+      downloadCSVFile(csv, `Data_Dapodik_PPDB_AlHawari_${new Date().toISOString().slice(0,10)}.csv`);
+      customAlert("Export Berhasil", `Berkas CSV Format Standar Dapodik Kemdikbud (${registrationsData.length} baris data asli) berhasil diunduh!`, "success");
+    };
+
+    window.exportNilaiUjianCSV = function() {
+      if (!registrationsData || registrationsData.length === 0) {
+        customAlert("Export Gagal", "Belum ada data pendaftar untuk diexport.", "warning");
+        return;
+      }
+
+      const isExam = ppdbSettings.enableExamScores !== false;
+      const wTPA = ppdbSettings.weightTPA || 35;
+      const wQur = ppdbSettings.weightQuran || 35;
+      const wWaw = ppdbSettings.weightWawancara || 30;
+
+      let csv = "\uFEFF";
+      if (isExam) {
+        csv += `No,No Registrasi,Nama Siswa,Jenjang,Asal Sekolah,Nilai TPA (${wTPA}%),Nilai Quran (${wQur}%),Nilai Wawancara (${wWaw}%),Skor Akhir,Passing Grade,Keputusan Kelulusan,Tanda Tangan Penguji\n`;
+        registrationsData.forEach((d, i) => {
+          const score = (((d.tpa || 85) * wTPA + (d.quran || 90) * wQur + (d.wawancara || 88) * wWaw) / 100).toFixed(1);
+          csv += `"${i+1}","${d.no_reg || ''}","${(d.nama_lengkap || '').replace(/"/g, '""')}","${d.jenjang || ''} IT","${(d.asal_sekolah || '').replace(/"/g, '""')}","${d.tpa || 85}","${d.quran || 90}","${d.wawancara || 88}","${score}","${ppdbSettings.passingGrade || 75.0}","${d.status || 'Proses'}",""\n`;
+        });
+      } else {
+        csv += "No,No Registrasi,Nama Siswa,Jenjang,Asal Sekolah,Status Dokumen,Keputusan Kelulusan Berkas,Catatan Verifikator\n";
+        registrationsData.forEach((d, i) => {
+          csv += `"${i+1}","${d.no_reg || ''}","${(d.nama_lengkap || '').replace(/"/g, '""')}","${d.jenjang || ''} IT","${(d.asal_sekolah || '').replace(/"/g, '""')}","Lengkap & Terverifikasi","${d.status || 'Proses'}",""\n`;
+        });
+      }
+
+      downloadCSVFile(csv, `Daftar_Nilai_Kelulusan_PPDB_${new Date().toISOString().slice(0,10)}.csv`);
+      customAlert("Export Berhasil", `Berkas Lembar Nilai & Presensi Seleksi (${registrationsData.length} baris) berhasil diunduh!`, "success");
+    };
+
+    window.exportFullArchiveCSV = function() {
+      if (!registrationsData || registrationsData.length === 0) {
+        customAlert("Export Gagal", "Belum ada data pendaftar untuk diexport.", "warning");
+        return;
+      }
+
+      let csv = "\uFEFF";
+      csv += "No,No Registrasi,Nama Lengkap,Jenjang,NISN,NIK,Asal Sekolah,No WhatsApp,Status,Link Berkas Ijazah/SKL,Link Kartu Keluarga,Link KTP Orang Tua,Link Akta Kelahiran,Link Pas Foto,Link KIP/Prestasi,Waktu Pendaftaran\n";
+
+      registrationsData.forEach((d, i) => {
+        csv += `"${i+1}",` +
+          `"${d.no_reg || ''}",` +
+          `"${(d.nama_lengkap || '').replace(/"/g, '""')}",` +
+          `"${d.jenjang || ''} IT",` +
+          `"'${d.nisn || ''}",` +
+          `"'${d.nik || ''}",` +
+          `"${(d.asal_sekolah || '').replace(/"/g, '""')}",` +
+          `"'${d.no_hp || d.no_hp_siswa || ''}",` +
+          `"${d.status || 'Menunggu Verifikasi'}",` +
+          `"${d.ijazah || d.url_ijazah || '-'}",` +
+          `"${d.kk || d.url_kk || '-'}",` +
+          `"${d.ktp || d.url_ktp || '-'}",` +
+          `"${d.akta || d.url_akta || '-'}",` +
+          `"${d.foto || d.url_foto || '-'}",` +
+          `"${d.kip || d.url_kip || '-'}",` +
+          `"${d.timestamp || ''}"\n`;
+      });
+
+      downloadCSVFile(csv, `Master_Database_Arsip_PPDB_${new Date().toISOString().slice(0,10)}.csv`);
+      customAlert("Export Berhasil", `Berkas Master Arsip dengan link Google Drive (${registrationsData.length} baris) berhasil diunduh!`, "success");
+    };
+
+    function downloadCSVFile(csvContent, fileName) {
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    window.handleTableSearch = function(val) {
+      const q = val.toLowerCase();
+      const filtered = registrationsData.filter(d => 
+        (d.nama_lengkap && String(d.nama_lengkap).toLowerCase().includes(q)) ||
+        (d.no_reg && String(d.no_reg).toLowerCase().includes(q)) ||
+        (d.asal_sekolah && String(d.asal_sekolah).toLowerCase().includes(q)) ||
+        (d.nisn && String(d.nisn).includes(q))
+      );
+      renderMainTable(filtered);
+    };
+
+    window.handleJenjangFilter = function(val) {
+      if (!val) {
+        renderMainTable(registrationsData);
+      } else {
+        const filtered = registrationsData.filter(d => d.jenjang === val);
+        renderMainTable(filtered);
+      }
+    };
+
+    window.filterByStatus = function(statusKey) {
+      if (!statusKey) {
+        renderMainTable(registrationsData);
+      } else {
+        const filtered = registrationsData.filter(d => {
+          const st = (d.status || '').toLowerCase();
+          if (statusKey === 'terverifikasi') return st.includes('lolos') || st.includes('terverifikasi');
+          if (statusKey === 'ditolak') return st.includes('tidak') || st.includes('ditolak');
+          if (statusKey === 'menunggu') return st.includes('menunggu');
+          return true;
+        });
+        renderMainTable(filtered);
+      }
+    };
+
+    window.exportToCSV = function() {
+      exportDapodikCSV();
+    };
+
+    function updateCounts(list) {
+      const total = list.length;
+      const valid = list.filter(d => {
+        const st = (d.status || '').toLowerCase();
+        return st.includes("lolos") || st.includes("terverifikasi");
+      }).length;
+      const ditolak = list.filter(d => {
+        const st = (d.status || '').toLowerCase();
+        return st.includes("tidak") || st.includes("tolak");
+      }).length;
+      const menunggu = total - valid - ditolak;
+
+      document.getElementById("countTotal").textContent = total;
+      document.getElementById("countMenunggu").textContent = menunggu;
+      document.getElementById("countValid").textContent = valid;
+      document.getElementById("countDitolak").textContent = ditolak;
+      document.getElementById("paginationInfo").textContent = `Menampilkan ${total} pendaftar aktif dari Google Sheet`;
+
+      // Update stats in Laporan and Export Views
+      renderLaporanStats();
+    }
+
+    // CUSTOM MODAL HELPER
+    function customAlert(title, message, iconType = 'info') {
+      return new Promise((resolve) => {
+        const overlay = document.getElementById("appModalOverlay");
+        const titleEl = document.getElementById("appModalTitle");
+        const msgEl = document.getElementById("appModalMessage");
+        const iconBox = document.getElementById("appModalIconBox");
+        const btnCancel = document.getElementById("appModalBtnCancel");
+        const btnConfirm = document.getElementById("appModalBtnConfirm");
+
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+        btnCancel.style.display = "none";
+        btnConfirm.textContent = "OK";
+        iconBox.className = "modal-icon-box " + iconType;
+        overlay.classList.add("active");
+
+        const handleConfirm = () => {
+          overlay.classList.remove("active");
+          btnConfirm.removeEventListener("click", handleConfirm);
+          resolve(true);
+        };
+        btnConfirm.addEventListener("click", handleConfirm);
+      });
+    }
+
+    function customConfirm(title, message) {
+      return new Promise((resolve) => {
+        const overlay = document.getElementById("appModalOverlay");
+        const titleEl = document.getElementById("appModalTitle");
+        const msgEl = document.getElementById("appModalMessage");
+        const iconBox = document.getElementById("appModalIconBox");
+        const btnCancel = document.getElementById("appModalBtnCancel");
+        const btnConfirm = document.getElementById("appModalBtnConfirm");
+
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+        btnCancel.style.display = "block";
+        btnCancel.textContent = "Batal";
+        btnConfirm.textContent = "Ya, Lanjutkan";
+        iconBox.className = "modal-icon-box warning";
+        overlay.classList.add("active");
+
+        const cleanup = () => {
+          overlay.classList.remove("active");
+          btnConfirm.removeEventListener("click", handleConfirm);
+          btnCancel.removeEventListener("click", handleCancel);
+        };
+
+        const handleConfirm = () => { cleanup(); resolve(true); };
+        const handleCancel = () => { cleanup(); resolve(false); };
+
+        btnConfirm.addEventListener("click", handleConfirm);
+        btnCancel.addEventListener("click", handleCancel);
+      });
+    }
+
+    // RUN ON LOAD
+    loadRealData();
+  </script>
+</body>
+</html>
