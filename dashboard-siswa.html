@@ -1627,7 +1627,17 @@
             
             // Trigger OCR Autofill for KK and Akta
             if (m.id === "spaFileKK" || m.id === "spaFileAkte") {
-              runOcrAutofill(file, m.name);
+              let targetNik = null;
+              if (m.id === "spaFileKK") {
+                targetNik = window.prompt("Agar AI dapat mengekstrak data dengan tepat, mohon masukkan 16 digit NIK Calon Siswa yang tercetak di KK ini:", "");
+                if (!targetNik || targetNik.trim().length < 16) {
+                  customAlert("Dibatalkan", "NIK tidak valid atau kurang dari 16 digit. Pemindaian AI otomatis dibatalkan.", "warning");
+                  // Reset input agar bisa diklik lagi
+                  input.value = "";
+                  return;
+                }
+              }
+              runOcrAutofill(file, m.name, targetNik);
             }
           } catch (err) {
             console.error("Gagal membaca file:", err);
@@ -1637,7 +1647,7 @@
     }
 
     // FUNCTION TO RUN OCR AND AUTOFILL FORM FIELDS
-    async function runOcrAutofill(file, docType) {
+    async function runOcrAutofill(file, docType, targetNik = null) {
       const statusArea = document.getElementById("ocrStatusArea");
       const statusText = document.getElementById("ocrStatusText");
       const progressBar = document.getElementById("ocrProgressBar");
@@ -1735,7 +1745,8 @@
 
         let prompt = "";
         if (docType === "Kartu Keluarga") {
-          prompt = `Saya melampirkan foto dokumen Kartu Keluarga. Tolong cari anak/pendaftar dan ekstrak datanya dengan sangat presisi. 
+          const nikInfo = targetNik ? `Target data yang HARUS diekstrak adalah anggota keluarga yang memiliki NIK: ${targetNik}. Abaikan anggota keluarga lain.` : `Tolong cari anak/pendaftar dan ekstrak datanya dengan sangat presisi.`;
+          prompt = `Saya melampirkan foto dokumen Kartu Keluarga. ${nikInfo} 
 Wajib mengembalikan dalam format JSON seperti struktur berikut:
 {
   "no_kk": "16 digit no kk",
