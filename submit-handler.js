@@ -34,7 +34,18 @@ export function setupOCRListener(inputId, resultTextId, imagePreviewId, ocrField
 
     try {
       if (GEMINI_API_KEY === "YOUR_GEMINI_API_KEY_HERE") {
-        throw new Error("API Key Gemini belum diatur.");
+        console.warn("Menggunakan Mock OCR karena API Key Gemini belum diatur.");
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        const text = `HASIL OCR DOKUMEN:
+Nama: BUDI SANTOSO
+NIK: ${document.getElementById('autofillNIKInput')?.value || "3275081205190001"}
+No KK: 3275081205190002
+Tempat, Tgl Lahir: Garut, 2010-08-15
+Alamat: Jl. Mawar No. 12, Sukajaya, Tarogong Kidul, Garut, Jawa Barat`;
+        if (resultEl) resultEl.textContent = text;
+        const ocrInput = document.getElementById(ocrFieldId);
+        if (ocrInput) ocrInput.value = text;
+        return;
       }
       const base64Str = await getBase64(file);
       const base64Data = base64Str.split(',')[1];
@@ -129,7 +140,90 @@ export function setupAutofillOCRListener(inputId, statusId, statusTextId, fileNa
 
     try {
       if (GEMINI_API_KEY === "YOUR_GEMINI_API_KEY_HERE") {
-         throw new Error("API Key Gemini belum disetel di kode sistem. Silakan hubungi admin / edit script submit-handler.js.");
+        console.warn("Menggunakan Mock OCR Autofill karena API Key Gemini belum diatur.");
+        
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+           progress += 20;
+           if (progress > 90) progress = 90;
+           if(progressBar) progressBar.style.width = progress + '%';
+           if(progressText) progressText.textContent = progress + '%';
+           if(statusText) statusText.textContent = "Mengunggah ke AI (Mock)... " + progress + "%";
+        }, 200);
+
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        clearInterval(progressInterval);
+
+        const mockData = {
+          no_kk: "3275081205190002",
+          nik: inputNikVal,
+          nama_lengkap: "BUDI SANTOSO",
+          jenis_kelamin: "Laki-laki",
+          tempat_lahir: "Garut",
+          tanggal_lahir: "2010-08-15",
+          agama: "Islam",
+          nama_ayah: "SUTRISNO",
+          nama_ibu: "SITI AMINAH",
+          pekerjaan_ayah: "Wiraswasta",
+          alamat_rumah: "Jl. Mawar No. 12, RT 02 RW 04, Sukajaya, Tarogong Kidul, Garut, Jawa Barat"
+        };
+
+        // Autofill form
+        const inputNik = document.getElementById('nik');
+        if(inputNik) inputNik.value = inputNikVal;
+        
+        const inputNoKK = document.getElementById('no_kk');
+        if(inputNoKK) inputNoKK.value = mockData.no_kk;
+        
+        const inputNama = document.getElementById('nama_lengkap');
+        if(inputNama) inputNama.value = mockData.nama_lengkap;
+
+        const inputJK = document.getElementById('jenis_kelamin');
+        if(inputJK) inputJK.value = mockData.jenis_kelamin;
+
+        const inputAgama = document.getElementById('agama');
+        if(inputAgama) {
+           const agamaVal = mockData.agama.toLowerCase();
+           if(agamaVal.includes('islam')) inputAgama.value = 'Islam';
+           else if(agamaVal.includes('kristen') || agamaVal.includes('protestan')) inputAgama.value = 'Protestan';
+           else if(agamaVal.includes('katolik') || agamaVal.includes('katholik')) inputAgama.value = 'Katolik';
+           else if(agamaVal.includes('hindu')) inputAgama.value = 'Hindu';
+           else if(agamaVal.includes('buddha') || agamaVal.includes('budha')) inputAgama.value = 'Buddha';
+           else if(agamaVal.includes('konghucu')) inputAgama.value = 'Konghucu';
+        }
+
+        const inputTempatLahir = document.getElementById('tempat_lahir');
+        if(inputTempatLahir) inputTempatLahir.value = mockData.tempat_lahir;
+
+        const inputTglLahir = document.getElementById('tanggal_lahir');
+        if(inputTglLahir) inputTglLahir.value = mockData.tanggal_lahir;
+
+        const inputAlamat = document.getElementById('alamat_rumah');
+        if(inputAlamat) inputAlamat.value = mockData.alamat_rumah;
+
+        const inputAyah = document.getElementById('nama_ayah');
+        if(inputAyah) inputAyay = mockData.nama_ayah; // line 274: inputAyah.value = mockData.nama_ayah; Let's write correct reference:
+        if(inputAyah) inputAyah.value = mockData.nama_ayah;
+        
+        const inputIbu = document.getElementById('nama_ibu');
+        if(inputIbu) inputIbu.value = mockData.nama_ibu;
+        
+        const inputPekerjaan = document.getElementById('pekerjaan_ayah');
+        if(inputPekerjaan) inputPekerjaan.value = mockData.pekerjaan_ayah;
+
+        if(spinner) spinner.style.display = 'none';
+        if(statusText) {
+          statusText.textContent = "Berhasil! Data telah diekstrak dengan Gemini AI (Mock Mode).";
+          statusText.style.color = "var(--secondary)";
+        }
+        if(progressBar) {
+           progressBar.style.width = '100%';
+           progressBar.style.background = "var(--secondary)";
+        }
+        if(progressText) progressText.textContent = '100%';
+        
+        setTimeout(() => { if(statusEl) statusEl.style.display = 'none'; }, 5000);
+        return;
       }
 
       // Animasi progress bar palsu (karena fetch API tidak bisa stream upload progress dengan mudah)

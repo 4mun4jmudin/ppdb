@@ -210,8 +210,20 @@ function uploadToDrive(fileObj, prefixName) {
   }
 
   try {
-    var decodedBytes = Utilities.base64Decode(fileObj.base64);
-    var blob = Utilities.newBlob(decodedBytes, fileObj.mimeType, prefixName + '_' + fileObj.name);
+    var base64Data = fileObj.base64;
+    var contentType = fileObj.mimeType || '';
+    
+    // Deteksi jika input merupakan Base64 Data URL (berawalan 'data:')
+    if (base64Data.indexOf(',') !== -1) {
+      var splitBase = base64Data.split(',');
+      if (splitBase[0].indexOf(';') !== -1) {
+        contentType = splitBase[0].split(';')[0].split(':')[1];
+      }
+      base64Data = splitBase[1];
+    }
+
+    var decodedBytes = Utilities.base64Decode(base64Data);
+    var blob = Utilities.newBlob(decodedBytes, contentType, prefixName + '_' + fileObj.name);
     var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID);
     var file = folder.createFile(blob);
     file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);

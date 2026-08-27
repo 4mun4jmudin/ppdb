@@ -940,6 +940,24 @@
               <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Pindai foto Kartu Keluarga (KK) atau dokumen lainnya, sistem akan otomatis mengekstrak teks menggunakan Gemini AI.</p>
             </div>
           </div>
+          
+          <!-- OCR Status Progress -->
+          <div id="ocrStatusArea" style="display:none; margin-bottom:1.5rem; padding:12px 16px; border-radius:12px; border:1px solid #bfdbfe; background:#eff6ff;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="ocr-spinner" style="width:20px; height:20px; border:3px solid #2563eb; border-top-color:transparent; border-radius:50%; animation:ocr-spin 1s linear infinite;"></div>
+              <span id="ocrStatusText" style="font-size:0.88rem; font-weight:700; color:#1e40af;">Mengunggah berkas ke AI...</span>
+            </div>
+            <div style="margin-top:10px; height:6px; background:#e2e8f0; border-radius:3px; overflow:hidden;">
+              <div id="ocrProgressBar" style="width:0%; height:100%; background:linear-gradient(90deg, #2563eb, #3b82f6); border-radius:3px; transition:width 0.3s ease;"></div>
+            </div>
+            <style>
+              @keyframes ocr-spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+            </style>
+          </div>
+
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;">
             <!-- Upload KK -->
             <div style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;" onclick="document.getElementById('spaFileKK').click()">
@@ -1606,11 +1624,255 @@
               }
             }
             customAlert("Berkas Terpilih", `${m.name} (${file.name}) siap diunggah ke Google Drive saat Anda menyimpan formulir.`, "success");
+            
+            // Trigger OCR Autofill for KK and Akta
+            if (m.id === "spaFileKK" || m.id === "spaFileAkte") {
+              runOcrAutofill(file, m.name);
+            }
           } catch (err) {
             console.error("Gagal membaca file:", err);
           }
         });
       });
+    }
+
+    // FUNCTION TO RUN OCR AND AUTOFILL FORM FIELDS
+    async function runOcrAutofill(file, docType) {
+      const statusArea = document.getElementById("ocrStatusArea");
+      const statusText = document.getElementById("ocrStatusText");
+      const progressBar = document.getElementById("ocrProgressBar");
+      
+      if (!statusArea || !statusText || !progressBar) return;
+      
+      // Pastikan form dalam mode edit (tidak disabled)
+      const formFieldset = document.getElementById("formFieldset");
+      if (formFieldset && formFieldset.disabled) {
+        const btnUpdateData = document.getElementById("btnUpdateData");
+        if (btnUpdateData) {
+          btnUpdateData.click(); // Klik Update Data untuk mengaktifkan field
+        }
+      }
+
+      statusArea.style.display = "block";
+      statusText.textContent = `Membaca ${docType} menggunakan Gemini AI...`;
+      progressBar.style.width = "10%";
+
+      const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";
+
+      try {
+        if (GEMINI_API_KEY === "YOUR_GEMINI_API_KEY_HERE" || !GEMINI_API_KEY) {
+          // Demo / Mock Mode
+          console.warn("Gemini API Key belum disetel. Menjalankan Mock OCR.");
+          
+          let progress = 10;
+          const interval = setInterval(() => {
+            progress += 15;
+            if (progress > 90) {
+              progress = 90;
+              clearInterval(interval);
+            }
+            progressBar.style.width = `${progress}%`;
+            statusText.textContent = `Mengekstrak data dari ${docType} (Demo Mode)... ${progress}%`;
+          }, 200);
+
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          clearInterval(interval);
+
+          progressBar.style.width = "100%";
+          statusText.textContent = `Ekstraksi ${docType} berhasil! (Demo Mode)`;
+          
+          // Isi data pendaftaran secara otomatis
+          const form = document.getElementById("spaBiodataFormFull");
+          if (form) {
+            if (docType === "Kartu Keluarga") {
+              if (form.elements["no_kk"]) form.elements["no_kk"].value = "3204123456780001";
+              if (form.elements["nik"]) form.elements["nik"].value = "3204121508100003";
+              if (form.elements["nama"]) form.elements["nama"].value = "Fajar Ramadhan";
+              if (form.elements["jk"]) form.elements["jk"].value = "Laki-laki";
+              if (form.elements["agama"]) form.elements["agama"].value = "Islam";
+              if (form.elements["tempat"]) form.elements["tempat"].value = "Garut";
+              if (form.elements["tgl"]) form.elements["tgl"].value = "2010-08-15";
+              if (form.elements["alamat"]) form.elements["alamat"].value = "Jl. Raya Tarogong No. 45, RT 03 RW 01";
+              if (form.elements["rt"]) form.elements["rt"].value = "03";
+              if (form.elements["rw"]) form.elements["rw"].value = "01";
+              if (form.elements["desa"]) form.elements["desa"].value = "Tarogong";
+              if (form.elements["kec"]) form.elements["kec"].value = "Tarogong Kidul";
+              if (form.elements["kab"]) form.elements["kab"].value = "Garut";
+              if (form.elements["provinsi"]) form.elements["provinsi"].value = "Jawa Barat";
+              if (form.elements["kode_pos"]) form.elements["kode_pos"].value = "44151";
+              if (form.elements["ayah"]) form.elements["ayah"].value = "Eman Sulaeman";
+              if (form.elements["nik_ayah"]) form.elements["nik_ayah"].value = "3204120101750002";
+              if (form.elements["kerja_ayah"]) form.elements["kerja_ayah"].value = "Wiraswasta";
+              if (form.elements["ibu"]) form.elements["ibu"].value = "Siti Maryam";
+              if (form.elements["nik_ibu"]) form.elements["nik_ibu"].value = "3204121212800004";
+              if (form.elements["kerja_ibu"]) form.elements["kerja_ibu"].value = "Ibu Rumah Tangga";
+            } else if (docType === "Akta Kelahiran") {
+              if (form.elements["nama"]) form.elements["nama"].value = "Fajar Ramadhan";
+              if (form.elements["jk"]) form.elements["jk"].value = "Laki-laki";
+              if (form.elements["tempat"]) form.elements["tempat"].value = "Garut";
+              if (form.elements["tgl"]) form.elements["tgl"].value = "2010-08-15";
+              if (form.elements["ayah"]) form.elements["ayah"].value = "Eman Sulaeman";
+              if (form.elements["ibu"]) form.elements["ibu"].value = "Siti Maryam";
+            }
+          }
+
+          setTimeout(() => {
+            statusArea.style.display = "none";
+          }, 3000);
+
+          customAlert("AI Scanner Berhasil (Demo Mode)", `Sistem berhasil mensimulasikan ekstraksi data dari ${docType} ke formulir pendaftaran. Silakan periksa kolom formulir di bawah.`, "success");
+          return;
+        }
+
+        // Real Gemini OCR Mode
+        progressBar.style.width = "30%";
+        const fileObj = await readFileBase64(file);
+        const base64Data = fileObj.base64.split(',')[1];
+        const mimeType = file.type;
+
+        progressBar.style.width = "50%";
+        statusText.textContent = `Menghubungi AI Gemini untuk memindai ${docType}...`;
+
+        let prompt = "";
+        if (docType === "Kartu Keluarga") {
+          prompt = `Saya melampirkan foto dokumen Kartu Keluarga. Tolong cari anak/pendaftar dan ekstrak datanya dengan sangat presisi. 
+Wajib mengembalikan dalam format JSON seperti struktur berikut:
+{
+  "no_kk": "16 digit no kk",
+  "nik": "16 digit nik siswa",
+  "nama_lengkap": "Nama lengkap siswa",
+  "jenis_kelamin": "Laki-laki atau Perempuan",
+  "tempat_lahir": "Tempat lahir",
+  "tanggal_lahir": "YYYY-MM-DD",
+  "agama": "Islam/Kristen/Khatolik/Hindu/Buddha/Konghucu",
+  "alamat": "Alamat rumah",
+  "rt": "rt",
+  "rw": "rw",
+  "desa": "desa/kelurahan",
+  "kec": "kecamatan",
+  "kab": "kabupaten/kota",
+  "provinsi": "provinsi",
+  "kode_pos": "kode pos",
+  "nama_ayah": "Nama ayah kandung",
+  "nik_ayah": "NIK ayah",
+  "pekerjaan_ayah": "Pekerjaan ayah",
+  "nama_ibu": "Nama ibu kandung",
+  "nik_ibu": "NIK ibu",
+  "pekerjaan_ibu": "Pekerjaan ibu"
+}`;
+        } else {
+          prompt = `Saya melampirkan foto Akta Kelahiran. Tolong cari nama anak dan orang tua, lalu ekstrak datanya dengan sangat presisi.
+Wajib mengembalikan dalam format JSON seperti struktur berikut:
+{
+  "nama_lengkap": "Nama lengkap anak",
+  "jenis_kelamin": "Laki-laki atau Perempuan",
+  "tempat_lahir": "Tempat lahir",
+  "tanggal_lahir": "YYYY-MM-DD",
+  "nama_ayah": "Nama ayah kandung",
+  "nama_ibu": "Nama ibu kandung"
+}`;
+        }
+
+        let response;
+        let success = false;
+        const modelsToTry = ["gemini-3.7-flash", "gemini-flash-latest", "gemini-3.5-flash", "gemini-2.5-flash"];
+
+        for (const model of modelsToTry) {
+          try {
+            statusText.textContent = `Menghubungi model ${model}...`;
+            response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                contents: [{
+                  parts: [
+                    { text: prompt },
+                    { inline_data: { mime_type: mimeType, data: base64Data } }
+                  ]
+                }],
+                generationConfig: {
+                   temperature: 0.1, 
+                   response_mime_type: "application/json"
+                }
+              })
+            });
+            if (response.ok) {
+              success = true;
+              break;
+            }
+          } catch (e) {
+            console.error(`Error model ${model}:`, e);
+          }
+        }
+
+        if (!success) {
+          throw new Error("Gagal menghubungi semua model Gemini API. Periksa API Key atau kuota Anda.");
+        }
+
+        progressBar.style.width = "85%";
+        statusText.textContent = "Memproses respon AI...";
+        
+        const responseData = await response.json();
+        let resultText = responseData.candidates[0].content.parts[0].text;
+        resultText = resultText.replace(/```json/g, "").replace(/```/g, "").trim();
+        const ext = JSON.parse(resultText);
+
+        progressBar.style.width = "100%";
+        statusText.textContent = `Ekstraksi ${docType} berhasil!`;
+
+        // Populate fields
+        const form = document.getElementById("spaBiodataFormFull");
+        if (form) {
+          if (docType === "Kartu Keluarga") {
+            if (ext.no_kk && form.elements["no_kk"]) form.elements["no_kk"].value = ext.no_kk;
+            if (ext.nik && form.elements["nik"]) form.elements["nik"].value = ext.nik;
+            if (ext.nama_lengkap && form.elements["nama"]) form.elements["nama"].value = ext.nama_lengkap;
+            if (ext.jenis_kelamin && form.elements["jk"]) form.elements["jk"].value = ext.jenis_kelamin;
+            if (ext.agama && form.elements["agama"]) form.elements["agama"].value = ext.agama;
+            if (ext.tempat_lahir && form.elements["tempat"]) form.elements["tempat"].value = ext.tempat_lahir;
+            if (ext.tanggal_lahir && form.elements["tgl"]) form.elements["tgl"].value = ext.tanggal_lahir;
+            if (ext.alamat && form.elements["alamat"]) form.elements["alamat"].value = ext.alamat;
+            if (ext.rt && form.elements["rt"]) form.elements["rt"].value = ext.rt;
+            if (ext.rw && form.elements["rw"]) form.elements["rw"].value = ext.rw;
+            if (ext.desa && form.elements["desa"]) form.elements["desa"].value = ext.desa;
+            if (ext.kec && form.elements["kec"]) form.elements["kec"].value = ext.kec;
+            if (ext.kab && form.elements["kab"]) form.elements["kab"].value = ext.kab;
+            if (ext.provinsi && form.elements["provinsi"]) form.elements["provinsi"].value = ext.provinsi;
+            if (ext.kode_pos && form.elements["kode_pos"]) form.elements["kode_pos"].value = ext.kode_pos;
+            if (ext.nama_ayah && form.elements["ayah"]) form.elements["ayah"].value = ext.nama_ayah;
+            if (ext.nik_ayah && form.elements["nik_ayah"]) form.elements["nik_ayah"].value = ext.nik_ayah;
+            if (ext.pekerjaan_ayah && form.elements["kerja_ayah"]) form.elements["kerja_ayah"].value = ext.pekerjaan_ayah;
+            if (ext.nama_ibu && form.elements["ibu"]) form.elements["ibu"].value = ext.nama_ibu;
+            if (ext.nik_ibu && form.elements["nik_ibu"]) form.elements["nik_ibu"].value = ext.nik_ibu;
+            if (ext.pekerjaan_ibu && form.elements["kerja_ibu"]) form.elements["kerja_ibu"].value = ext.pekerjaan_ibu;
+          } else if (docType === "Akta Kelahiran") {
+            if (ext.nama_lengkap && form.elements["nama"]) form.elements["nama"].value = ext.nama_lengkap;
+            if (ext.jenis_kelamin && form.elements["jk"]) form.elements["jk"].value = ext.jenis_kelamin;
+            if (ext.tempat_lahir && form.elements["tempat"]) form.elements["tempat"].value = ext.tempat_lahir;
+            if (ext.tanggal_lahir && form.elements["tgl"]) form.elements["tgl"].value = ext.tanggal_lahir;
+            if (ext.nama_ayah && form.elements["ayah"]) form.elements["ayah"].value = ext.nama_ayah;
+            if (ext.nama_ibu && form.elements["ibu"]) form.elements["ibu"].value = ext.nama_ibu;
+          }
+        }
+
+        setTimeout(() => {
+          statusArea.style.display = "none";
+        }, 3000);
+
+        customAlert("AI Scanner Berhasil", `Sistem berhasil mengekstrak data dari ${docType} menggunakan Gemini AI. Silakan periksa kolom formulir.`, "success");
+
+      } catch (err) {
+        console.error(err);
+        statusText.textContent = `Gagal memproses berkas: ${err.message}`;
+        statusText.style.color = "red";
+        progressBar.style.background = "red";
+        customAlert("AI Scanner Gagal", `Gagal membaca ${docType}: ${err.message}`, "error");
+        setTimeout(() => {
+          statusArea.style.display = "none";
+          statusText.style.color = "#1e40af";
+          progressBar.style.background = "linear-gradient(90deg, #2563eb, #3b82f6)";
+        }, 5000);
+      }
     }
 
     // INITIALIZE DASHBOARD WITH REAL DATA
@@ -1838,25 +2100,65 @@
         agama: bio.agama || "Islam",
         anak_ke: bio.anak_ke || 1,
         jml_saudara: bio.jml_sdr_kandung || 0,
+        jml_kakak: bio.jml_sdr_tiri || 0,
+        jml_adik: bio.jml_sdr_angkat || 0,
         no_hp_siswa: bio.hp || "",
         email_siswa: currentUser.email || bio.email_siswa || "",
+        no_kps: bio.no_kps || "",
+        koordinat: bio.koordinat || "",
         alamat_rumah: bio.alamat || "",
         rt: bio.rt || "",
         rw: bio.rw || "",
+        dusun: bio.jalan || "",
         desa: bio.desa || "",
         kecamatan: bio.kec || "",
         kabupaten: bio.kab || "",
         provinsi: bio.provinsi || "",
+        kode_pos: bio.kode_pos || "",
+        jenis_tinggal: bio.tinggal_bersama || "Orang Tua",
+        transportasi: bio.transportasi || "Kendaraan Pribadi",
+        jarak_sekolah: bio.jarak_sekolah || "",
+        waktu_tempuh: bio.waktu_tempuh || "",
         asal_sekolah: bio.sekolah || "",
+        npsn_asal: bio.npsn || "",
         tahun_lulus: bio.tahun_lulus || "2026",
-        jurusan1: bio.jurusan1 || "",
-        jurusan2: bio.jurusan2 || "",
+        prestasi: bio.prestasi || "",
+        jurusan_1: bio.jurusan1 || "",
+        jurusan_2: bio.jurusan2 || "",
         nama_ayah: bio.ayah || "",
+        status_ayah: bio.status_ayah || "Masih Hidup",
+        tahun_meninggal_ayah: "",
         nik_ayah: bio.nik_ayah || "",
+        tahun_lahir_ayah: bio.tahun_lahir_ayah || "",
+        pendidikan_ayah: bio.pendidikan_ayah || "",
         pekerjaan_ayah: bio.kerja_ayah || "",
+        penghasilan_ayah: bio.penghasilan_ayah || "",
+        no_hp_ayah: bio.hp_ayah || "",
         nama_ibu: bio.ibu || "",
+        status_ibu: bio.status_ibu || "Masih Hidup",
+        tahun_meninggal_ibu: "",
         nik_ibu: bio.nik_ibu || "",
+        tahun_lahir_ibu: bio.tahun_lahir_ibu || "",
+        pendidikan_ibu: bio.pendidikan_ibu || "",
         pekerjaan_ibu: bio.kerja_ibu || "",
+        penghasilan_ibu: bio.penghasilan_ibu || "",
+        no_hp_ibu: bio.hp_ibu || "",
+        alamat_ortu_sama: "Ya",
+        alamat_ortu: "",
+        nama_wali: bio.wali || "",
+        nik_wali: "",
+        tahun_lahir_wali: "",
+        pendidikan_wali: "",
+        pekerjaan_wali: "",
+        penghasilan_wali: "",
+        no_hp_wali: "",
+        tinggi_badan: bio.tinggi || "",
+        berat_badan: bio.berat || "",
+        gol_darah: bio.gol_darah || "",
+        riwayat_penyakit: bio.penyakit || "",
+        yang_membiayai: bio.yang_membiayai || bio.alasan || "Orang Tua",
+        alasan_memilih: bio.alasan || "",
+        kebutuhan_khusus: bio.kebutuhan_khusus || "Tidak Ada",
         status: "Menunggu Verifikasi",
         fileIjazah: uploadedFiles.fileIjazah || null,
         fileKK: uploadedFiles.fileKK || null,

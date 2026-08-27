@@ -91,36 +91,84 @@ function handleLogin(payload) {
 function handleSubmitForm(payload) {
   var jenjang = payload.jenjang || "SMK";
   var sheetName = (jenjang === "SMP") ? "Data_Pendaftar_SMP" : "Data_Pendaftar_SMK";
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(sheetName);
   
-  if (!sheet) return { success: false, message: "Sheet '" + sheetName + "' tidak ditemukan" };
+  // Fallback jika nama sheet belum dipisah
+  if (!sheet) {
+    sheet = ss.getSheetByName("Data_Pendaftar") || ss.getActiveSheet();
+  }
 
   var timestamp = new Date();
   var folderId = (jenjang === "SMP") ? DRIVE_FOLDER_ID_SMP : DRIVE_FOLDER_ID_SMK;
 
+  function findExistingDriveFileUrl(targetFolderId, prefix) {
+    try {
+      var folder = DriveApp.getFolderById(targetFolderId);
+      var files = folder.getFiles();
+      while (files.hasNext()) {
+        var f = files.next();
+        var fName = f.getName();
+        if (fName.indexOf(prefix) === 0 || fName.indexOf(prefix.replace(/_/g, " ")) === 0) {
+          return f.getUrl();
+        }
+      }
+    } catch(e) {
+      Logger.log("Error find existing file (" + prefix + "): " + e.toString());
+    }
+    return "";
+  }
+
   function uploadFile(fileObj, prefix) {
     if (!fileObj || !fileObj.base64) return "";
     try {
-      var splitBase = fileObj.base64.split(',');
-      var contentType = splitBase[0].split(';')[0].split(':')[1];
-      var base64Data = splitBase[1];
+      var base64Str = fileObj.base64;
+      var contentType = fileObj.mimeType || "image/jpeg";
       
-      var blob = Utilities.newBlob(Utilities.base64Decode(base64Data), contentType, prefix + "_" + fileObj.name);
-      var folder = DriveApp.getFolderById(folderId);
+      // Jika format Base64 Data URL (data:image/jpeg;base64,....)
+      if (base64Str.indexOf(",") !== -1) {
+        var parts = base64Str.split(",");
+        var header = parts[0];
+        base64Str = parts[1];
+        if (header.indexOf(":") !== -1 && header.indexOf(";") !== -1) {
+          contentType = header.split(":")[1].split(";")[0];
+        }
+      }
+      
+      // Bersihkan whitespace
+      base64Str = base64Str.replace(/\s/g, '');
+      
+      var decoded = Utilities.base64Decode(base64Str);
+      var rawExt = (fileObj.name && fileObj.name.lastIndexOf(".") !== -1) ? fileObj.name.substring(fileObj.name.lastIndexOf(".")) : ".jpg";
+      var fileName = prefix + "_" + (fileObj.name || ("dokumen" + rawExt));
+      var blob = Utilities.newBlob(decoded, contentType, fileName);
+      
+      var targetFolderId = folderId || DRIVE_FOLDER_ID_SMK;
+      var folder = DriveApp.getFolderById(targetFolderId);
       var file = folder.createFile(blob);
-      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      
+      try {
+        file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      } catch(shareErr) {
+        Logger.log("Warning setSharing (" + prefix + "): " + shareErr.toString());
+      }
+      
       return file.getUrl();
-    } catch(e) { return ""; }
+    } catch(e) {
+      Logger.log("Error upload file (" + prefix + "): " + e.toString());
+      return "";
+    }
   }
 
-  // Upload Files
-  var urlIjazah = uploadFile(payload.fileIjazah, 'Ijazah_' + (payload.nisn || 'x'));
-  var urlKK     = uploadFile(payload.fileKK,     'KK_'     + (payload.nisn || 'x'));
-  var urlKTP    = uploadFile(payload.fileKTP,    'KTP_'    + (payload.nisn || 'x'));
-  var urlAkta   = uploadFile(payload.fileAkta,   'Akta_'   + (payload.nisn || 'x'));
-  var urlKIP    = uploadToDrive(payload.fileKIP, 'KIP_'    + (payload.nisn || 'x'));
-  var urlPhoto  = uploadFile(payload.filePhoto,  'Photo_'  + (payload.nisn || 'x'));
-  var urlSHUSM  = (jenjang === "SMP") ? uploadFile(payload.fileSHUSM, 'SHUSM_' + (payload.nisn || 'x')) : "";
+  // Upload Files ke Google Drive (mengembalikan link URL Drive)
+  var nisnClean = payload.nisn || payload.nik || payload.uid || "siswa";
+  var urlKK     = uploadFile(payload.fileKK,     "KK_"     + nisnClean) || findExistingDriveFileUrl(folderId, "KK_" + nisnClean);
+  var urlAkta   = uploadFile(payload.fileAkta,   "Akta_"   + nisnClean) || findExistingDriveFileUrl(folderId, "Akta_" + nisnClean);
+  var urlIjazah = uploadFile(payload.fileIjazah, "Ijazah_" + nisnClean) || findExistingDriveFileUrl(folderId, "Ijazah_" + nisnClean);
+  var urlPhoto  = uploadFile(payload.filePhoto,  "Photo_"  + nisnClean) || findExistingDriveFileUrl(folderId, "Photo_" + nisnClean);
+  var urlKIP    = uploadFile(payload.fileKIP || payload.fileLain, "KIP_" + nisnClean) || findExistingDriveFileUrl(folderId, "KIP_" + nisnClean);
+  var urlKTP    = uploadFile(payload.fileKTP,    "KTP_"    + nisnClean) || findExistingDriveFileUrl(folderId, "KTP_" + nisnClean);
+  var urlSHUSM  = (jenjang === "SMP") ? (uploadFile(payload.fileSHUSM, "SHUSM_" + nisnClean) || findExistingDriveFileUrl(folderId, "SHUSM_" + nisnClean)) : "";
 
   var rowData = [];
   
@@ -200,97 +248,93 @@ function handleSubmitForm(payload) {
       urlKIP                              // 72 (BT) URL KIP
     ];
   } else {
-    // Format SMK (74 Kolom)
+    // Format SMK (Sesuai Persis Header Sheet: A - BX)
     rowData = [
       timestamp,                          // 1  (A)  Waktu Submit
-      payload.jurusan_1,                  // 2  (B)
-      payload.jurusan_2,                  // 3  (C)
-      payload.asal_sekolah,               // 4  (D)
-      payload.npsn_asal,                  // 5  (E)
-      payload.tahun_lulus,                // 6  (F)
-      payload.prestasi,                   // 7  (G)
-      payload.nama_lengkap,               // 8  (H)
-      payload.jenis_kelamin,              // 9  (I)
-      payload.nisn,                       // 10 (J)
-      payload.nik,                        // 11 (K)
-      payload.no_kk,                      // 12 (L)
-      payload.tempat_lahir,               // 13 (M)
-      payload.tanggal_lahir,              // 14 (N)
-      payload.agama,                      // 15 (O)
-      payload.anak_ke,                    // 16 (P)
-      payload.jml_saudara,                // 17 (Q)
-      payload.jml_kakak,                  // 18 (R)
-      payload.jml_adik,                   // 19 (S)
-      payload.no_hp_siswa,                // 20 (T)
-      payload.email_siswa,                // 21 (U)
-      payload.no_kps,                     // 22 (V)
-      payload.koordinat,                  // 23 (W)
-      payload.alamat_rumah,               // 24 (X)
-      payload.rt,                         // 25 (Y)
-      payload.rw,                         // 26 (Z)
-      payload.dusun,                      // 27 (AA)
-      payload.desa,                       // 28 (AB)
-      payload.kecamatan,                  // 29 (AC)
-      payload.kabupaten,                  // 30 (AD)
-      payload.provinsi,                   // 31 (AE)
-      payload.kode_pos,                   // 32 (AF)
-      payload.jenis_tinggal,              // 33 (AG)
-      payload.transportasi,               // 34 (AH)
-      payload.jarak_sekolah,              // 35 (AI)
-      payload.waktu_tempuh,               // 36 (AJ)
-      payload.nama_ayah,                  // 37 (AK)
-      payload.status_ayah,                // 38 (AL)
-      payload.tahun_meninggal_ayah,       // 39 (AM)
-      payload.nik_ayah,                   // 40 (AN)
-      payload.tahun_lahir_ayah,           // 41 (AO)
-      payload.pendidikan_ayah,            // 42 (AP)
-      payload.pekerjaan_ayah,             // 43 (AQ)
-      payload.penghasilan_ayah,           // 44 (AR)
-      payload.no_hp_ayah,                 // 45 (AS)
-      payload.nama_ibu,                   // 46 (AT)
-      payload.status_ibu,                 // 47 (AU)
-      payload.tahun_meninggal_ibu,        // 48 (AV)
-      payload.nik_ibu,                    // 49 (AW)
-      payload.tahun_lahir_ibu,            // 50 (AX)
-      payload.pendidikan_ibu,             // 51 (AY)
-      payload.pekerjaan_ibu,              // 52 (AZ)
-      payload.penghasilan_ibu,            // 53 (BA)
-      payload.no_hp_ibu,                  // 54 (BB)
-      payload.alamat_ortu_sama,           // 55 (BC)
-      payload.alamat_ortu,                // 56 (BD)
-      payload.nama_wali,                  // 57 (BE)
-      payload.nik_wali,                   // 58 (BF)
-      payload.tahun_lahir_wali,           // 59 (BG)
-      payload.pendidikan_wali,            // 60 (BH)
-      payload.pekerjaan_wali,             // 61 (BI)
-      payload.penghasilan_wali,           // 62 (BJ)
-      payload.no_hp_wali,                 // 63 (BK)
-      payload.tinggi_badan,               // 64 (BL)
-      payload.berat_badan,                // 65 (BM)
-      payload.gol_darah,                  // 66 (BN)
-      payload.riwayat_penyakit,           // 67 (BO)
-      payload.alasan_memilih,             // 68 (BP)
-      urlIjazah,                          // 69 (BQ)
-      urlKK,                              // 70 (BR)
-      urlKTP,                             // 71 (BS)
-      urlAkta,                            // 72 (BT)
-      urlKIP,                             // 73 (BU)
-      urlPhoto                            // 74 (BV)
+      payload.jurusan_1 || payload.jurusan1 || "", // 2  (B) Pilihan Jurusan 1
+      payload.jurusan_2 || payload.jurusan2 || "", // 3  (C) Pilihan Jurusan 2
+      payload.asal_sekolah,               // 4  (D) Asal Sekolah
+      payload.npsn_asal || payload.npsn || "", // 5  (E) NPSN
+      payload.tahun_lulus,                // 6  (F) Tahun Lulus
+      payload.prestasi || "",             // 7  (G) Prestasi
+      payload.nama_lengkap,               // 8  (H) Nama Lengkap
+      payload.jenis_kelamin,              // 9  (I) Jenis Kelamin
+      payload.nisn,                       // 10 (J) NISN
+      payload.nik,                        // 11 (K) NIK Siswa
+      payload.no_kk,                      // 12 (L) No Kartu Keluarga
+      payload.tempat_lahir,               // 13 (M) Tempat Lahir
+      payload.tanggal_lahir,              // 14 (N) Tanggal Lahir
+      payload.agama,                      // 15 (O) Agama
+      payload.anak_ke,                    // 16 (P) Anak Ke-
+      payload.jml_saudara,                // 17 (Q) Jumlah Saudara
+      payload.jml_kakak || 0,             // 18 (R) Jumlah Kakak
+      payload.jml_adik || 0,              // 19 (S) Jumlah Adik
+      payload.no_hp_siswa,                // 20 (T) No HP Siswa
+      payload.email_siswa,                // 21 (U) Email Siswa
+      payload.no_kps || "",               // 22 (V) No KPS/KIP
+      payload.koordinat || "",            // 23 (W) Koordinat GPS
+      payload.alamat_rumah,               // 24 (X) Alamat Lengkap
+      payload.rt || "",                   // 25 (Y) RT
+      payload.rw || "",                   // 26 (Z) RW
+      payload.dusun || "",                // 27 (AA) Dusun / Kampung
+      payload.desa || "",                 // 28 (AB) Desa / Kelurahan
+      payload.kecamatan || "",            // 29 (AC) Kecamatan
+      payload.kabupaten || "",            // 30 (AD) Kabupaten / Kota
+      payload.provinsi || "",             // 31 (AE) Provinsi
+      payload.kode_pos || "",             // 32 (AF) Kode Pos
+      payload.jenis_tinggal || "Orang Tua", // 33 (AG) Jenis Tinggal
+      payload.transportasi || "Kendaraan Pribadi", // 34 (AH) Moda Transportasi
+      payload.jarak_sekolah || "",        // 35 (AI) Jarak ke Sekolah
+      payload.waktu_tempuh || "",         // 36 (AJ) Waktu Tempuh
+      payload.nama_ayah,                  // 37 (AK) Nama Ayah
+      payload.status_ayah || "Masih Hidup", // 38 (AL) Status Ayah
+      payload.tahun_meninggal_ayah || "", // 39 (AM) Thn Meninggal Ayah
+      payload.nik_ayah || "",             // 40 (AN) NIK Ayah
+      payload.tahun_lahir_ayah || "",     // 41 (AO) Thn Lahir Ayah
+      payload.pendidikan_ayah || "",      // 42 (AP) Pendidikan Ayah
+      payload.pekerjaan_ayah || "",       // 43 (AQ) Pekerjaan Ayah
+      payload.penghasilan_ayah || "",     // 44 (AR) Penghasilan Ayah
+      payload.no_hp_ayah || "",           // 45 (AS) No HP Ayah
+      payload.nama_ibu,                   // 46 (AT) Nama Ibu
+      payload.status_ibu || "Masih Hidup", // 47 (AU) Status Ibu
+      payload.tahun_meninggal_ibu || "",  // 48 (AV) Thn Meninggal Ibu
+      payload.nik_ibu || "",              // 49 (AW) NIK Ibu
+      payload.tahun_lahir_ibu || "",      // 50 (AX) Thn Lahir Ibu
+      payload.pendidikan_ibu || "",       // 51 (AY) Pendidikan Ibu
+      payload.pekerjaan_ibu || "",        // 52 (AZ) Pekerjaan Ibu
+      payload.penghasilan_ibu || "",      // 53 (BA) Penghasilan Ibu
+      payload.no_hp_ibu || "",            // 54 (BB) No HP Ibu
+      payload.alamat_ortu_sama || "Ya",   // 55 (BC) Alamat Ortu Sama?
+      payload.alamat_ortu || "",          // 56 (BD) Detail Alamat Ortu
+      payload.nama_wali || "",            // 57 (BE) Nama Wali
+      payload.nik_wali || "",             // 58 (BF) NIK Wali
+      payload.tahun_lahir_wali || "",     // 59 (BG) Thn Lahir Wali
+      payload.pendidikan_wali || "",      // 60 (BH) Pendidikan Wali
+      payload.pekerjaan_wali || "",       // 61 (BI) Pekerjaan Wali
+      payload.penghasilan_wali || "",     // 62 (BJ) Penghasilan Wali
+      payload.no_hp_wali || "",           // 63 (BK) No HP Wali
+      payload.tinggi_badan || "",         // 64 (BL) Tinggi Badan
+      payload.berat_badan || "",          // 65 (BM) Berat Badan
+      payload.gol_darah || "",            // 66 (BN) Golongan Darah
+      payload.riwayat_penyakit || "",     // 67 (BO) Riwayat Penyakit
+      payload.yang_membiayai || payload.alasan_memilih || "Orang Tua", // 68 (BP) Yang Membiayai Sekolah
+      payload.kebutuhan_khusus || "Tidak Ada", // 69 (BQ) Kebutuhan Khusus
+      urlKK,                              // 70 (BR) Upload KK (Google Drive Link)
+      urlAkta,                            // 71 (BS) Upload Akta Kelahiran (Google Drive Link)
+      urlIjazah,                          // 72 (BT) Upload Ijazah / SKL (Google Drive Link)
+      urlPhoto,                           // 73 (BU) Upload Pas Foto (Google Drive Link)
+      urlKIP                              // 74 (BV) Upload Dokumen Lain (Google Drive Link)
     ];
   }
 
-  // TAMBAHAN DATA UNTUK KELOLA (Ditambah di ujung kolom)
-  // Kolom ke +1 = UID Siswa
-  // Kolom ke +2 = Status Pendaftaran
-  // Kolom ke +3 = OCR KTP
-  // Kolom ke +4 = OCR KK
-  rowData.push(payload.uid); 
-  rowData.push("Menunggu Verifikasi"); 
-  rowData.push(payload.ocrKTP || "");
-  rowData.push(payload.ocrKK || "");
+  // TAMBAHAN DATA UNTUK KELOLA (Kolom BW, BX, BY, BZ)
+  rowData.push(payload.uid || "");        // 75 (BW) ID Pendaftaran
+  rowData.push(payload.status || "Menunggu Verifikasi"); // 76 (BX) Status Verifikasi
+  rowData.push(payload.ocrKTP || "");     // 77 (BY) OCR KTP
+  rowData.push(payload.ocrKK || "");      // 78 (BZ) OCR KK
 
   sheet.appendRow(rowData);
-  return { success: true, message: "Pendaftaran berhasil dikirim" };
+  return { success: true, message: "Pendaftaran berhasil dikirim", row: sheet.getLastRow() };
 }
 
 // --------------------------------------------------
@@ -308,12 +352,10 @@ function handleGetData(payload) {
     var data = sheetObj.getDataRange().getValues();
     for (var i = 1; i < data.length; i++) {
       var row = data[i];
-      // Index khusus Kelola berada di ujung row
-      // SMP ada 72 kolom (index 0 - 71), maka UID = 72, Status = 73, OCR KTP = 74, OCR KK = 75
-      // SMK ada 74 kolom (index 0 - 73), maka UID = 74, Status = 75, OCR KTP = 76, OCR KK = 77
+      if (!row[0] && !row[1] && !row[7]) continue; // Lewati baris kosong
       
-      var uidIdx = isSMP ? 72 : 74;
-      var statusIdx = isSMP ? 73 : 75;
+      var uidIdx = isSMP ? 72 : 74;      // 0-indexed (BW = index 74)
+      var statusIdx = isSMP ? 73 : 75;   // 0-indexed (BX = index 75)
       var ocrKTPIdx = isSMP ? 74 : 76;
       var ocrKKIdx = isSMP ? 75 : 77;
       
@@ -334,12 +376,14 @@ function handleGetData(payload) {
       var jurusan1 = isSMP ? "Reguler / Tahfidz" : row[1];
       var jurusan2 = isSMP ? "" : row[2];
 
-      var urlIjazah = isSMP ? row[65] : row[68];
-      var urlPhoto = isSMP ? row[67] : row[73];
+      // URLs dari Google Drive:
+      // SMK: BR(69) = KK, BS(70) = Akta, BT(71) = Ijazah, BU(72) = Photo, BV(73) = KIP
       var urlKK = isSMP ? row[68] : row[69];
-      var urlKTP = isSMP ? row[69] : row[70];
-      var urlAkta = isSMP ? row[70] : row[71];
-      var urlKIP = isSMP ? row[71] : row[72];
+      var urlAkta = isSMP ? row[70] : row[70];
+      var urlIjazah = isSMP ? row[65] : row[71];
+      var urlPhoto = isSMP ? row[67] : row[72];
+      var urlKIP = isSMP ? row[71] : row[73];
+      var urlKTP = isSMP ? row[69] : "";
 
       result.push({
         sheetName: sheetObj.getName(),
@@ -378,7 +422,6 @@ function handleGetData(payload) {
   extractData(sheetSMP, true);
   extractData(sheetSMK, false);
 
-  // Urutkan berdasarkan timestamp terbaru
   result.sort(function(a,b){ return new Date(b.timestamp) - new Date(a.timestamp); });
 
   return { success: true, data: result };
@@ -388,13 +431,14 @@ function handleGetData(payload) {
 // 5. UPDATE STATUS (Untuk Admin)
 // --------------------------------------------------
 function handleUpdateStatus(payload) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(payload.sheetName);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(payload.sheetName) || ss.getActiveSheet();
   var row = payload.row;
   var status = payload.status;
   
-  // Status kolom
-  var statusCol = (payload.sheetName === "Data_Pendaftar_SMP") ? 74 : 76; 
-  // Penjelasan: array 0-indexed, SMP ada 72 items, jd UID=73, Status=74 (1-indexed col)
+  // Status kolom (1-indexed)
+  var isSMP = (payload.sheetName === "Data_Pendaftar_SMP");
+  var statusCol = isSMP ? 74 : 76; // Kolom BX = 76
   
   sheet.getRange(row, statusCol).setValue(status);
   
@@ -413,8 +457,8 @@ function handleGetUserStatus(payload) {
     if (!sheet) continue;
 
     var isSMP = (sheets[s] === "Data_Pendaftar_SMP");
-    var uidIdx = isSMP ? 72 : 74;
-    var statusIdx = isSMP ? 73 : 75;
+    var uidIdx = isSMP ? 72 : 74;      // 0-indexed (BW = index 74)
+    var statusIdx = isSMP ? 73 : 75;   // 0-indexed (BX = index 75)
 
     var data = sheet.getDataRange().getValues();
     for (var i = 1; i < data.length; i++) {
@@ -430,12 +474,26 @@ function handleGetUserStatus(payload) {
 function uploadToDrive(fileObj, prefixName) {
   if (!fileObj || !fileObj.base64) return '';
   try {
-    var decodedBytes = Utilities.base64Decode(fileObj.base64);
-    var blob = Utilities.newBlob(decodedBytes, fileObj.mimeType, prefixName + '_' + fileObj.name);
+    var base64Data = fileObj.base64;
+    var contentType = fileObj.mimeType || '';
+    
+    // Deteksi jika input merupakan Base64 Data URL (berawalan 'data:')
+    if (base64Data.indexOf(',') !== -1) {
+      var splitBase = base64Data.split(',');
+      if (splitBase[0].indexOf(';') !== -1) {
+        contentType = splitBase[0].split(';')[0].split(':')[1];
+      }
+      base64Data = splitBase[1];
+    }
+    
+    var decodedBytes = Utilities.base64Decode(base64Data);
+    var blob = Utilities.newBlob(decodedBytes, contentType, prefixName + '_' + fileObj.name);
     // Asumsi fallback ke SMK jika tidak tau
     var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID_SMK);
     var file = folder.createFile(blob);
-    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    try {
+      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    } catch (e) {}
     return file.getUrl();
   } catch (err) {
     return 'ERROR_UPLOAD: ' + err.message;
@@ -445,4 +503,72 @@ function uploadToDrive(fileObj, prefixName) {
 function beriIzinDrive() {
   DriveApp.getRootFolder();
   Logger.log("✅ Izin Google Drive berhasil diberikan!");
+}
+
+// ===================== UTILITY: SINKRONISASI =====================
+// Fungsi untuk mengisi kolom link file yang kosong di Google Sheets
+// dengan mencari file yang cocok berdasarkan NISN/UID di Google Drive
+function sinkronkanLinkDriveKeSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheets = ["Data_Pendaftar_SMK", "Data_Pendaftar_SMP"];
+  
+  for (var s = 0; s < sheets.length; s++) {
+    var sheet = ss.getSheetByName(sheets[s]);
+    if (!sheet) continue;
+    
+    var isSMP = (sheets[s] === "Data_Pendaftar_SMP");
+    var folderId = isSMP ? DRIVE_FOLDER_ID_SMP : DRIVE_FOLDER_ID_SMK;
+    var folder = DriveApp.getFolderById(folderId);
+    
+    // Kolom target (0-indexed array vs 1-indexed range)
+    var colKK = isSMP ? 69 : 70;      // BR
+    var colAkta = isSMP ? 71 : 71;    // BS
+    var colIjazah = isSMP ? 66 : 72;  // BT
+    var colPhoto = isSMP ? 68 : 73;   // BU
+    var colKIP = isSMP ? 72 : 74;     // BV
+    var colKTP = isSMP ? 70 : 0;      // KTP (hanya dicari jika ada kolomnya, di SMK tidak ada kolom khusus default di array tadi, opsional)
+    
+    var data = sheet.getDataRange().getValues();
+    
+    for (var i = 1; i < data.length; i++) {
+      var row = data[i];
+      var nisn = row[9]; // Kolom J (NISN)
+      if (isSMP) nisn = row[3]; // Kolom D
+      if (!nisn) nisn = row[isSMP ? 72 : 74]; // UID
+      if (!nisn) continue;
+      
+      var nisnClean = String(nisn).trim();
+      
+      // Check & Update KK
+      if (!row[colKK - 1]) {
+        var url = findExistingDriveFileUrl(folderId, "KK_" + nisnClean);
+        if (url) sheet.getRange(i + 1, colKK).setValue(url);
+      }
+      
+      // Check & Update Akta
+      if (!row[colAkta - 1]) {
+        var url = findExistingDriveFileUrl(folderId, "Akta_" + nisnClean);
+        if (url) sheet.getRange(i + 1, colAkta).setValue(url);
+      }
+      
+      // Check & Update Ijazah
+      if (!row[colIjazah - 1]) {
+        var url = findExistingDriveFileUrl(folderId, "Ijazah_" + nisnClean);
+        if (url) sheet.getRange(i + 1, colIjazah).setValue(url);
+      }
+      
+      // Check & Update Photo
+      if (!row[colPhoto - 1]) {
+        var url = findExistingDriveFileUrl(folderId, "Photo_" + nisnClean);
+        if (url) sheet.getRange(i + 1, colPhoto).setValue(url);
+      }
+      
+      // Check & Update KIP
+      if (!row[colKIP - 1]) {
+        var url = findExistingDriveFileUrl(folderId, "KIP_" + nisnClean);
+        if (url) sheet.getRange(i + 1, colKIP).setValue(url);
+      }
+    }
+  }
+  Logger.log("✅ Sinkronisasi link Drive ke Spreadsheet selesai.");
 }

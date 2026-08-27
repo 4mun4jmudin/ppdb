@@ -138,15 +138,19 @@ function doPost(e) {
       payload.riwayat_penyakit,           // 67 (BO)
 
       // INFORMASI TAMBAHAN
-      payload.alasan_memilih,             // 68 (BP)
+      payload.yang_membiayai || payload.alasan_memilih || "Orang Tua", // 68 (BP) Yang Membiayai Sekolah
+      payload.kebutuhan_khusus || "Tidak Ada", // 69 (BQ) Kebutuhan Khusus
 
       // URL LAMPIRAN GOOGLE DRIVE
-      urlIjazah,                          // 69 (BQ) URL Ijazah
-      urlKK,                              // 70 (BR) URL Kartu Keluarga
-      urlKTP,                             // 71 (BS) URL KTP Orang Tua
-      urlAkta,                            // 72 (BT) URL Akta Kelahiran
-      urlKIP,                             // 73 (BU) URL KIP (jika ada)
-      urlPhoto                            // 74 (BV) URL Pas Photo
+      urlKK,                              // 70 (BR) Upload KK (Google Drive Link)
+      urlAkta,                            // 71 (BS) Upload Akta Kelahiran (Google Drive Link)
+      urlIjazah,                          // 72 (BT) Upload Ijazah / SKL (Google Drive Link)
+      urlPhoto,                           // 73 (BU) Upload Pas Foto (Google Drive Link)
+      urlKIP,                             // 74 (BV) Upload Dokumen Lain (Google Drive Link)
+
+      // KELOLA
+      payload.uid || "",                  // 75 (BW) ID Pendaftaran
+      payload.status || "Menunggu Verifikasi" // 76 (BX) Status Verifikasi
     ];
 
     // -------------------------------------------------------
@@ -194,11 +198,23 @@ function uploadToDrive(fileObj, prefixName) {
   }
 
   try {
+    var base64Data = fileObj.base64;
+    var contentType = fileObj.mimeType || '';
+    
+    // Deteksi jika input merupakan Base64 Data URL (berawalan 'data:')
+    if (base64Data.indexOf(',') !== -1) {
+      var splitBase = base64Data.split(',');
+      if (splitBase[0].indexOf(';') !== -1) {
+        contentType = splitBase[0].split(';')[0].split(':')[1];
+      }
+      base64Data = splitBase[1];
+    }
+
     // 1. Decode Base64 string menjadi byte array
-    var decodedBytes = Utilities.base64Decode(fileObj.base64);
+    var decodedBytes = Utilities.base64Decode(base64Data);
 
     // 2. Buat Blob (representasi file binary di GAS)
-    var blob = Utilities.newBlob(decodedBytes, fileObj.mimeType, prefixName + '_' + fileObj.name);
+    var blob = Utilities.newBlob(decodedBytes, contentType, prefixName + '_' + fileObj.name);
 
     // 3. Akses folder Drive target menggunakan ID folder
     var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID);

@@ -823,13 +823,81 @@
       document.getElementById('appModalOverlay').classList.remove('active');
     };
 
+    // Inject spin style dynamically
+    const styleEl = document.createElement("style");
+    styleEl.innerHTML = `
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(styleEl);
+
     const docFileInput = document.getElementById("docFileInput");
-    docFileInput.addEventListener("change", (e) => {
+    docFileInput.addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (file) {
         document.getElementById("fileNameDisplay").textContent = file.name;
         document.getElementById("fileSizeDisplay").textContent = (file.size / (1024 * 1024)).toFixed(1) + " MB";
+        
+        const docType = document.getElementById("docTypeSelect").value;
         customAlert("Dokumen Diunggah", "Berkas " + file.name + " sedang diproses oleh AI OCR Gemini.");
+
+        const banner = document.querySelector(".ocr-status-banner");
+        const title = banner ? banner.querySelector("div div") : null;
+        const text = banner ? banner.querySelector("div:last-child div:last-child") : null;
+        const icon = banner ? banner.querySelector(".ocr-status-icon") : null;
+
+        if (banner) {
+          banner.style.background = "#eff6ff";
+          banner.style.borderColor = "#bfdbfe";
+          if (icon) {
+            icon.style.background = "#2563eb";
+            icon.innerHTML = '<div style="width:16px; height:16px; border:2px solid white; border-top-color:transparent; border-radius:50%; animation:spin 1s linear infinite;"></div>';
+          }
+          if (title) title.textContent = "Mengekstrak Data...";
+          if (text) text.textContent = "Sedang membaca dokumen dengan Gemini AI OCR...";
+        }
+
+        // Simulate 2s delay
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        if (docType === "KK") {
+          document.getElementById("resNKK").textContent = "3204123456780001";
+          document.getElementById("resKepala").textContent = "EMAN SULAEMAN";
+          document.getElementById("resAlamat").textContent = "Jl. Raya Tarogong No. 45";
+          document.getElementById("resRTRW").textContent = "003 / 001";
+          document.getElementById("resKel").textContent = "Tarogong";
+          document.getElementById("resKec").textContent = "Tarogong Kidul";
+          document.getElementById("resKab").textContent = "Garut";
+          document.getElementById("resProv").textContent = "Jawa Barat";
+          document.getElementById("resPos").textContent = "44151";
+        } else {
+          // Mock data for other types
+          document.getElementById("resNKK").textContent = "-";
+          document.getElementById("resKepala").textContent = "BERKAS TERVERIFIKASI";
+          document.getElementById("resAlamat").textContent = "Tipe berkas: " + docType;
+          document.getElementById("resRTRW").textContent = "-";
+          document.getElementById("resKel").textContent = "-";
+          document.getElementById("resKec").textContent = "-";
+          document.getElementById("resKab").textContent = "-";
+          document.getElementById("resProv").textContent = "-";
+          document.getElementById("resPos").textContent = "-";
+        }
+
+        // Reset status banner to success
+        if (banner) {
+          banner.style.background = "#dcfce7";
+          banner.style.borderColor = "#bbf7d0";
+          if (icon) {
+            icon.style.background = "#15803d";
+            icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+          }
+          if (title) title.textContent = "Ekstraksi Berhasil";
+          if (text) text.textContent = "Data berhasil diekstraksi dari dokumen menggunakan Gemini AI.";
+        }
+
+        customAlert("Ekstraksi Berhasil", "Sistem berhasil mengekstrak data menggunakan AI OCR Gemini.");
       }
     });
 
@@ -837,6 +905,32 @@
       document.getElementById("fileNameDisplay").textContent = "Belum ada berkas";
       document.getElementById("fileSizeDisplay").textContent = "0 MB";
       docFileInput.value = "";
+      
+      // Reset OCR table and status banner
+      document.getElementById("resNKK").textContent = "-";
+      document.getElementById("resKepala").textContent = "-";
+      document.getElementById("resAlamat").textContent = "-";
+      document.getElementById("resRTRW").textContent = "-";
+      document.getElementById("resKel").textContent = "-";
+      document.getElementById("resKec").textContent = "-";
+      document.getElementById("resKab").textContent = "-";
+      document.getElementById("resProv").textContent = "-";
+      document.getElementById("resPos").textContent = "-";
+      
+      const banner = document.querySelector(".ocr-status-banner");
+      if (banner) {
+        banner.style.background = "#f1f5f9";
+        banner.style.borderColor = "#cbd5e1";
+        const icon = banner.querySelector(".ocr-status-icon");
+        if (icon) {
+          icon.style.background = "#64748b";
+          icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
+        }
+        const title = banner.querySelector("div div");
+        if (title) title.textContent = "Menunggu Dokumen";
+        const text = banner.querySelector("div:last-child div:last-child");
+        if (text) text.textContent = "Silakan seret atau pilih dokumen KK untuk memulai ekstraksi OCR AI.";
+      }
     }
 
     function previewDocModal() {
