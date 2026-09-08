@@ -19,6 +19,14 @@ export function setupOCRListener(inputId, resultTextId, imagePreviewId, ocrField
     const file = e.target.files[0];
     if (!file) return;
 
+    // Batasi ukuran file maksimal 10 MB
+    const MAX_SIZE = 10 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      alert(`Ukuran file "${file.name}" (${(file.size / (1024 * 1024)).toFixed(1)} MB) melebihi batas maksimal 10 MB. File ditolak.`);
+      fileInput.value = "";
+      return;
+    }
+
     // Show preview
     const imgPreview = document.getElementById(imagePreviewId);
     if(imgPreview) {
@@ -30,7 +38,8 @@ export function setupOCRListener(inputId, resultTextId, imagePreviewId, ocrField
     const resultEl = document.getElementById(resultTextId);
     if(resultEl) resultEl.textContent = "Sedang membaca teks dengan AI...";
 
-    const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"; 
+    // Konfigurasi Gemini API untuk ekstraksi data NIK (Opsional jika ingin dicocokkan dengan upload KK)
+    const GEMINI_API_KEY = localStorage.getItem("GEMINI_API_KEY") || "YOUR_GEMINI_API_KEY_HERE"; 
 
     try {
       if (GEMINI_API_KEY === "YOUR_GEMINI_API_KEY_HERE") {
@@ -110,6 +119,14 @@ export function setupAutofillOCRListener(inputId, statusId, statusTextId, fileNa
     const file = e.target.files[0];
     if (!file) return;
     
+    // Batasi ukuran file maksimal 10 MB
+    const MAX_SIZE = 10 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      alert(`Ukuran file "${file.name}" (${(file.size / (1024 * 1024)).toFixed(1)} MB) melebihi batas maksimal 10 MB. File ditolak.`);
+      fileInput.value = "";
+      return;
+    }
+
     // Ambil input NIK yang sudah diketik
     const inputNikVal = document.getElementById('autofillNIKInput')?.value;
     if(!inputNikVal || inputNikVal.length < 16) {
@@ -136,7 +153,8 @@ export function setupAutofillOCRListener(inputId, statusId, statusTextId, fileNa
     if(progressBar) progressBar.style.width = '0%';
     if(progressText) progressText.textContent = '0%';
 
-    const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"; 
+    // Konfigurasi Gemini API
+    const GEMINI_API_KEY = localStorage.getItem("GEMINI_API_KEY") || "YOUR_GEMINI_API_KEY_HERE";
 
     try {
       if (GEMINI_API_KEY === "YOUR_GEMINI_API_KEY_HERE") {
@@ -420,10 +438,17 @@ export async function handleFormSubmit(formElement, jenjang) {
 
     // Convert files to base64
     const fileKeys = ['fileIjazah', 'fileSHUSM', 'fileKK', 'fileKTP', 'fileAkta', 'fileKIP', 'filePhoto'];
+    const MAX_FILE_SIZE = 10 * 1024 * 1024;
     for (let key of fileKeys) {
       const fileInput = document.getElementById(key);
       if (fileInput && fileInput.files.length > 0) {
         const file = fileInput.files[0];
+        if (file.size > MAX_FILE_SIZE) {
+          alert(`File "${file.name}" (${(file.size / (1024 * 1024)).toFixed(1)} MB) melebihi batas maksimal 10 MB. File ditolak! Mohon gunakan file dengan ukuran maksimal 10 MB.`);
+          btn.textContent = originalText;
+          btn.disabled = false;
+          return;
+        }
         const base64 = await getBase64(file);
         dataObj[key] = {
           name: file.name,

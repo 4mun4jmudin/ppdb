@@ -648,7 +648,7 @@
             <div style="font-weight:700; font-size:0.95rem;">Seret &amp; lepas file di sini</div>
             <div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">atau</div>
             <button type="button" class="btn-choose-file">Pilih File</button>
-            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:10px;">Format: JPG, PNG, PDF | Maks. 5MB</div>
+            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:10px;">Format: JPG, PNG, PDF | Maks. 10MB</div>
             <input type="file" id="docFileInput" accept="image/*" style="display:none;">
           </div>
 
@@ -834,9 +834,50 @@
     document.head.appendChild(styleEl);
 
     const docFileInput = document.getElementById("docFileInput");
+    const dropZoneBox = document.getElementById("dropZoneBox");
+
+    // Drag and Drop Handling
+    if (dropZoneBox) {
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropZoneBox.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZoneBox.style.borderColor = "var(--primary)";
+          dropZoneBox.style.background = "#eff6ff";
+        });
+      });
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropZoneBox.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZoneBox.style.borderColor = "";
+          dropZoneBox.style.background = "";
+        });
+      });
+      dropZoneBox.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        if (files && files.length > 0) {
+          docFileInput.files = files;
+          docFileInput.dispatchEvent(new Event('change'));
+        }
+      });
+    }
+
     docFileInput.addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (file) {
+        // Validasi ukuran file maksimal 10 MB
+        const MAX_SIZE_BYTES = 10 * 1024 * 1024;
+        if (file.size > MAX_SIZE_BYTES) {
+          const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+          customAlert(
+            "File Ditolak - Ukuran Terlalu Besar",
+            `Ukuran file "${file.name}" (${sizeMB} MB) melebihi batas maksimal 10 MB. Silakan pilih berkas yang lebih kecil dari 10 MB.`
+          );
+          clearUploadedFile();
+          return;
+        }
+
         document.getElementById("fileNameDisplay").textContent = file.name;
         document.getElementById("fileSizeDisplay").textContent = (file.size / (1024 * 1024)).toFixed(1) + " MB";
         

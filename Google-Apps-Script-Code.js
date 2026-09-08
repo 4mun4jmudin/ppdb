@@ -1,4 +1,4 @@
-// ============================================================
+ // ============================================================
 //  PPDB Online - Al-Hawari
 //  FULL Google Apps Script Backend (SMP & SMK + Admin Kelola)
 // ============================================================
@@ -139,6 +139,9 @@ function handleSubmitForm(payload) {
       base64Str = base64Str.replace(/\s/g, '');
       
       var decoded = Utilities.base64Decode(base64Str);
+      if (decoded.length > 10 * 1024 * 1024) {
+        throw new Error("Ukuran file " + prefix + " melebihi batas maksimal 10 MB.");
+      }
       var rawExt = (fileObj.name && fileObj.name.lastIndexOf(".") !== -1) ? fileObj.name.substring(fileObj.name.lastIndexOf(".")) : ".jpg";
       var fileName = prefix + "_" + (fileObj.name || ("dokumen" + rawExt));
       var blob = Utilities.newBlob(decoded, contentType, fileName);
@@ -487,6 +490,9 @@ function uploadToDrive(fileObj, prefixName) {
     }
     
     var decodedBytes = Utilities.base64Decode(base64Data);
+    if (decodedBytes.length > 10 * 1024 * 1024) {
+      throw new Error("Ukuran file " + prefixName + " melebihi batas maksimal 10 MB.");
+    }
     var blob = Utilities.newBlob(decodedBytes, contentType, prefixName + '_' + fileObj.name);
     // Asumsi fallback ke SMK jika tidak tau
     var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID_SMK);

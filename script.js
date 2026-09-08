@@ -422,8 +422,8 @@ function getFileBase64(inputId) {
     const file = input.files[0];
     const reader = new FileReader();
 
-    // Validasi ukuran file — maks 5MB
-    const MAX_SIZE_MB = 5;
+    // Validasi ukuran file — maks 10MB
+    const MAX_SIZE_MB = 10;
     if (file.size > MAX_SIZE_MB * 1024 * 1024) {
       reject(new Error(`File "${file.name}" terlalu besar. Maksimal ${MAX_SIZE_MB}MB.`));
       return;
@@ -473,6 +473,18 @@ function getFileBase64(inputId) {
     input.addEventListener('change', () => {
       if (input.files && input.files.length > 0) {
         const file = input.files[0];
+
+        // Validasi ukuran file maksimal 10 MB
+        if (file.size > 10 * 1024 * 1024) {
+          const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+          alert(`File "${file.name}" (${sizeMB} MB) melebihi batas maksimal 10 MB. File ditolak! Silakan pilih file yang lebih kecil.`);
+          input.value = '';
+          nameEl.textContent = '❌ Ukuran file melebihi 10 MB (Ditolak)';
+          nameEl.style.color = '#dc2626';
+          if (label) label.style.borderColor = '#dc2626';
+          return;
+        }
+
         const sizeKB = (file.size / 1024).toFixed(1);
         nameEl.textContent = `✅ ${file.name} (${sizeKB} KB)`;
         nameEl.style.color = 'var(--success, #16a34a)';

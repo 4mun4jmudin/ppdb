@@ -371,7 +371,7 @@
         <div class="profile-name-title" id="pDisplayNama">Ahmad Fadhlan</div>
         <div class="profile-role-tag" id="pDisplayJenjang">Calon Siswa SMP</div>
 
-        <p class="upload-hint">Klik ikon kamera pada foto di atas untuk memilih foto profil baru dari galeri/komputer Anda (Max 2MB).</p>
+        <p class="upload-hint">Klik ikon kamera pada foto di atas untuk memilih foto profil baru dari galeri/komputer Anda (Maksimal 10MB).</p>
       </div>
 
       <!-- FORM BIODATA EDIT -->
@@ -474,6 +474,15 @@
     fileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file) {
+        // Validasi ukuran foto maksimal 10 MB
+        const MAX_SIZE = 10 * 1024 * 1024;
+        if (file.size > MAX_SIZE) {
+          const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+          alert(`Ukuran foto "${file.name}" (${sizeMB} MB) melebihi batas maksimal 10 MB. Foto ditolak, silakan pilih foto lain.`);
+          fileInput.value = "";
+          return;
+        }
+
         const reader = new FileReader();
         reader.onload = (event) => {
           const base64Photo = event.target.result;

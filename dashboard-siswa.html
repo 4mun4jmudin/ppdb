@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,15 +9,20 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+    rel="stylesheet" />
 
   <style>
     :root {
-      --primary-dark: #0f172a;       /* Slate 900 */
+      --primary-dark: #0f172a;
+      /* Slate 900 */
       --sidebar-bg: #0f172a;
-      --primary-blue: #2563eb;       /* Royal Blue */
+      --primary-blue: #2563eb;
+      /* Royal Blue */
       --primary-hover: #1d4ed8;
-      --secondary: #059669;          /* Emerald */
+      --secondary: #059669;
+      /* Emerald */
 
       --bg-app: #f8fafc;
       --card-bg: #ffffff;
@@ -34,7 +40,11 @@
       --radius-sm: 10px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -240,9 +250,13 @@
       margin: 1.4rem 0.8rem 0.5rem;
     }
 
-    .menu-section-label:first-child { margin-top: 0; }
+    .menu-section-label:first-child {
+      margin-top: 0;
+    }
 
-    .sidebar-menu { list-style: none; }
+    .sidebar-menu {
+      list-style: none;
+    }
 
     .menu-link {
       display: flex;
@@ -271,8 +285,14 @@
       box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
     }
 
-    .menu-link svg { color: #64748b; }
-    .menu-link:hover svg, .menu-link.active svg { color: white; }
+    .menu-link svg {
+      color: #64748b;
+    }
+
+    .menu-link:hover svg,
+    .menu-link.active svg {
+      color: white;
+    }
 
     .btn-sidebar-logout {
       width: 100%;
@@ -470,10 +490,19 @@
       border-bottom: 1px dashed #f1f5f9;
     }
 
-    .info-item:last-child { border-bottom: none; }
+    .info-item:last-child {
+      border-bottom: none;
+    }
 
-    .info-item .lbl { color: var(--text-muted); }
-    .info-item .val { font-weight: 700; color: var(--text-dark); text-align: right; }
+    .info-item .lbl {
+      color: var(--text-muted);
+    }
+
+    .info-item .val {
+      font-weight: 700;
+      color: var(--text-dark);
+      text-align: right;
+    }
 
     /* STATUS BADGES */
     .status-badge {
@@ -484,9 +513,20 @@
       font-weight: 700;
     }
 
-    .badge-terverifikasi { background: #d1fae5; color: #047857; }
-    .badge-proses { background: #eff6ff; color: #1d4ed8; }
-    .badge-ditolak { background: #fee2e2; color: #b91c1c; }
+    .badge-terverifikasi {
+      background: #d1fae5;
+      color: #047857;
+    }
+
+    .badge-proses {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .badge-ditolak {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
 
     .circle-icon-lg {
       width: 56px;
@@ -522,7 +562,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(37,99,235,0.18);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18);
     }
 
     .announcement-box {
@@ -640,15 +680,17 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- TOP NAVBAR -->
   <header class="top-navbar">
     <a href="index.html" class="nav-brand-group">
       <div class="brand-logo-box">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-          <path d="M22 3h-6a4 4 0 0 1 4 4v14a3 3 0 0 1 3-3h7z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+          <path d="M22 3h-6a4 4 0 0 1 4 4v14a3 3 0 0 1 3-3h7z" />
         </svg>
       </div>
       <div>
@@ -659,9 +701,13 @@
 
     <div class="user-dropdown-container">
       <button type="button" class="user-profile-pill" id="userProfileBtn">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" id="navAvatarImg" class="user-avatar-img" alt="Avatar">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+          id="navAvatarImg" class="user-avatar-img" alt="Avatar">
         <span class="user-name-title" id="navStudentName">Loading...</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8"
+          stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
       </button>
 
       <div class="profile-dropdown-menu" id="profileDropdownMenu">
@@ -671,16 +717,30 @@
         </div>
         <div class="dropdown-divider"></div>
         <a href="profil.html" class="dropdown-item">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
           Edit Profil &amp; Foto
         </a>
         <button type="button" class="dropdown-item" onclick="switchStudentView('biodata')">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="9" cy="10" r="2"></circle><line x1="15" y1="8" x2="17" y2="8"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+            <circle cx="9" cy="10" r="2"></circle>
+            <line x1="15" y1="8" x2="17" y2="8"></line>
+          </svg>
           Biodata Siswa
         </button>
         <div class="dropdown-divider"></div>
         <button type="button" class="dropdown-item logout-item" id="dropdownLogoutBtn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
           Keluar
         </button>
       </div>
@@ -697,31 +757,52 @@
         <ul class="sidebar-menu">
           <li>
             <a href="#" class="menu-link active" id="navLinkStatus" onclick="switchStudentView('status', this)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
               Status &amp; Hasil Seleksi
             </a>
           </li>
           <li>
             <a href="#" class="menu-link" id="navLinkBiodata" onclick="switchStudentView('biodata', this)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
               Biodata &amp; Profil
             </a>
           </li>
           <li>
             <a href="cetak-kartu.html" class="menu-link" id="navLinkCetakKartu">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
               Cetak Kartu Ujian (PDF)
             </a>
           </li>
           <li>
             <a href="#" class="menu-link" id="navLinkPengumuman" onclick="switchStudentView('pengumuman', this)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
               Pengumuman Kelulusan
             </a>
           </li>
           <li>
             <a href="biaya-alur.html" class="menu-link">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                <line x1="2" y1="10" x2="22" y2="10"></line>
+              </svg>
               Rincian Biaya &amp; Alur
             </a>
           </li>
@@ -729,14 +810,19 @@
       </div>
 
       <button class="btn-sidebar-logout" id="logoutBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
         Keluar
       </button>
     </aside>
 
     <!-- CENTER MAIN CONTENT (SPA CONTAINERS) -->
     <main class="main-content">
-      
+
       <!-- SPA VIEW 1: STATUS & HASIL SELEKSI (DEFAULT) -->
       <section class="spa-view active" id="viewStatus">
         <div class="content-header">
@@ -747,11 +833,14 @@
         <!-- STEPPER PROGRESS CARD -->
         <div class="stepper-card">
           <div class="card-heading">Ringkasan Status Pendaftaran</div>
-          
+
           <div class="stepper-wrapper">
             <div class="step-item completed">
               <div class="step-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
               </div>
               <div class="step-title">1. Pendaftaran</div>
               <div class="step-date" id="step1Date">18 Mei 2026</div>
@@ -760,7 +849,10 @@
 
             <div class="step-item completed">
               <div class="step-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
               </div>
               <div class="step-title">2. Unggah Dokumen</div>
               <div class="step-date" id="step2Date">18 Mei 2026</div>
@@ -770,7 +862,8 @@
             <div class="step-item active" id="step3Item">
               <div class="step-circle">3</div>
               <div class="step-title">3. Verifikasi Admin</div>
-              <div class="step-date" style="color:var(--primary-blue); font-weight:600;" id="step3StatusText">Sedang Diproses</div>
+              <div class="step-date" style="color:var(--primary-blue); font-weight:600;" id="step3StatusText">Sedang
+                Diproses</div>
             </div>
 
             <div class="step-item" id="step4Item">
@@ -789,12 +882,16 @@
 
         <!-- 2X2 CARDS GRID -->
         <div class="grid-2x2">
-          
+
           <!-- CARD 1: INFORMASI PENDAFTARAN -->
           <div class="info-card">
             <div class="card-heading" style="margin-bottom: 0.5rem;">Informasi Pendaftaran</div>
             <div class="card-top-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              </svg>
             </div>
 
             <div class="info-list-rows">
@@ -820,9 +917,16 @@
               </div>
             </div>
 
-            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
-              <a href="cetak-kartu.html" class="btn-submit-spa" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:9px 16px; font-size:0.84rem; border-radius:8px; width:100%; justify-content:center;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <div
+              style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
+              <a href="cetak-kartu.html" class="btn-submit-spa"
+                style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:9px 16px; font-size:0.84rem; border-radius:8px; width:100%; justify-content:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
                 Cetak Kartu Ujian (PDF)
               </a>
             </div>
@@ -832,16 +936,24 @@
           <div class="info-card">
             <div class="card-heading" style="margin-bottom: 0.5rem;">Status Verifikasi</div>
             <div class="card-top-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
             </div>
 
             <div class="status-verifikasi-box">
               <div class="circle-icon-lg" id="sVerifIcon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
               </div>
               <div>
                 <span class="status-badge badge-terverifikasi" id="sVerifBadge">Terverifikasi</span>
-                <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;" id="sVerifSubtext">Data &amp; dokumen valid</div>
+                <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;" id="sVerifSubtext">Data &amp;
+                  dokumen valid</div>
               </div>
             </div>
 
@@ -858,14 +970,22 @@
           <!-- CARD 3: STATUS SELEKSI -->
           <div class="info-card">
             <div class="card-heading">Status Seleksi</div>
-            
+
             <div class="seleksi-banner">
               <div class="seleksi-banner-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 22h14"></path><path d="M5 2h14"></path><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"></path><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M5 22h14"></path>
+                  <path d="M5 2h14"></path>
+                  <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"></path>
+                  <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path>
+                </svg>
               </div>
               <div>
-                <div style="font-weight:800; font-size:0.95rem; color:var(--text-dark);" id="sSeleksiTitle">Seleksi Sedang Diproses</div>
-                <div style="font-size:0.78rem; color:var(--text-muted);" id="sSeleksiDesc">Data Anda sedang dalam tahap pengujian berkas panitia.</div>
+                <div style="font-weight:800; font-size:0.95rem; color:var(--text-dark);" id="sSeleksiTitle">Seleksi
+                  Sedang Diproses</div>
+                <div style="font-size:0.78rem; color:var(--text-muted);" id="sSeleksiDesc">Data Anda sedang dalam tahap
+                  pengujian berkas panitia.</div>
               </div>
             </div>
 
@@ -874,21 +994,33 @@
                 <div style="font-size:0.76rem; color:var(--text-muted);">Hasil seleksi diumumkan pada:</div>
                 <div style="font-weight:800; font-size:0.95rem; color:var(--primary-blue);">10 Juni 2026</div>
               </div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="#2563eb" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
             </div>
           </div>
 
           <!-- CARD 4: HASIL SELEKSI -->
           <div class="info-card">
             <div class="card-heading">Hasil Seleksi</div>
-            
+
             <div class="status-verifikasi-box" style="margin-top: 1rem;">
               <div class="circle-icon-lg" style="background:#f1f5f9; color:#64748b;" id="sHasilIcon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
               </div>
               <div>
-                <span class="status-badge" style="background:#f1f5f9; color:#475569;" id="sHasilBadge">Belum Diumumkan</span>
-                <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Hasil seleksi belum diumumkan.</div>
+                <span class="status-badge" style="background:#f1f5f9; color:#475569;" id="sHasilBadge">Belum
+                  Diumumkan</span>
+                <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Hasil seleksi belum diumumkan.
+                </div>
               </div>
             </div>
 
@@ -904,16 +1036,29 @@
         <div class="help-banner">
           <div class="help-info">
             <div class="help-info-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12.01" y2="16"></line><line x1="12" y1="8" x2="12" y2="12"></line></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+              </svg>
             </div>
             <div>
-              <div style="font-weight:800; font-size:0.92rem; color:var(--text-dark);">Punya Pertanyaan Seputar PPDB?</div>
-              <div style="font-size:0.8rem; color:var(--text-muted);">Silakan hubungi panitia PPDB jika ada kendala berkas.</div>
+              <div style="font-weight:800; font-size:0.92rem; color:var(--text-dark);">Punya Pertanyaan Seputar PPDB?
+              </div>
+              <div style="font-size:0.8rem; color:var(--text-muted);">Silakan hubungi panitia PPDB jika ada kendala
+                berkas.</div>
             </div>
           </div>
 
           <a href="https://wa.me/6281234567890" target="_blank" class="btn-help-contact">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+              <path
+                d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z">
+              </path>
+            </svg>
             Hubungi Kami
           </a>
         </div>
@@ -921,80 +1066,140 @@
 
       <!-- SPA VIEW 2: BIODATA & PROFIL -->
       <section class="spa-view" id="viewBiodata">
-        <div class="content-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <div class="content-header"
+          style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
           <div>
             <h1>Lengkapi Data Pendaftaran</h1>
             <p>Data diri Anda yang tersimpan di sistem. Klik Update Data untuk mengubah.</p>
           </div>
-          <button type="button" id="btnUpdateData" style="background:#2563eb; color:white; border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer; display:flex; gap:8px; align-items:center; font-family:'Inter', sans-serif;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          <button type="button" id="btnUpdateData"
+            style="background:#2563eb; color:white; border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer; display:flex; gap:8px; align-items:center; font-family:'Inter', sans-serif;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
             Update Data
           </button>
         </div>
 
         <!-- OCR SCANNER -->
-        <div style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:1.5rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.02);">
+        <div
+          style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:1.5rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.02);">
           <div style="display:flex; align-items:center; gap:1.5rem; margin-bottom:1.5rem;">
             <div style="flex:1;">
-              <h3 style="font-size:1.05rem; color:var(--text-dark); margin-bottom:4px;">Isi Data Cepat via AI Scanner</h3>
-              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Pindai foto Kartu Keluarga (KK) atau dokumen lainnya, sistem akan otomatis mengekstrak teks menggunakan Gemini AI.</p>
+              <h3 style="font-size:1.05rem; color:var(--text-dark); margin-bottom:4px;">Isi Data Cepat via AI Scanner
+              </h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Pindai foto Kartu Keluarga (KK)
+                atau dokumen lainnya, sistem akan otomatis mengekstrak teks menggunakan Gemini AI. <strong style="color:var(--primary);">Maksimal ukuran file: 10 MB per berkas.</strong></p>
             </div>
           </div>
-          
+
           <!-- OCR Status Progress -->
-          <div id="ocrStatusArea" style="display:none; margin-bottom:1.5rem; padding:12px 16px; border-radius:12px; border:1px solid #bfdbfe; background:#eff6ff;">
+          <div id="ocrStatusArea"
+            style="display:none; margin-bottom:1.5rem; padding:12px 16px; border-radius:12px; border:1px solid #bfdbfe; background:#eff6ff;">
             <div style="display:flex; align-items:center; gap:12px;">
-              <div class="ocr-spinner" style="width:20px; height:20px; border:3px solid #2563eb; border-top-color:transparent; border-radius:50%; animation:ocr-spin 1s linear infinite;"></div>
-              <span id="ocrStatusText" style="font-size:0.88rem; font-weight:700; color:#1e40af;">Mengunggah berkas ke AI...</span>
+              <div class="ocr-spinner"
+                style="width:20px; height:20px; border:3px solid #2563eb; border-top-color:transparent; border-radius:50%; animation:ocr-spin 1s linear infinite;">
+              </div>
+              <span id="ocrStatusText" style="font-size:0.88rem; font-weight:700; color:#1e40af;">Mengunggah berkas ke
+                AI...</span>
             </div>
             <div style="margin-top:10px; height:6px; background:#e2e8f0; border-radius:3px; overflow:hidden;">
-              <div id="ocrProgressBar" style="width:0%; height:100%; background:linear-gradient(90deg, #2563eb, #3b82f6); border-radius:3px; transition:width 0.3s ease;"></div>
+              <div id="ocrProgressBar"
+                style="width:0%; height:100%; background:linear-gradient(90deg, #2563eb, #3b82f6); border-radius:3px; transition:width 0.3s ease;">
+              </div>
             </div>
             <style>
               @keyframes ocr-spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
+                0% {
+                  transform: rotate(0deg);
+                }
+
+                100% {
+                  transform: rotate(360deg);
+                }
               }
             </style>
           </div>
 
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;">
             <!-- Upload KK -->
-            <div style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;" onclick="document.getElementById('spaFileKK').click()">
-              <div style="font-weight:600; color:#2563eb; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; gap:4px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <div
+              style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;"
+              onclick="document.getElementById('spaFileKK').click()">
+              <div
+                style="font-weight:600; color:#2563eb; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; gap:4px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
                 Upload KK
               </div>
               <input type="file" id="spaFileKK" style="display:none;" accept="image/*">
             </div>
             <!-- Upload Akte -->
-            <div style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;" onclick="document.getElementById('spaFileAkte').click()">
-              <div style="font-weight:600; color:#2563eb; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; gap:4px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <div
+              style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;"
+              onclick="document.getElementById('spaFileAkte').click()">
+              <div
+                style="font-weight:600; color:#2563eb; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; gap:4px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
                 Upload Akte Kelahiran
               </div>
               <input type="file" id="spaFileAkte" style="display:none;" accept="image/*">
             </div>
             <!-- Upload Ijazah -->
-            <div style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;" onclick="document.getElementById('spaFileIjazah').click()">
-              <div style="font-weight:600; color:#2563eb; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; gap:4px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <div
+              style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;"
+              onclick="document.getElementById('spaFileIjazah').click()">
+              <div
+                style="font-weight:600; color:#2563eb; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; gap:4px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
                 Upload Ijazah / SKL
               </div>
               <input type="file" id="spaFileIjazah" style="display:none;" accept="image/*">
             </div>
             <!-- Upload Pas Foto -->
-            <div style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;" onclick="document.getElementById('spaFileFoto').click()">
-              <div style="font-weight:600; color:#2563eb; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; gap:4px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <div
+              style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;"
+              onclick="document.getElementById('spaFileFoto').click()">
+              <div
+                style="font-weight:600; color:#2563eb; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; gap:4px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
                 Upload Pas Foto
               </div>
               <input type="file" id="spaFileFoto" style="display:none;" accept="image/*">
             </div>
             <!-- Upload Lainnya -->
-            <div style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;" onclick="document.getElementById('spaFileLain').click()">
-              <div style="font-weight:600; color:#2563eb; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; gap:4px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <div
+              style="border:2px dashed #cbd5e1; border-radius:12px; padding:1rem; text-align:center; background:#fafafa; cursor:pointer;"
+              onclick="document.getElementById('spaFileLain').click()">
+              <div
+                style="font-weight:600; color:#2563eb; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; gap:4px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
                 Dokumen Lain
               </div>
               <input type="file" id="spaFileLain" style="display:none;" accept="image/*">
@@ -1004,441 +1209,452 @@
 
         <form id="spaBiodataFormFull" class="full-biodata-form">
           <fieldset id="formFieldset" disabled style="border:none; padding:0; margin:0;">
-          
-          <!-- CARD 1: Data Registrasi -->
-          <div class="card-section" style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
-            <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">1. Data Registrasi</h3>
-            <div class="form-grid-2">
-              <div class="form-group smk-only" style="display: none;">
-                <label>Pilihan Jurusan 1 <span class="required">*</span></label>
-                <select name="jurusan1" class="custom-input">
-                  <option value="">-- Pilih Jurusan --</option>
-                  <option value="DPIB">DPIB / Arsitek Bangunan</option>
-                  <option value="ATPH">ATPH (Agribisnis)</option>
-                  <option value="DKV">DKV (Desain Komunikasi Visual)</option>
-                </select>
-              </div>
-              <div class="form-group smk-only" style="display: none;">
-                <label>Pilihan Jurusan 2</label>
-                <select name="jurusan2" class="custom-input">
-                  <option value="">-- Pilih Alternatif --</option>
-                  <option value="DPIB">DPIB / Arsitek Bangunan</option>
-                  <option value="ATPH">ATPH (Agribisnis)</option>
-                  <option value="DKV">DKV (Desain Komunikasi Visual)</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Asal Sekolah <span class="required">*</span></label>
-                <input type="text" name="sekolah" class="custom-input" required placeholder="Contoh: SMP Negeri 1 Serang">
-              </div>
-              <div class="form-group">
-                <label>NPSN Asal Sekolah</label>
-                <input type="text" name="npsn" class="custom-input" placeholder="8 digit NPSN">
-              </div>
-              <div class="form-group">
-                <label>Tahun Lulus <span class="required">*</span></label>
-                <select name="tahun_lulus" class="custom-input" required>
-                  <option value="">-- Pilih Tahun --</option>
-                  <option value="2026">2026</option>
-                  <option value="2025">2025</option>
-                  <option value="2024">2024</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Prestasi</label>
-                <input type="text" name="prestasi" class="custom-input" placeholder="Tingkat Nasional/Provinsi">
-              </div>
-            </div>
-          </div>
 
-          <!-- CARD 2: Data Pribadi Siswa -->
-          <div class="card-section" style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
-            <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">2. Data Pribadi Siswa</h3>
-            <div class="form-grid-2">
-              <div class="form-group" style="grid-column: span 2;">
-                <label>Nama Lengkap (Sesuai Ijazah) <span class="required">*</span></label>
-                <input type="text" name="nama" id="spaNamaFull" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Jenis Kelamin <span class="required">*</span></label>
-                <select name="jk" class="custom-input" required>
-                  <option value="">-- Pilih --</option>
-                  <option value="Laki-laki">Laki-laki</option>
-                  <option value="Perempuan">Perempuan</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Agama <span class="required">*</span></label>
-                <select name="agama" class="custom-input" required>
-                  <option value="">-- Pilih --</option>
-                  <option value="Islam">Islam</option>
-                  <option value="Kristen">Kristen</option>
-                  <option value="Khatolik">Khatolik</option>
-                  <option value="Hindu">Hindu</option>
-                  <option value="Buddha">Buddha</option>
-                  <option value="Konghucu">Konghucu</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>NISN <span class="required">*</span></label>
-                <input type="text" name="nisn" class="custom-input" required placeholder="10 digit" maxlength="10">
-              </div>
-              <div class="form-group">
-                <label>NIK Siswa <span class="required">*</span></label>
-                <input type="text" name="nik" class="custom-input" required placeholder="16 digit" maxlength="16">
-              </div>
-              <div class="form-group">
-                <label>No KK (Kartu Keluarga)</label>
-                <input type="text" name="no_kk" class="custom-input" placeholder="16 digit KK" maxlength="16">
-              </div>
-              <div class="form-group">
-                <label>Tempat Lahir <span class="required">*</span></label>
-                <input type="text" name="tempat" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Tanggal Lahir <span class="required">*</span></label>
-                <input type="date" name="tgl" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Anak Ke</label>
-                <input type="number" name="anak_ke" class="custom-input" min="1">
-              </div>
-              <div class="form-group">
-                <label>Jumlah Saudara Kandung</label>
-                <input type="number" name="jml_sdr_kandung" class="custom-input" min="0">
-              </div>
-              <div class="form-group">
-                <label>Jumlah Saudara Tiri</label>
-                <input type="number" name="jml_sdr_tiri" class="custom-input" min="0" value="0">
-              </div>
-              <div class="form-group">
-                <label>Jumlah Saudara Angkat</label>
-                <input type="number" name="jml_sdr_angkat" class="custom-input" min="0" value="0">
-              </div>
-              <div class="form-group">
-                <label>No HP Siswa / WhatsApp <span class="required">*</span></label>
-                <input type="text" name="hp" class="custom-input" required placeholder="08xxxx">
-              </div>
-              <div class="form-group">
-                <label>Email Siswa</label>
-                <input type="email" name="email_siswa" class="custom-input" placeholder="email@contoh.com">
-              </div>
-              <div class="form-group">
-                <label>Cita-cita</label>
-                <input type="text" name="cita_cita" class="custom-input" placeholder="Contoh: Dokter, TNI, dll">
-              </div>
-            </div>
-          </div>
-
-          <!-- CARD 3: Alamat & Domisili -->
-          <div class="card-section" style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
-            <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">3. Alamat &amp; Domisili</h3>
-            <div class="form-grid-2">
-              <div class="form-group" style="grid-column: span 2;">
-                <label>Alamat Lengkap <span class="required">*</span></label>
-                <textarea name="alamat" class="custom-input" required rows="2" placeholder="Nama Gedung / Perumahan / Patokan..."></textarea>
-              </div>
-              <div class="form-group">
-                <label>Jalan / Dusun</label>
-                <input type="text" name="jalan" class="custom-input" placeholder="Jl. Raya...">
-              </div>
-              <div class="form-group">
-                <label>RT</label>
-                <input type="text" name="rt" class="custom-input" placeholder="001">
-              </div>
-              <div class="form-group">
-                <label>RW</label>
-                <input type="text" name="rw" class="custom-input" placeholder="002">
-              </div>
-              <div class="form-group">
-                <label>Desa/Kelurahan <span class="required">*</span></label>
-                <input type="text" name="desa" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Kecamatan <span class="required">*</span></label>
-                <input type="text" name="kec" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Kabupaten/Kota <span class="required">*</span></label>
-                <input type="text" name="kab" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Provinsi <span class="required">*</span></label>
-                <input type="text" name="provinsi" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Kode Pos</label>
-                <input type="text" name="kode_pos" class="custom-input" placeholder="12345">
-              </div>
-              <div class="form-group">
-                <label>Titik Koordinat</label>
-                <input type="text" name="koordinat" class="custom-input" placeholder="-6.200000, 106.816666">
-              </div>
-              <div class="form-group">
-                <label>Tinggal Bersama</label>
-                <select name="tinggal_bersama" class="custom-input">
-                  <option value="Orang Tua">Orang Tua</option>
-                  <option value="Wali">Wali</option>
-                  <option value="Kos">Kos</option>
-                  <option value="Asrama">Asrama</option>
-                  <option value="Lainnya">Lainnya</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Moda Transportasi</label>
-                <select name="transportasi" class="custom-input">
-                  <option value="Jalan Kaki">Jalan Kaki</option>
-                  <option value="Kendaraan Pribadi">Kendaraan Pribadi</option>
-                  <option value="Angkutan Umum">Angkutan Umum</option>
-                  <option value="Antar Jemput">Antar Jemput</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Jarak ke Sekolah (km)</label>
-                <input type="number" name="jarak_sekolah" class="custom-input" step="0.1" placeholder="Contoh: 1.5">
-              </div>
-              <div class="form-group">
-                <label>Waktu Tempuh (menit)</label>
-                <input type="number" name="waktu_tempuh" class="custom-input" placeholder="Contoh: 15">
-              </div>
-            </div>
-          </div>
-
-          <!-- CARD 4: Data Ayah & Ibu -->
-          <div class="card-section" style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
-            <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">4. Data Orang Tua Kandung</h3>
-            
-            <h4 style="color:#2563eb; margin-bottom:1rem; font-size:1rem;">A. Data Ayah</h4>
-            <div class="form-grid-2" style="margin-bottom: 2rem;">
-              <div class="form-group">
-                <label>Nama Ayah <span class="required">*</span></label>
-                <input type="text" name="ayah" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Status Ayah</label>
-                <select name="status_ayah" class="custom-input">
-                  <option value="Masih Hidup">Masih Hidup</option>
-                  <option value="Meninggal">Meninggal</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Tempat Lahir Ayah</label>
-                <input type="text" name="tempat_lahir_ayah" class="custom-input">
-              </div>
-              <div class="form-group">
-                <label>Tahun Lahir Ayah</label>
-                <input type="text" name="tahun_lahir_ayah" class="custom-input" placeholder="Contoh: 1975">
-              </div>
-              <div class="form-group">
-                <label>NIK Ayah</label>
-                <input type="text" name="nik_ayah" class="custom-input" maxlength="16">
-              </div>
-              <div class="form-group">
-                <label>Pendidikan Ayah</label>
-                <select name="pendidikan_ayah" class="custom-input">
-                  <option value="">-- Pilih --</option>
-                  <option value="SD/Sederajat">SD/Sederajat</option>
-                  <option value="SMP/Sederajat">SMP/Sederajat</option>
-                  <option value="SMA/Sederajat">SMA/Sederajat</option>
-                  <option value="D1/D2/D3">D1/D2/D3</option>
-                  <option value="S1">S1</option>
-                  <option value="S2/S3">S2/S3</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Pekerjaan Ayah <span class="required">*</span></label>
-                <input type="text" name="kerja_ayah" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Penghasilan Ayah</label>
-                <select name="penghasilan_ayah" class="custom-input">
-                  <option value="">-- Pilih --</option>
-                  <option value="< Rp 1.000.000">&lt; Rp 1.000.000</option>
-                  <option value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000</option>
-                  <option value="Rp 2.000.000 - Rp 5.000.000">Rp 2.000.000 - Rp 5.000.000</option>
-                  <option value="> Rp 5.000.000">&gt; Rp 5.000.000</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>No HP Ayah</label>
-                <input type="text" name="hp_ayah" class="custom-input">
+            <!-- CARD 1: Data Registrasi -->
+            <div class="card-section"
+              style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
+              <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">1. Data Registrasi</h3>
+              <div class="form-grid-2">
+                <div class="form-group smk-only" style="display: none;">
+                  <label>Pilihan Jurusan 1 <span class="required">*</span></label>
+                  <select name="jurusan1" class="custom-input">
+                    <option value="">-- Pilih Jurusan --</option>
+                    <option value="DPIB">DPIB / Arsitek Bangunan</option>
+                    <option value="ATPH">ATPH (Agribisnis)</option>
+                    <option value="DKV">DKV (Desain Komunikasi Visual)</option>
+                  </select>
+                </div>
+                <div class="form-group smk-only" style="display: none;">
+                  <label>Pilihan Jurusan 2</label>
+                  <select name="jurusan2" class="custom-input">
+                    <option value="">-- Pilih Alternatif --</option>
+                    <option value="DPIB">DPIB / Arsitek Bangunan</option>
+                    <option value="ATPH">ATPH (Agribisnis)</option>
+                    <option value="DKV">DKV (Desain Komunikasi Visual)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Asal Sekolah <span class="required">*</span></label>
+                  <input type="text" name="sekolah" class="custom-input" required
+                    placeholder="Contoh: SMP Negeri 1 Serang">
+                </div>
+                <div class="form-group">
+                  <label>NPSN Asal Sekolah</label>
+                  <input type="text" name="npsn" class="custom-input" placeholder="8 digit NPSN">
+                </div>
+                <div class="form-group">
+                  <label>Tahun Lulus <span class="required">*</span></label>
+                  <select name="tahun_lulus" class="custom-input" required>
+                    <option value="">-- Pilih Tahun --</option>
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Prestasi</label>
+                  <input type="text" name="prestasi" class="custom-input" placeholder="Tingkat Nasional/Provinsi">
+                </div>
               </div>
             </div>
 
-            <h4 style="color:#2563eb; margin-bottom:1rem; font-size:1rem;">B. Data Ibu</h4>
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label>Nama Ibu <span class="required">*</span></label>
-                <input type="text" name="ibu" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Status Ibu</label>
-                <select name="status_ibu" class="custom-input">
-                  <option value="Masih Hidup">Masih Hidup</option>
-                  <option value="Meninggal">Meninggal</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Tempat Lahir Ibu</label>
-                <input type="text" name="tempat_lahir_ibu" class="custom-input">
-              </div>
-              <div class="form-group">
-                <label>Tahun Lahir Ibu</label>
-                <input type="text" name="tahun_lahir_ibu" class="custom-input" placeholder="Contoh: 1980">
-              </div>
-              <div class="form-group">
-                <label>NIK Ibu</label>
-                <input type="text" name="nik_ibu" class="custom-input" maxlength="16">
-              </div>
-              <div class="form-group">
-                <label>Pendidikan Ibu</label>
-                <select name="pendidikan_ibu" class="custom-input">
-                  <option value="">-- Pilih --</option>
-                  <option value="SD/Sederajat">SD/Sederajat</option>
-                  <option value="SMP/Sederajat">SMP/Sederajat</option>
-                  <option value="SMA/Sederajat">SMA/Sederajat</option>
-                  <option value="D1/D2/D3">D1/D2/D3</option>
-                  <option value="S1">S1</option>
-                  <option value="S2/S3">S2/S3</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Pekerjaan Ibu <span class="required">*</span></label>
-                <input type="text" name="kerja_ibu" class="custom-input" required>
-              </div>
-              <div class="form-group">
-                <label>Penghasilan Ibu</label>
-                <select name="penghasilan_ibu" class="custom-input">
-                  <option value="">-- Pilih --</option>
-                  <option value="< Rp 1.000.000">&lt; Rp 1.000.000</option>
-                  <option value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000</option>
-                  <option value="Rp 2.000.000 - Rp 5.000.000">Rp 2.000.000 - Rp 5.000.000</option>
-                  <option value="> Rp 5.000.000">&gt; Rp 5.000.000</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>No HP Ibu</label>
-                <input type="text" name="hp_ibu" class="custom-input">
+            <!-- CARD 2: Data Pribadi Siswa -->
+            <div class="card-section"
+              style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
+              <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">2. Data Pribadi Siswa</h3>
+              <div class="form-grid-2">
+                <div class="form-group" style="grid-column: span 2;">
+                  <label>Nama Lengkap (Sesuai Ijazah) <span class="required">*</span></label>
+                  <input type="text" name="nama" id="spaNamaFull" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Jenis Kelamin <span class="required">*</span></label>
+                  <select name="jk" class="custom-input" required>
+                    <option value="">-- Pilih --</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Agama <span class="required">*</span></label>
+                  <select name="agama" class="custom-input" required>
+                    <option value="">-- Pilih --</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Khatolik">Khatolik</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Buddha">Buddha</option>
+                    <option value="Konghucu">Konghucu</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>NISN <span class="required">*</span></label>
+                  <input type="text" name="nisn" class="custom-input" required placeholder="10 digit" maxlength="10">
+                </div>
+                <div class="form-group">
+                  <label>NIK Siswa <span class="required">*</span></label>
+                  <input type="text" name="nik" class="custom-input" required placeholder="16 digit" maxlength="16">
+                </div>
+                <div class="form-group">
+                  <label>No KK (Kartu Keluarga)</label>
+                  <input type="text" name="no_kk" class="custom-input" placeholder="16 digit KK" maxlength="16">
+                </div>
+                <div class="form-group">
+                  <label>Tempat Lahir <span class="required">*</span></label>
+                  <input type="text" name="tempat" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Tanggal Lahir <span class="required">*</span></label>
+                  <input type="date" name="tgl" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Anak Ke</label>
+                  <input type="number" name="anak_ke" class="custom-input" min="1">
+                </div>
+                <div class="form-group">
+                  <label>Jumlah Saudara Kandung</label>
+                  <input type="number" name="jml_sdr_kandung" class="custom-input" min="0">
+                </div>
+                <div class="form-group">
+                  <label>Jumlah Saudara Tiri</label>
+                  <input type="number" name="jml_sdr_tiri" class="custom-input" min="0" value="0">
+                </div>
+                <div class="form-group">
+                  <label>Jumlah Saudara Angkat</label>
+                  <input type="number" name="jml_sdr_angkat" class="custom-input" min="0" value="0">
+                </div>
+                <div class="form-group">
+                  <label>No HP Siswa / WhatsApp <span class="required">*</span></label>
+                  <input type="text" name="hp" class="custom-input" required placeholder="08xxxx">
+                </div>
+                <div class="form-group">
+                  <label>Email Siswa</label>
+                  <input type="email" name="email_siswa" class="custom-input" placeholder="email@contoh.com">
+                </div>
+                <div class="form-group">
+                  <label>Cita-cita</label>
+                  <input type="text" name="cita_cita" class="custom-input" placeholder="Contoh: Dokter, TNI, dll">
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- CARD 5: Data Wali & Bantuan -->
-          <div class="card-section" style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
-            <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">5. Data Wali &amp; Bantuan</h3>
-            <div class="form-grid-2" style="margin-bottom: 2rem;">
-              <div class="form-group">
-                <label>Nama Wali (Jika ada)</label>
-                <input type="text" name="nama_wali" class="custom-input">
-              </div>
-              <div class="form-group">
-                <label>NIK Wali</label>
-                <input type="text" name="nik_wali" class="custom-input" maxlength="16">
-              </div>
-              <div class="form-group">
-                <label>Tahun Lahir Wali</label>
-                <input type="text" name="tahun_lahir_wali" class="custom-input">
-              </div>
-              <div class="form-group">
-                <label>Pendidikan Wali</label>
-                <select name="pendidikan_wali" class="custom-input">
-                  <option value="">-- Pilih --</option>
-                  <option value="SD/Sederajat">SD/Sederajat</option>
-                  <option value="SMP/Sederajat">SMP/Sederajat</option>
-                  <option value="SMA/Sederajat">SMA/Sederajat</option>
-                  <option value="D1/D2/D3">D1/D2/D3</option>
-                  <option value="S1">S1</option>
-                  <option value="S2/S3">S2/S3</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Pekerjaan Wali</label>
-                <input type="text" name="kerja_wali" class="custom-input">
-              </div>
-              <div class="form-group">
-                <label>Penghasilan Wali</label>
-                <select name="penghasilan_wali" class="custom-input">
-                  <option value="">-- Pilih --</option>
-                  <option value="< Rp 1.000.000">&lt; Rp 1.000.000</option>
-                  <option value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000</option>
-                  <option value="Rp 2.000.000 - Rp 5.000.000">Rp 2.000.000 - Rp 5.000.000</option>
-                  <option value="> Rp 5.000.000">&gt; Rp 5.000.000</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>No HP Wali</label>
-                <input type="text" name="hp_wali" class="custom-input">
+            <!-- CARD 3: Alamat & Domisili -->
+            <div class="card-section"
+              style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
+              <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">3. Alamat &amp; Domisili</h3>
+              <div class="form-grid-2">
+                <div class="form-group" style="grid-column: span 2;">
+                  <label>Alamat Lengkap <span class="required">*</span></label>
+                  <textarea name="alamat" class="custom-input" required rows="2"
+                    placeholder="Nama Gedung / Perumahan / Patokan..."></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Jalan / Dusun</label>
+                  <input type="text" name="jalan" class="custom-input" placeholder="Jl. Raya...">
+                </div>
+                <div class="form-group">
+                  <label>RT</label>
+                  <input type="text" name="rt" class="custom-input" placeholder="001">
+                </div>
+                <div class="form-group">
+                  <label>RW</label>
+                  <input type="text" name="rw" class="custom-input" placeholder="002">
+                </div>
+                <div class="form-group">
+                  <label>Desa/Kelurahan <span class="required">*</span></label>
+                  <input type="text" name="desa" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Kecamatan <span class="required">*</span></label>
+                  <input type="text" name="kec" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Kabupaten/Kota <span class="required">*</span></label>
+                  <input type="text" name="kab" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Provinsi <span class="required">*</span></label>
+                  <input type="text" name="provinsi" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Kode Pos</label>
+                  <input type="text" name="kode_pos" class="custom-input" placeholder="12345">
+                </div>
+                <div class="form-group">
+                  <label>Titik Koordinat</label>
+                  <input type="text" name="koordinat" class="custom-input" placeholder="-6.200000, 106.816666">
+                </div>
+                <div class="form-group">
+                  <label>Tinggal Bersama</label>
+                  <select name="tinggal_bersama" class="custom-input">
+                    <option value="Orang Tua">Orang Tua</option>
+                    <option value="Wali">Wali</option>
+                    <option value="Kos">Kos</option>
+                    <option value="Asrama">Asrama</option>
+                    <option value="Lainnya">Lainnya</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Moda Transportasi</label>
+                  <select name="transportasi" class="custom-input">
+                    <option value="Jalan Kaki">Jalan Kaki</option>
+                    <option value="Kendaraan Pribadi">Kendaraan Pribadi</option>
+                    <option value="Angkutan Umum">Angkutan Umum</option>
+                    <option value="Antar Jemput">Antar Jemput</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Jarak ke Sekolah (km)</label>
+                  <input type="number" name="jarak_sekolah" class="custom-input" step="0.1" placeholder="Contoh: 1.5">
+                </div>
+                <div class="form-group">
+                  <label>Waktu Tempuh (menit)</label>
+                  <input type="number" name="waktu_tempuh" class="custom-input" placeholder="Contoh: 15">
+                </div>
               </div>
             </div>
-            
-            <h4 style="color:#2563eb; margin-bottom:1rem; font-size:1rem;">Program Bantuan (Jika ada)</h4>
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label>Penerima KIP / PIP / PKH</label>
-                <select name="penerima_kip" class="custom-input">
-                  <option value="Tidak">Tidak</option>
-                  <option value="Ya">Ya</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Nomor KIP / PIP / PKH</label>
-                <input type="text" name="no_kip" class="custom-input" placeholder="Masukkan Nomor jika Ya">
-              </div>
-            </div>
-          </div>
 
-          <!-- CARD 6: Data Fisik & Lainnya -->
-          <div class="card-section" style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
-            <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">6. Data Fisik &amp; Kesehatan</h3>
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label>Tinggi Badan (cm)</label>
-                <input type="number" name="tinggi_badan" class="custom-input" min="50">
+            <!-- CARD 4: Data Ayah & Ibu -->
+            <div class="card-section"
+              style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
+              <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">4. Data Orang Tua Kandung</h3>
+
+              <h4 style="color:#2563eb; margin-bottom:1rem; font-size:1rem;">A. Data Ayah</h4>
+              <div class="form-grid-2" style="margin-bottom: 2rem;">
+                <div class="form-group">
+                  <label>Nama Ayah <span class="required">*</span></label>
+                  <input type="text" name="ayah" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Status Ayah</label>
+                  <select name="status_ayah" class="custom-input">
+                    <option value="Masih Hidup">Masih Hidup</option>
+                    <option value="Meninggal">Meninggal</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Tempat Lahir Ayah</label>
+                  <input type="text" name="tempat_lahir_ayah" class="custom-input">
+                </div>
+                <div class="form-group">
+                  <label>Tahun Lahir Ayah</label>
+                  <input type="text" name="tahun_lahir_ayah" class="custom-input" placeholder="Contoh: 1975">
+                </div>
+                <div class="form-group">
+                  <label>NIK Ayah</label>
+                  <input type="text" name="nik_ayah" class="custom-input" maxlength="16">
+                </div>
+                <div class="form-group">
+                  <label>Pendidikan Ayah</label>
+                  <select name="pendidikan_ayah" class="custom-input">
+                    <option value="">-- Pilih --</option>
+                    <option value="SD/Sederajat">SD/Sederajat</option>
+                    <option value="SMP/Sederajat">SMP/Sederajat</option>
+                    <option value="SMA/Sederajat">SMA/Sederajat</option>
+                    <option value="D1/D2/D3">D1/D2/D3</option>
+                    <option value="S1">S1</option>
+                    <option value="S2/S3">S2/S3</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Pekerjaan Ayah <span class="required">*</span></label>
+                  <input type="text" name="kerja_ayah" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Penghasilan Ayah</label>
+                  <select name="penghasilan_ayah" class="custom-input">
+                    <option value="">-- Pilih --</option>
+                    <option value="< Rp 1.000.000">&lt; Rp 1.000.000</option>
+                    <option value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000</option>
+                    <option value="Rp 2.000.000 - Rp 5.000.000">Rp 2.000.000 - Rp 5.000.000</option>
+                    <option value="> Rp 5.000.000">&gt; Rp 5.000.000</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>No HP Ayah</label>
+                  <input type="text" name="hp_ayah" class="custom-input">
+                </div>
               </div>
-              <div class="form-group">
-                <label>Berat Badan (kg)</label>
-                <input type="number" name="berat_badan" class="custom-input" min="10">
-              </div>
-              <div class="form-group">
-                <label>Golongan Darah</label>
-                <select name="golongan_darah" class="custom-input">
-                  <option value="-">Tidak Tahu</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="AB">AB</option>
-                  <option value="O">O</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Kebutuhan Khusus</label>
-                <select name="kebutuhan_khusus" class="custom-input">
-                  <option value="Tidak">Tidak</option>
-                  <option value="Tunanetra">Tunanetra</option>
-                  <option value="Tunarungu">Tunarungu</option>
-                  <option value="Tunagrahita">Tunagrahita</option>
-                  <option value="Tunadaksa">Tunadaksa</option>
-                  <option value="Lainnya">Lainnya</option>
-                </select>
-              </div>
-              <div class="form-group" style="grid-column: span 2;">
-                <label>Riwayat Penyakit (Bila Ada)</label>
-                <input type="text" name="riwayat_penyakit" class="custom-input" placeholder="Asma, Jantung, dll">
-              </div>
-              <div class="form-group" style="grid-column: span 2;">
-                <label>Yang Membiayai Sekolah</label>
-                <select name="biaya_sekolah" class="custom-input">
-                  <option value="Orang Tua">Orang Tua</option>
-                  <option value="Wali">Wali</option>
-                  <option value="Sendiri">Sendiri</option>
-                  <option value="Pemerintah/Beasiswa">Pemerintah/Beasiswa</option>
-                </select>
+
+              <h4 style="color:#2563eb; margin-bottom:1rem; font-size:1rem;">B. Data Ibu</h4>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label>Nama Ibu <span class="required">*</span></label>
+                  <input type="text" name="ibu" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Status Ibu</label>
+                  <select name="status_ibu" class="custom-input">
+                    <option value="Masih Hidup">Masih Hidup</option>
+                    <option value="Meninggal">Meninggal</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Tempat Lahir Ibu</label>
+                  <input type="text" name="tempat_lahir_ibu" class="custom-input">
+                </div>
+                <div class="form-group">
+                  <label>Tahun Lahir Ibu</label>
+                  <input type="text" name="tahun_lahir_ibu" class="custom-input" placeholder="Contoh: 1980">
+                </div>
+                <div class="form-group">
+                  <label>NIK Ibu</label>
+                  <input type="text" name="nik_ibu" class="custom-input" maxlength="16">
+                </div>
+                <div class="form-group">
+                  <label>Pendidikan Ibu</label>
+                  <select name="pendidikan_ibu" class="custom-input">
+                    <option value="">-- Pilih --</option>
+                    <option value="SD/Sederajat">SD/Sederajat</option>
+                    <option value="SMP/Sederajat">SMP/Sederajat</option>
+                    <option value="SMA/Sederajat">SMA/Sederajat</option>
+                    <option value="D1/D2/D3">D1/D2/D3</option>
+                    <option value="S1">S1</option>
+                    <option value="S2/S3">S2/S3</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Pekerjaan Ibu <span class="required">*</span></label>
+                  <input type="text" name="kerja_ibu" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                  <label>Penghasilan Ibu</label>
+                  <select name="penghasilan_ibu" class="custom-input">
+                    <option value="">-- Pilih --</option>
+                    <option value="< Rp 1.000.000">&lt; Rp 1.000.000</option>
+                    <option value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000</option>
+                    <option value="Rp 2.000.000 - Rp 5.000.000">Rp 2.000.000 - Rp 5.000.000</option>
+                    <option value="> Rp 5.000.000">&gt; Rp 5.000.000</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>No HP Ibu</label>
+                  <input type="text" name="hp_ibu" class="custom-input">
+                </div>
               </div>
             </div>
-          </div>
 
-          <div style="text-align:right; display:none;" id="submitContainer">
-            <button type="submit" class="btn-submit-spa" style="padding:14px 28px; font-size:1.05rem;">Simpan Formulir Data</button>
-          </div>
+            <!-- CARD 5: Data Wali & Bantuan -->
+            <div class="card-section"
+              style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
+              <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">5. Data Wali &amp; Bantuan
+              </h3>
+              <div class="form-grid-2" style="margin-bottom: 2rem;">
+                <div class="form-group">
+                  <label>Nama Wali (Jika ada)</label>
+                  <input type="text" name="nama_wali" class="custom-input">
+                </div>
+                <div class="form-group">
+                  <label>NIK Wali</label>
+                  <input type="text" name="nik_wali" class="custom-input" maxlength="16">
+                </div>
+                <div class="form-group">
+                  <label>Tahun Lahir Wali</label>
+                  <input type="text" name="tahun_lahir_wali" class="custom-input">
+                </div>
+                <div class="form-group">
+                  <label>Pendidikan Wali</label>
+                  <select name="pendidikan_wali" class="custom-input">
+                    <option value="">-- Pilih --</option>
+                    <option value="SD/Sederajat">SD/Sederajat</option>
+                    <option value="SMP/Sederajat">SMP/Sederajat</option>
+                    <option value="SMA/Sederajat">SMA/Sederajat</option>
+                    <option value="D1/D2/D3">D1/D2/D3</option>
+                    <option value="S1">S1</option>
+                    <option value="S2/S3">S2/S3</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Pekerjaan Wali</label>
+                  <input type="text" name="kerja_wali" class="custom-input">
+                </div>
+                <div class="form-group">
+                  <label>Penghasilan Wali</label>
+                  <select name="penghasilan_wali" class="custom-input">
+                    <option value="">-- Pilih --</option>
+                    <option value="< Rp 1.000.000">&lt; Rp 1.000.000</option>
+                    <option value="Rp 1.000.000 - Rp 2.000.000">Rp 1.000.000 - Rp 2.000.000</option>
+                    <option value="Rp 2.000.000 - Rp 5.000.000">Rp 2.000.000 - Rp 5.000.000</option>
+                    <option value="> Rp 5.000.000">&gt; Rp 5.000.000</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>No HP Wali</label>
+                  <input type="text" name="hp_wali" class="custom-input">
+                </div>
+              </div>
+
+              <h4 style="color:#2563eb; margin-bottom:1rem; font-size:1rem;">Program Bantuan (Jika ada)</h4>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label>Penerima KIP / PIP / PKH</label>
+                  <select name="penerima_kip" class="custom-input">
+                    <option value="Tidak">Tidak</option>
+                    <option value="Ya">Ya</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Nomor KIP / PIP / PKH</label>
+                  <input type="text" name="no_kip" class="custom-input" placeholder="Masukkan Nomor jika Ya">
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 6: Data Fisik & Lainnya -->
+            <div class="card-section"
+              style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
+              <h3 style="margin-bottom:1.5rem; font-size:1.1rem; color:var(--text-dark);">6. Data Fisik &amp; Kesehatan
+              </h3>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label>Tinggi Badan (cm)</label>
+                  <input type="number" name="tinggi_badan" class="custom-input" min="50">
+                </div>
+                <div class="form-group">
+                  <label>Berat Badan (kg)</label>
+                  <input type="number" name="berat_badan" class="custom-input" min="10">
+                </div>
+                <div class="form-group">
+                  <label>Golongan Darah</label>
+                  <select name="golongan_darah" class="custom-input">
+                    <option value="-">Tidak Tahu</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="AB">AB</option>
+                    <option value="O">O</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Kebutuhan Khusus</label>
+                  <select name="kebutuhan_khusus" class="custom-input">
+                    <option value="Tidak">Tidak</option>
+                    <option value="Tunanetra">Tunanetra</option>
+                    <option value="Tunarungu">Tunarungu</option>
+                    <option value="Tunagrahita">Tunagrahita</option>
+                    <option value="Tunadaksa">Tunadaksa</option>
+                    <option value="Lainnya">Lainnya</option>
+                  </select>
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                  <label>Riwayat Penyakit (Bila Ada)</label>
+                  <input type="text" name="riwayat_penyakit" class="custom-input" placeholder="Asma, Jantung, dll">
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                  <label>Yang Membiayai Sekolah</label>
+                  <select name="biaya_sekolah" class="custom-input">
+                    <option value="Orang Tua">Orang Tua</option>
+                    <option value="Wali">Wali</option>
+                    <option value="Sendiri">Sendiri</option>
+                    <option value="Pemerintah/Beasiswa">Pemerintah/Beasiswa</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align:right; display:none;" id="submitContainer">
+              <button type="submit" class="btn-submit-spa" style="padding:14px 28px; font-size:1.05rem;">Simpan Formulir
+                Data</button>
+            </div>
           </fieldset>
         </form>
       </section>
@@ -1452,19 +1668,34 @@
           <p>Informasi resmi kelulusan dan seleksi peserta didik baru.</p>
         </div>
 
-        <div style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem;">
-          <div style="background:#eff6ff; border-left:4px solid #2563eb; padding:1.2rem; border-radius:8px; margin-bottom:1.5rem;">
+        <div
+          style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:2rem; margin-bottom:1.5rem;">
+          <div
+            style="background:#eff6ff; border-left:4px solid #2563eb; padding:1.2rem; border-radius:8px; margin-bottom:1.5rem;">
             <strong style="color:#1e40af;">📢 Jadwal Pengumuman Kelulusan Gelombang 1</strong>
-            <p style="font-size:0.88rem; color:#1e3a8a; margin-top:4px;">Pengumuman resmi hasil seleksi penerimaan murid baru Tahun Ajaran 2026/2027 telah dirilis. Anda dapat mengecek status kelulusan secara lengkap di portal seleksi atau melalui tombol di bawah ini.</p>
+            <p style="font-size:0.88rem; color:#1e3a8a; margin-top:4px;">Pengumuman resmi hasil seleksi penerimaan murid
+              baru Tahun Ajaran 2026/2027 telah dirilis. Anda dapat mengecek status kelulusan secara lengkap di portal
+              seleksi atau melalui tombol di bawah ini.</p>
           </div>
 
           <div style="display:flex; gap:12px; flex-wrap:wrap;">
-            <a href="pengumuman.html" class="btn-submit-spa" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <a href="pengumuman.html" class="btn-submit-spa"
+              style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
               Buka Portal Pengumuman Publik
             </a>
-            <a href="cetak-kartu.html" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:12px 24px; background:white; border:1.5px solid var(--border-color); color:var(--text-dark); border-radius:var(--radius-sm); font-weight:700; font-size:0.9rem;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <a href="cetak-kartu.html"
+              style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:12px 24px; background:white; border:1.5px solid var(--border-color); color:var(--text-dark); border-radius:var(--radius-sm); font-weight:700; font-size:0.9rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
               Cetak Kartu Tanda Peserta
             </a>
           </div>
@@ -1476,14 +1707,26 @@
   </div>
 
   <!-- CUSTOM MODAL DIALOG OVERLAY -->
-  <div class="custom-modal-overlay" id="appModalOverlay" style="position:fixed; inset:0; background:rgba(15,23,42,0.65); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; z-index:9999; opacity:0; pointer-events:none; transition:all 0.25s;">
-    <div style="background:white; border-radius:20px; padding:2rem; width:90%; max-width:420px; text-align:center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
-      <div id="appModalIconBox" style="width:52px; height:52px; border-radius:50%; margin:0 auto 1rem; display:flex; align-items:center; justify-content:center; background:#eff6ff; color:#2563eb; font-size:1.4rem;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12.01" y2="16"></line><line x1="12" y1="8" x2="12" y2="12"></line></svg>
+  <div class="custom-modal-overlay" id="appModalOverlay"
+    style="position:fixed; inset:0; background:rgba(15,23,42,0.65); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; z-index:9999; opacity:0; pointer-events:none; transition:all 0.25s;">
+    <div
+      style="background:white; border-radius:20px; padding:2rem; width:90%; max-width:420px; text-align:center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+      <div id="appModalIconBox"
+        style="width:52px; height:52px; border-radius:50%; margin:0 auto 1rem; display:flex; align-items:center; justify-content:center; background:#eff6ff; color:#2563eb; font-size:1.4rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+        </svg>
       </div>
-      <div style="font-family:'Outfit',sans-serif; font-size:1.2rem; font-weight:800; color:#0f172a; margin-bottom:0.4rem;" id="appModalTitle">Judul</div>
+      <div
+        style="font-family:'Outfit',sans-serif; font-size:1.2rem; font-weight:800; color:#0f172a; margin-bottom:0.4rem;"
+        id="appModalTitle">Judul</div>
       <div style="font-size:0.9rem; color:#64748b; line-height:1.6;" id="appModalMessage">Pesan...</div>
-      <button style="margin-top:1.5rem; width:100%; padding:12px; background:linear-gradient(135deg, #2563eb, #1d4ed8); color:white; border-radius:10px; font-weight:700; border:none; cursor:pointer; font-size:0.92rem;" id="appModalBtnConfirm">OK</button>
+      <button
+        style="margin-top:1.5rem; width:100%; padding:12px; background:linear-gradient(135deg, #2563eb, #1d4ed8); color:white; border-radius:10px; font-weight:700; border:none; cursor:pointer; font-size:0.92rem;"
+        id="appModalBtnConfirm">OK</button>
     </div>
   </div>
 
@@ -1524,7 +1767,7 @@
       overlay.style.opacity = "1";
       overlay.style.pointerEvents = "auto";
 
-      btnConfirm.onclick = function() {
+      btnConfirm.onclick = function () {
         overlay.style.opacity = "0";
         overlay.style.pointerEvents = "none";
       };
@@ -1548,7 +1791,7 @@
     document.getElementById("dropdownLogoutBtn").addEventListener("click", logoutStudent);
 
     // SPA VIEW SWITCHER
-    window.switchStudentView = function(viewName, element = null) {
+    window.switchStudentView = function (viewName, element = null) {
       document.querySelectorAll(".spa-view").forEach(v => v.classList.remove("active"));
       document.querySelectorAll(".sidebar-menu .menu-link").forEach(l => l.classList.remove("active"));
 
@@ -1603,12 +1846,28 @@
         { id: "spaFileLain", key: "fileKIP", name: "Dokumen Lain / KIP" }
       ];
 
+      const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10 MB
+
       fileMappings.forEach(m => {
         const input = document.getElementById(m.id);
         if (!input) return;
         input.addEventListener("change", async (e) => {
           const file = e.target.files[0];
           if (!file) return;
+
+          // Validasi batas ukuran file: Maksimal 10 MB
+          if (file.size > MAX_FILE_SIZE_BYTES) {
+            const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            customAlert(
+              "File Ditolak - Ukuran Terlalu Besar",
+              `File "${file.name}" memiliki ukuran ${sizeMB} MB yang melebihi batas maksimal 10 MB. Silakan pilih berkas yang ukurannya maksimal 10 MB.`,
+              "error"
+            );
+            input.value = "";
+            delete uploadedFiles[m.key];
+            return;
+          }
+
           try {
             const fileObj = await readFileBase64(file);
             uploadedFiles[m.key] = fileObj;
@@ -1624,7 +1883,7 @@
               }
             }
             customAlert("Berkas Terpilih", `${m.name} (${file.name}) siap diunggah ke Google Drive saat Anda menyimpan formulir.`, "success");
-            
+
             // Trigger OCR Autofill for KK and Akta
             if (m.id === "spaFileKK" || m.id === "spaFileAkte") {
               let targetNik = null;
@@ -1651,9 +1910,9 @@
       const statusArea = document.getElementById("ocrStatusArea");
       const statusText = document.getElementById("ocrStatusText");
       const progressBar = document.getElementById("ocrProgressBar");
-      
+
       if (!statusArea || !statusText || !progressBar) return;
-      
+
       // Pastikan form dalam mode edit (tidak disabled)
       const formFieldset = document.getElementById("formFieldset");
       if (formFieldset && formFieldset.disabled) {
@@ -1667,13 +1926,13 @@
       statusText.textContent = `Membaca ${docType} menggunakan Gemini AI...`;
       progressBar.style.width = "10%";
 
-      const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";
+      const GEMINI_API_KEY = localStorage.getItem("GEMINI_API_KEY") || "YOUR_GEMINI_API_KEY_HERE";
 
       try {
         if (GEMINI_API_KEY === "YOUR_GEMINI_API_KEY_HERE" || !GEMINI_API_KEY) {
           // Demo / Mock Mode
           console.warn("Gemini API Key belum disetel. Menjalankan Mock OCR.");
-          
+
           let progress = 10;
           const interval = setInterval(() => {
             progress += 15;
@@ -1690,7 +1949,7 @@
 
           progressBar.style.width = "100%";
           statusText.textContent = `Ekstraksi ${docType} berhasil! (Demo Mode)`;
-          
+
           // Isi data pendaftaran secara otomatis
           const form = document.getElementById("spaBiodataFormFull");
           if (form) {
@@ -1756,6 +2015,8 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
   "tempat_lahir": "Tempat lahir",
   "tanggal_lahir": "YYYY-MM-DD",
   "agama": "Islam/Kristen/Khatolik/Hindu/Buddha/Konghucu",
+  "anak_ke": "Angka anak ke berapa (dihitung berdasarkan urutan lahir yang berstatus ANAK dalam keluarga)",
+  "jml_sdr_kandung": "Angka total saudara kandung (total yang berstatus ANAK dikurangi 1, atau 0 jika anak tunggal)",
   "alamat": "Alamat rumah",
   "rt": "rt",
   "rw": "rw",
@@ -1766,9 +2027,15 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
   "kode_pos": "kode pos",
   "nama_ayah": "Nama ayah kandung",
   "nik_ayah": "NIK ayah",
+  "tempat_lahir_ayah": "Tempat lahir ayah",
+  "tahun_lahir_ayah": "Tahun lahir ayah (hanya 4 digit tahun, misal 1980)",
+  "pendidikan_ayah": "Pendidikan ayah (Pilih salah satu: SD/Sederajat, SMP/Sederajat, SMA/Sederajat, D1/D2/D3, S1, S2/S3)",
   "pekerjaan_ayah": "Pekerjaan ayah",
   "nama_ibu": "Nama ibu kandung",
   "nik_ibu": "NIK ibu",
+  "tempat_lahir_ibu": "Tempat lahir ibu",
+  "tahun_lahir_ibu": "Tahun lahir ibu (hanya 4 digit tahun, misal 1980)",
+  "pendidikan_ibu": "Pendidikan ibu (Pilih salah satu: SD/Sederajat, SMP/Sederajat, SMA/Sederajat, D1/D2/D3, S1, S2/S3)",
   "pekerjaan_ibu": "Pekerjaan ibu"
 }`;
         } else {
@@ -1802,8 +2069,8 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
                   ]
                 }],
                 generationConfig: {
-                   temperature: 0.1, 
-                   response_mime_type: "application/json"
+                  temperature: 0.1,
+                  response_mime_type: "application/json"
                 }
               })
             });
@@ -1822,7 +2089,7 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
 
         progressBar.style.width = "85%";
         statusText.textContent = "Memproses respon AI...";
-        
+
         const responseData = await response.json();
         let resultText = responseData.candidates[0].content.parts[0].text;
         resultText = resultText.replace(/```json/g, "").replace(/```/g, "").trim();
@@ -1842,6 +2109,8 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
             if (ext.agama && form.elements["agama"]) form.elements["agama"].value = ext.agama;
             if (ext.tempat_lahir && form.elements["tempat"]) form.elements["tempat"].value = ext.tempat_lahir;
             if (ext.tanggal_lahir && form.elements["tgl"]) form.elements["tgl"].value = ext.tanggal_lahir;
+            if (ext.anak_ke !== undefined && form.elements["anak_ke"]) form.elements["anak_ke"].value = ext.anak_ke;
+            if (ext.jml_sdr_kandung !== undefined && form.elements["jml_sdr_kandung"]) form.elements["jml_sdr_kandung"].value = ext.jml_sdr_kandung;
             if (ext.alamat && form.elements["alamat"]) form.elements["alamat"].value = ext.alamat;
             if (ext.rt && form.elements["rt"]) form.elements["rt"].value = ext.rt;
             if (ext.rw && form.elements["rw"]) form.elements["rw"].value = ext.rw;
@@ -1852,9 +2121,15 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
             if (ext.kode_pos && form.elements["kode_pos"]) form.elements["kode_pos"].value = ext.kode_pos;
             if (ext.nama_ayah && form.elements["ayah"]) form.elements["ayah"].value = ext.nama_ayah;
             if (ext.nik_ayah && form.elements["nik_ayah"]) form.elements["nik_ayah"].value = ext.nik_ayah;
+            if (ext.tempat_lahir_ayah && form.elements["tempat_lahir_ayah"]) form.elements["tempat_lahir_ayah"].value = ext.tempat_lahir_ayah;
+            if (ext.tahun_lahir_ayah && form.elements["tahun_lahir_ayah"]) form.elements["tahun_lahir_ayah"].value = ext.tahun_lahir_ayah;
+            if (ext.pendidikan_ayah && form.elements["pendidikan_ayah"]) form.elements["pendidikan_ayah"].value = ext.pendidikan_ayah;
             if (ext.pekerjaan_ayah && form.elements["kerja_ayah"]) form.elements["kerja_ayah"].value = ext.pekerjaan_ayah;
             if (ext.nama_ibu && form.elements["ibu"]) form.elements["ibu"].value = ext.nama_ibu;
             if (ext.nik_ibu && form.elements["nik_ibu"]) form.elements["nik_ibu"].value = ext.nik_ibu;
+            if (ext.tempat_lahir_ibu && form.elements["tempat_lahir_ibu"]) form.elements["tempat_lahir_ibu"].value = ext.tempat_lahir_ibu;
+            if (ext.tahun_lahir_ibu && form.elements["tahun_lahir_ibu"]) form.elements["tahun_lahir_ibu"].value = ext.tahun_lahir_ibu;
+            if (ext.pendidikan_ibu && form.elements["pendidikan_ibu"]) form.elements["pendidikan_ibu"].value = ext.pendidikan_ibu;
             if (ext.pekerjaan_ibu && form.elements["kerja_ibu"]) form.elements["kerja_ibu"].value = ext.pekerjaan_ibu;
           } else if (docType === "Akta Kelahiran") {
             if (ext.nama_lengkap && form.elements["nama"]) form.elements["nama"].value = ext.nama_lengkap;
@@ -1902,7 +2177,7 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
       document.getElementById("dropdownStudentName").textContent = studentName;
       document.getElementById("sNama").textContent = studentName;
       document.getElementById("sJenjang").textContent = (userJenjang === "SMK" ? "SMK IT Al-Hawari" : "SMP IT Al-Hawari");
-      
+
       const defaultReg = userUid ? "PPDB2026-" + String(userUid).slice(0, 6).toUpperCase() : "PPDB2026-0001";
       document.getElementById("sNoReg").textContent = defaultReg;
 
@@ -1936,7 +2211,7 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
 
         if (json.success && Array.isArray(json.data)) {
           // Match by UID, Email, or Full Name
-          studentRecord = json.data.find(d => 
+          studentRecord = json.data.find(d =>
             (d.uid && d.uid === userUid) ||
             (d.email && d.email.toLowerCase() === userEmail.toLowerCase()) ||
             (d.nama_lengkap && d.nama_lengkap.toLowerCase() === studentName.toLowerCase())
@@ -1947,7 +2222,7 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
             document.getElementById("sNoReg").textContent = noReg;
             if (studentRecord.timestamp) {
               const tglObj = new Date(studentRecord.timestamp);
-              document.getElementById("sTgl").textContent = !isNaN(tglObj) ? tglObj.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }) : studentRecord.timestamp;
+              document.getElementById("sTgl").textContent = !isNaN(tglObj) ? tglObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : studentRecord.timestamp;
             }
             if (studentRecord.jenjang) {
               document.getElementById("sJenjang").textContent = studentRecord.jenjang + " IT Al-Hawari";
@@ -2189,7 +2464,7 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
         if (result.success) {
           localStorage.setItem("user_biodata_full", JSON.stringify(bio));
           customAlert("Formulir Tersimpan", "Data biodata dan dokumen pendaftaran Anda berhasil disimpan ke Google Spreadsheet & Google Drive!", "success");
-          
+
           // Lock back to read only
           formFieldset.disabled = true;
           submitContainer.style.display = "none";
@@ -2219,13 +2494,13 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
       // Hanya aktif di PC/Laptop (lebar layar >= 768px)
       if (window.innerWidth >= 768 && e.altKey && !e.ctrlKey && !e.shiftKey && e.key.toLowerCase() === 'p') {
         e.preventDefault();
-        
+
         const setVal = (name, val) => {
           const el = document.querySelector(`input[name="${name}"], select[name="${name}"]`);
           if (el) el.value = val;
         };
         const rand = Math.floor(Math.random() * 10000);
-        
+
         // Isi otomatis data-data yang required
         setVal("sekolah", "SMP Dummy " + Math.floor(Math.random() * 10));
         setVal("npsn", "20" + Math.floor(100000 + Math.random() * 900000));
@@ -2237,25 +2512,25 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
         setVal("tgl", "2010-05-15");
         setVal("anak_ke", "1");
         setVal("hp", "0812" + Math.floor(10000000 + Math.random() * 90000000));
-        
+
         setVal("desa", "Sukamaju");
         setVal("kec", "Sukasari");
         setVal("kab", "Bandung");
         setVal("provinsi", "Jawa Barat");
-        
+
         setVal("ayah", "Bapak Dummy");
         setVal("kerja_ayah", "Wiraswasta");
         setVal("ibu", "Ibu Dummy");
         setVal("kerja_ibu", "Ibu Rumah Tangga");
-        
+
         // Pastikan form terbuka
         const formFieldset = document.getElementById("formFieldset");
         const submitContainer = document.getElementById("submitContainer");
         if (formFieldset && formFieldset.disabled) {
-           formFieldset.disabled = false;
-           if (submitContainer) submitContainer.style.display = "flex";
+          formFieldset.disabled = false;
+          if (submitContainer) submitContainer.style.display = "flex";
         }
-        
+
         if (typeof customAlert === "function") {
           customAlert("Mode Developer Aktif", "Data dummy berhasil diisi secara otomatis untuk pengujian.", "success");
         } else {
@@ -2266,4 +2541,5 @@ Wajib mengembalikan dalam format JSON seperti struktur berikut:
 
   </script>
 </body>
+
 </html>

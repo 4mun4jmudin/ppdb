@@ -212,6 +212,9 @@ function uploadToDrive(fileObj, prefixName) {
 
     // 1. Decode Base64 string menjadi byte array
     var decodedBytes = Utilities.base64Decode(base64Data);
+    if (decodedBytes.length > 10 * 1024 * 1024) {
+      throw new Error('Ukuran file "' + prefixName + '" melebihi batas maksimal 10 MB.');
+    }
 
     // 2. Buat Blob (representasi file binary di GAS)
     var blob = Utilities.newBlob(decodedBytes, contentType, prefixName + '_' + fileObj.name);

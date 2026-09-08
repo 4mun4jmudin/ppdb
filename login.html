@@ -176,65 +176,72 @@
       overflow: hidden;
     }
 
-    /* LEFT SIDE: ELEGANT BANNER */
+    /* LEFT SIDE: FULL BACKGROUND IMAGE BANNER */
     .left-banner {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #064e3b 100%);
-      padding: 3.5rem 3rem;
+      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
       overflow: hidden;
-      min-height: 520px;
+      min-height: 540px;
       color: white;
+      background: #0f172a;
     }
 
-    /* Decorative Floating Elements */
-    .left-banner::before {
-      content: '';
+    .banner-bg-img {
       position: absolute;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 70%);
-      top: -80px;
-      right: -80px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .left-banner::after {
-      content: '';
+    .left-banner:hover .banner-bg-img {
+      transform: scale(1.04);
+    }
+
+    .banner-overlay {
       position: absolute;
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(5,150,105,0.35) 0%, transparent 70%);
-      bottom: -60px;
-      left: -60px;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(15, 23, 42, 0.72) 0%,
+        rgba(15, 23, 42, 0.15) 35%,
+        rgba(15, 23, 42, 0.3) 55%,
+        rgba(15, 23, 42, 0.88) 85%,
+        rgba(15, 23, 42, 0.98) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
     }
 
-    .illustration-holder {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    .banner-content {
       position: relative;
       z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3.2rem 2.8rem;
     }
 
     .banner-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       padding: 6px 16px;
       border-radius: 99px;
       font-size: 0.82rem;
       font-weight: 600;
       color: #93c5fd;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      margin-bottom: 1.5rem;
+      width: fit-content;
     }
 
     .banner-badge span {
@@ -253,17 +260,38 @@
 
     .banner-text h2 {
       font-family: 'Outfit', sans-serif;
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 800;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.7rem;
       color: #ffffff;
       letter-spacing: -0.5px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     }
 
     .banner-text p {
-      font-size: 0.98rem;
-      color: #cbd5e1;
-      line-height: 1.7;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .mobile-banner-img {
+      display: none;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto 1.5rem;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1.5px solid var(--border-color);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .mobile-banner-img img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
 
     /* RIGHT SIDE: LOGIN FORM */
@@ -520,6 +548,7 @@
       .split-card { grid-template-columns: 1fr; }
       .left-banner { display: none; }
       .right-form-container { padding: 2.5rem 1.8rem; }
+      .mobile-banner-img { display: block; }
     }
   </style>
 </head>
@@ -557,30 +586,31 @@
   <main class="main-wrapper">
     <div class="split-card">
       
-      <!-- LEFT ELEGANT BANNER -->
+      <!-- LEFT ELEGANT BANNER (FULL COVER IMAGE) -->
       <div class="left-banner">
-        <div class="banner-badge">
-          <span></span> PPDB TA 2026/2027 Resmi Dibuka
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHAfBDfNF8lTaplZesMyQNKWorxt7FnOlMDMoSSc9JWg&s=10" alt="Gedung SMK IT Al-Hawari" class="banner-bg-img" />
+        <div class="banner-overlay"></div>
 
-        <div class="illustration-holder">
-          <svg width="220" height="170" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="240" height="180" rx="20" fill="white" fill-opacity="0.08"/>
-            <circle cx="170" cy="55" r="24" fill="#38bdf8" fill-opacity="0.6"/>
-            <path d="M-10 190L80 90L160 190H-10Z" fill="#3b82f6" fill-opacity="0.5"/>
-            <path d="M70 190L165 75L260 190H70Z" fill="#10b981" fill-opacity="0.6"/>
-          </svg>
-        </div>
+        <div class="banner-content">
+          <div class="banner-badge">
+            <span></span> PPDB TA 2026/2027 Resmi Dibuka
+          </div>
 
-        <div class="banner-text">
-          <h2>Selamat Datang!</h2>
-          <p>Silakan masuk ke sistem untuk mengakses portal layanan PPDB SMK IT Al Hawari.</p>
+          <div class="banner-text">
+            <h2>Selamat Datang!</h2>
+            <p>Silakan masuk ke sistem untuk mengakses portal layanan PPDB SMK IT Al Hawari.</p>
+          </div>
         </div>
       </div>
 
       <!-- RIGHT LOGIN FORM -->
       <div class="right-form-container">
         
+        <!-- Mobile Image View -->
+        <div class="mobile-banner-img">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHAfBDfNF8lTaplZesMyQNKWorxt7FnOlMDMoSSc9JWg&s=10" alt="Gedung SMK IT Al-Hawari" />
+        </div>
+
         <div class="form-header">
           <div class="form-logo-box">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">

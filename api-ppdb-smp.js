@@ -223,6 +223,9 @@ function uploadToDrive(fileObj, prefixName) {
     }
 
     var decodedBytes = Utilities.base64Decode(base64Data);
+    if (decodedBytes.length > 10 * 1024 * 1024) {
+      throw new Error('Ukuran file "' + prefixName + '" melebihi batas maksimal 10 MB.');
+    }
     var blob = Utilities.newBlob(decodedBytes, contentType, prefixName + '_' + fileObj.name);
     var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID);
     var file = folder.createFile(blob);
